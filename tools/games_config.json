@@ -1,0 +1,488 @@
+{
+  "_ayuda": "Edita este archivo para ajustar qué cuenta en cada juego. 'dex': fuentes de la lista de especies (PokéAPI por nombre de pokédex, 'serebii' como respaldo, 'national_max' = nacional hasta ese número). 'vg': grupo de versiones del juego (limita las formas que ya existían). 'mega'/'gmax': incluir esas formas. 'regional': regiones cuyas formas regionales existen en el juego.",
+  "vg_order": {
+    "red-blue": 1,
+    "yellow": 2,
+    "gold-silver": 3,
+    "crystal": 4,
+    "ruby-sapphire": 5,
+    "emerald": 6,
+    "firered-leafgreen": 7,
+    "diamond-pearl": 8,
+    "platinum": 9,
+    "heartgold-soulsilver": 10,
+    "black-white": 11,
+    "colosseum": 12,
+    "xd": 13,
+    "black-2-white-2": 14,
+    "x-y": 15,
+    "omega-ruby-alpha-sapphire": 16,
+    "sun-moon": 17,
+    "ultra-sun-ultra-moon": 18,
+    "lets-go-pikachu-lets-go-eevee": 19,
+    "sword-shield": 20,
+    "the-isle-of-armor": 21,
+    "the-crown-tundra": 22,
+    "brilliant-diamond-and-shining-pearl": 23,
+    "legends-arceus": 24,
+    "scarlet-violet": 25,
+    "the-teal-mask": 26,
+    "the-indigo-disk": 27
+  },
+  "games": [
+    {
+      "id": "red-blue",
+      "name": "Rojo / Azul",
+      "gen": 1,
+      "vg": "red-blue",
+      "shiny": false,
+      "dex": {
+        "pokeapi": [
+          "kanto"
+        ]
+      },
+      "versions": [
+        "red",
+        "blue"
+      ]
+    },
+    {
+      "id": "yellow",
+      "name": "Amarillo",
+      "gen": 1,
+      "vg": "yellow",
+      "shiny": false,
+      "dex": {
+        "pokeapi": [
+          "kanto"
+        ]
+      },
+      "versions": [
+        "yellow"
+      ]
+    },
+    {
+      "id": "gold-silver",
+      "name": "Oro / Plata",
+      "gen": 2,
+      "vg": "gold-silver",
+      "shiny": true,
+      "dex": {
+        "pokeapi": [
+          "original-johto"
+        ]
+      },
+      "versions": [
+        "gold",
+        "silver"
+      ]
+    },
+    {
+      "id": "crystal",
+      "name": "Cristal",
+      "gen": 2,
+      "vg": "crystal",
+      "shiny": true,
+      "dex": {
+        "pokeapi": [
+          "original-johto"
+        ]
+      },
+      "versions": [
+        "crystal"
+      ]
+    },
+    {
+      "id": "ruby-sapphire",
+      "name": "Rubí / Zafiro",
+      "gen": 3,
+      "vg": "ruby-sapphire",
+      "shiny": true,
+      "dex": {
+        "pokeapi": [
+          "hoenn"
+        ]
+      },
+      "versions": [
+        "ruby",
+        "sapphire"
+      ]
+    },
+    {
+      "id": "emerald",
+      "name": "Esmeralda",
+      "gen": 3,
+      "vg": "emerald",
+      "shiny": true,
+      "dex": {
+        "pokeapi": [
+          "hoenn"
+        ]
+      },
+      "versions": [
+        "emerald"
+      ]
+    },
+    {
+      "id": "firered-leafgreen",
+      "name": "Rojo Fuego / Verde Hoja",
+      "gen": 3,
+      "vg": "firered-leafgreen",
+      "shiny": true,
+      "dex": {
+        "pokeapi": [
+          "kanto"
+        ]
+      },
+      "versions": [
+        "firered",
+        "leafgreen"
+      ]
+    },
+    {
+      "id": "diamond-pearl",
+      "name": "Diamante / Perla",
+      "gen": 4,
+      "vg": "diamond-pearl",
+      "shiny": true,
+      "dex": {
+        "pokeapi": [
+          "original-sinnoh"
+        ]
+      },
+      "versions": [
+        "diamond",
+        "pearl"
+      ]
+    },
+    {
+      "id": "platinum",
+      "name": "Platino",
+      "gen": 4,
+      "vg": "platinum",
+      "shiny": true,
+      "dex": {
+        "pokeapi": [
+          "extended-sinnoh"
+        ]
+      },
+      "versions": [
+        "platinum"
+      ]
+    },
+    {
+      "id": "heartgold-soulsilver",
+      "name": "Oro HeartGold / Plata SoulSilver",
+      "gen": 4,
+      "vg": "heartgold-soulsilver",
+      "shiny": true,
+      "dex": {
+        "pokeapi": [
+          "updated-johto"
+        ]
+      },
+      "versions": [
+        "heartgold",
+        "soulsilver"
+      ]
+    },
+    {
+      "id": "black-white",
+      "name": "Negro / Blanco",
+      "gen": 5,
+      "vg": "black-white",
+      "shiny": true,
+      "dex": {
+        "pokeapi": [
+          "original-unova"
+        ]
+      },
+      "versions": [
+        "black",
+        "white"
+      ]
+    },
+    {
+      "id": "black-2-white-2",
+      "name": "Negro 2 / Blanco 2",
+      "gen": 5,
+      "vg": "black-2-white-2",
+      "shiny": true,
+      "dex": {
+        "pokeapi": [
+          "updated-unova"
+        ]
+      },
+      "versions": [
+        "black-2",
+        "white-2"
+      ]
+    },
+    {
+      "id": "x-y",
+      "name": "X / Y",
+      "gen": 6,
+      "vg": "x-y",
+      "shiny": true,
+      "mega": true,
+      "dex": {
+        "pokeapi": [
+          "kalos-central",
+          "kalos-coastal",
+          "kalos-mountain"
+        ]
+      },
+      "versions": [
+        "x",
+        "y"
+      ]
+    },
+    {
+      "id": "omega-ruby-alpha-sapphire",
+      "name": "Rubí Omega / Zafiro Alfa",
+      "gen": 6,
+      "vg": "omega-ruby-alpha-sapphire",
+      "shiny": true,
+      "mega": true,
+      "dex": {
+        "pokeapi": [
+          "updated-hoenn"
+        ]
+      },
+      "versions": [
+        "omega-ruby",
+        "alpha-sapphire"
+      ]
+    },
+    {
+      "id": "sun-moon",
+      "name": "Sol / Luna",
+      "gen": 7,
+      "vg": "sun-moon",
+      "shiny": true,
+      "mega": true,
+      "regional": [
+        "alola"
+      ],
+      "dex": {
+        "pokeapi": [
+          "original-alola"
+        ]
+      },
+      "versions": [
+        "sun",
+        "moon"
+      ]
+    },
+    {
+      "id": "ultra-sun-ultra-moon",
+      "name": "Ultrasol / Ultraluna",
+      "gen": 7,
+      "vg": "ultra-sun-ultra-moon",
+      "shiny": true,
+      "mega": true,
+      "regional": [
+        "alola"
+      ],
+      "dex": {
+        "pokeapi": [
+          "updated-alola"
+        ]
+      },
+      "versions": [
+        "ultra-sun",
+        "ultra-moon"
+      ]
+    },
+    {
+      "id": "lets-go",
+      "name": "Let's Go, Pikachu / Eevee",
+      "gen": 7,
+      "vg": "lets-go-pikachu-lets-go-eevee",
+      "shiny": true,
+      "mega": true,
+      "regional": [
+        "alola"
+      ],
+      "dex": {
+        "pokeapi": [
+          "letsgo-kanto"
+        ]
+      },
+      "versions": [
+        "lets-go-pikachu",
+        "lets-go-eevee"
+      ]
+    },
+    {
+      "id": "sword-shield",
+      "name": "Espada / Escudo",
+      "gen": 8,
+      "vg": "sword-shield",
+      "shiny": true,
+      "gmax": true,
+      "regional": [
+        "galar"
+      ],
+      "dex": {
+        "pokeapi": [
+          "galar"
+        ]
+      },
+      "versions": [
+        "sword",
+        "shield"
+      ]
+    },
+    {
+      "id": "isle-of-armor",
+      "name": "Espada/Escudo · Isla de la Armadura (DLC)",
+      "gen": 8,
+      "vg": "the-isle-of-armor",
+      "shiny": true,
+      "gmax": true,
+      "regional": [
+        "galar"
+      ],
+      "dex": {
+        "pokeapi": [
+          "isle-of-armor"
+        ]
+      }
+    },
+    {
+      "id": "crown-tundra",
+      "name": "Espada/Escudo · Nevada de la Corona (DLC)",
+      "gen": 8,
+      "vg": "the-crown-tundra",
+      "shiny": true,
+      "gmax": true,
+      "regional": [
+        "galar"
+      ],
+      "dex": {
+        "pokeapi": [
+          "crown-tundra"
+        ]
+      }
+    },
+    {
+      "id": "bdsp",
+      "name": "Diamante Brillante / Perla Reluciente",
+      "gen": 8,
+      "vg": "brilliant-diamond-and-shining-pearl",
+      "shiny": true,
+      "dex": {
+        "national_max": 493
+      },
+      "versions": [
+        "brilliant-diamond",
+        "shining-pearl"
+      ]
+    },
+    {
+      "id": "legends-arceus",
+      "name": "Leyendas Pokémon: Arceus",
+      "gen": 8,
+      "vg": "legends-arceus",
+      "shiny": true,
+      "regional": [
+        "hisui"
+      ],
+      "dex": {
+        "pokeapi": [
+          "hisui"
+        ]
+      },
+      "versions": [
+        "legends-arceus"
+      ]
+    },
+    {
+      "id": "scarlet-violet",
+      "name": "Escarlata / Púrpura",
+      "gen": 9,
+      "vg": "scarlet-violet",
+      "shiny": true,
+      "regional": [
+        "paldea"
+      ],
+      "dex": {
+        "pokeapi": [
+          "paldea"
+        ]
+      },
+      "versions": [
+        "scarlet",
+        "violet"
+      ]
+    },
+    {
+      "id": "teal-mask",
+      "name": "Escarlata/Púrpura · La Máscara Turquesa (DLC)",
+      "gen": 9,
+      "vg": "the-teal-mask",
+      "shiny": true,
+      "regional": [
+        "paldea"
+      ],
+      "dex": {
+        "pokeapi": [
+          "kitakami"
+        ]
+      },
+      "versions": [
+        "the-teal-mask"
+      ]
+    },
+    {
+      "id": "indigo-disk",
+      "name": "Escarlata/Púrpura · El Disco Índigo (DLC)",
+      "gen": 9,
+      "vg": "the-indigo-disk",
+      "shiny": true,
+      "regional": [
+        "paldea"
+      ],
+      "dex": {
+        "pokeapi": [
+          "blueberry"
+        ]
+      },
+      "versions": [
+        "the-indigo-disk"
+      ]
+    },
+    {
+      "id": "legends-za",
+      "name": "Leyendas Pokémon: Z-A",
+      "gen": 9,
+      "vg": "legends-z-a",
+      "shiny": true,
+      "mega": true,
+      "expected": 232,
+      "dex": {
+        "pokeapi": [
+          "lumiose"
+        ],
+        "serebii": "https://serebii.net/legendsz-a/availablepokemon.shtml"
+      }
+    },
+    {
+      "id": "za-mega-dimension",
+      "name": "Leyendas Z-A · Mega Dimensión (DLC)",
+      "gen": 9,
+      "vg": "legends-z-a",
+      "shiny": true,
+      "mega": true,
+      "expected": 132,
+      "dex": {
+        "pokeapi": [
+          "hyperspace",
+          "mega-dimension"
+        ],
+        "serebii": "https://serebii.net/legendsz-a/hyperspacepokedex.shtml"
+      }
+    }
+  ]
+}

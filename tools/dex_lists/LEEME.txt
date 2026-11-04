@@ -1,0 +1,14 @@
+Listas manuales de Pokédex (opcional)
+=====================================
+Si un juego sale como "sin datos" al ejecutar build_games.py, o quieres corregir su lista,
+crea aquí un archivo con el id del juego: p. ej.  legends-za.txt  o  za-mega-dimension.txt
+(los ids están en tools/games_config.json).
+
+Una línea por Pokémon, EN EL ORDEN DE LA POKÉDEX DEL JUEGO. Vale cualquiera de estas formas:
+  - el número de la Pokédex nacional (152)
+  - el nombre en inglés (chikorita)  o en español (Chikorita)
+Todo lo que haya tras un ';' se ignora (comentarios). Este archivo tiene prioridad sobre PokéAPI.
+
+Correcciones de formas concretas (opcional): crea tools/dex_overrides.json con
+  {"legends-za": {"exclude": ["id-de-forma"], "include": ["id-de-forma"]}}
+(los ids de forma son los de assets/data/pokedex.json, p. ej. "charizard-mega-x").
