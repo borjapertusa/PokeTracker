@@ -13,12 +13,14 @@ class ProfileAvatar extends StatelessWidget {
   final EntryIndex entryIndex;
   final double size;
   final bool pixel;
+  final bool threeD;
   const ProfileAvatar({
     super.key,
     required this.profile,
     required this.entryIndex,
     this.size = 40,
     this.pixel = true,
+    this.threeD = false,
   });
 
   @override
@@ -34,7 +36,7 @@ class ProfileAvatar extends StatelessWidget {
       radius: size / 2,
       backgroundColor: scheme.secondaryContainer,
       child: path != null
-          ? Sprite(path, size: size * 0.9, pixel: pixel)
+          ? Sprite(path, size: size * 0.9, pixel: pixel, threeD: threeD)
           : Text(
               profile.name.isEmpty ? '?' : profile.name.substring(0, 1).toUpperCase(),
               style: TextStyle(
@@ -80,7 +82,8 @@ class ProfileMenu extends StatelessWidget {
                         profile: p,
                         entryIndex: entryIndex,
                         size: 28,
-                        pixel: settings.pixelSprites),
+                        pixel: settings.pixelSprites,
+                        threeD: settings.threeDSprites),
                     const SizedBox(width: 10),
                     Flexible(
                         child: Text(p.name, overflow: TextOverflow.ellipsis)),
@@ -104,7 +107,8 @@ class ProfileMenu extends StatelessWidget {
                     profile: a,
                     entryIndex: entryIndex,
                     size: 32,
-                    pixel: settings.pixelSprites),
+                    pixel: settings.pixelSprites,
+                        threeD: settings.threeDSprites),
                 const SizedBox(width: 8),
                 Text(a.name, style: Theme.of(context).textTheme.titleMedium),
                 const Icon(Icons.arrow_drop_down),
@@ -201,7 +205,8 @@ class ProfilesScreen extends StatelessWidget {
                           profile: p,
                           entryIndex: entryIndex,
                           size: 48,
-                          pixel: settings.pixelSprites),
+                          pixel: settings.pixelSprites,
+                        threeD: settings.threeDSprites),
                       title: Text(p.name),
                       subtitle: Text(p.id == profiles.activeId
                           ? 'Perfil activo'
@@ -323,7 +328,8 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                         profile: profile,
                         entryIndex: widget.entryIndex,
                         size: 88,
-                        pixel: widget.settings.pixelSprites),
+                        pixel: widget.settings.pixelSprites,
+                          threeD: widget.settings.threeDSprites),
                     const SizedBox(width: 20),
                     Expanded(
                       child: Wrap(

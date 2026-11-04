@@ -113,6 +113,96 @@ class _PokemonInfoState extends State<PokemonInfo> {
     );
   }
 
+  String _speciesOverride(int dex, String field, String fallback) =>
+      widget.settings.detailOverrides['$dex:species:$field'] ?? fallback;
+
+  String _varietyOverride(int dex, String varietyName, String field, String fallback) =>
+      widget.settings.detailOverrides['$dex:$varietyName:$field'] ?? fallback;
+
+  Future<void> _editDetails(SpeciesInfo info, VarietyInfo cur) async {
+    final dex = widget.gs.species.dex;
+    final varietyName = cur.name;
+    final fields = <String, String>{
+      'genus': _speciesOverride(dex, 'genus', info.genus),
+      'description': _speciesOverride(dex, 'description', info.text),
+      'height': _varietyOverride(dex, varietyName, 'height', _num(cur.height / 10)),
+      'weight': _varietyOverride(dex, varietyName, 'weight', _num(cur.weight / 10)),
+      'exp': _varietyOverride(dex, varietyName, 'exp', '${cur.exp}'),
+      'catch': _speciesOverride(dex, 'catch', '${info.catchRate ?? ''}'),
+      'egg': _speciesOverride(dex, 'egg', info.egg.join(', ')),
+      'growth': _speciesOverride(dex, 'growth', info.growth),
+      'hatch': _speciesOverride(dex, 'hatch', info.hatch == null ? '' : '${(info.hatch! + 1) * 255}'),
+      'happy': _speciesOverride(dex, 'happy', '${info.happy ?? ''}'),
+      'stats': _varietyOverride(dex, varietyName, 'stats', cur.stats.join(', ')),
+    };
+    final controllers = {for (final e in fields.entries) e.key: TextEditingController(text: e.value)};
+    final labels = <String, String>{
+      'genus': 'Categoría', 'description': 'Descripción', 'height': 'Altura (m)',
+      'weight': 'Peso (kg)', 'exp': 'Experiencia base', 'catch': 'Ratio de captura',
+      'egg': 'Grupos huevo (separados por comas)', 'growth': 'Crecimiento',
+      'hatch': 'Pasos de huevo', 'happy': 'Amistad base',
+      'stats': 'Estadísticas base (PS, Ataque, Defensa, At. Esp., Def. Esp., Velocidad)',
+    };
+    final saved = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text('Editar datos · ${widget.gs.species.displayName(widget.settings.spanish)}'),
+        content: SizedBox(
+          width: 520,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                for (final key in fields.keys)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: TextField(
+                      controller: controllers[key],
+                      maxLines: key == 'description' ? 3 : 1,
+                      decoration: InputDecoration(
+                        labelText: labels[key],
+                        border: const OutlineInputBorder(),
+                        isDense: true,
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        ),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Cancelar')),
+          FilledButton(onPressed: () => Navigator.pop(ctx, true), child: const Text('Guardar')),
+        ],
+      ),
+    );
+    try {
+      // No persistimos ni notificamos a toda la aplicación si el usuario
+      // pulsa Guardar sin haber cambiado ningún dato.
+      final changed = fields.keys.any(
+        (key) => controllers[key]!.text.trim() != fields[key]!.trim(),
+      );
+
+      if (saved == true && mounted && changed) {
+        widget.settings.update(() {
+          for (final key in fields.keys) {
+            final target =
+                (key == 'height' || key == 'weight' || key == 'exp' || key == 'stats')
+                    ? '$dex:$varietyName:$key'
+                    : '$dex:species:$key';
+            widget.settings.detailOverrides[target] =
+                controllers[key]!.text.trim();
+          }
+        });
+        if (mounted) setState(() {});
+      }
+    } finally {
+      for (final c in controllers.values) {
+        c.dispose();
+      }
+    }
+  }
+
   String _varLabel(Species sp, VarietyInfo v) {
     if (v.name == sp.name) return 'Base';
     final suffix = v.name.startsWith('${sp.name}-')
@@ -150,12 +240,34 @@ class _PokemonInfoState extends State<PokemonInfo> {
     final cur =
         vs.firstWhere((v) => v.name == variety, orElse: () => vs.first);
     final abilities = widget.details?.abilities ?? const <String, String>{};
-    final total = cur.stats.fold<int>(0, (a, b) => a + b);
     const statNames = [
       'PS', 'Ataque', 'Defensa', 'At. Esp.', 'Def. Esp.', 'Velocidad'
     ];
+    final genus = _speciesOverride(sp.dex, 'genus', info.genus);
+    final description = _speciesOverride(sp.dex, 'description', info.text);
+    final height = double.tryParse(_varietyOverride(sp.dex, cur.name, 'height', _num(cur.height / 10))) ?? cur.height / 10;
+    final weight = double.tryParse(_varietyOverride(sp.dex, cur.name, 'weight', _num(cur.weight / 10))) ?? cur.weight / 10;
+    final exp = int.tryParse(_varietyOverride(sp.dex, cur.name, 'exp', '${cur.exp}')) ?? cur.exp;
+    final catchRate = _speciesOverride(sp.dex, 'catch', '${info.catchRate ?? ''}');
+    final egg = _speciesOverride(sp.dex, 'egg', info.egg.join(', '));
+    final growth = _speciesOverride(sp.dex, 'growth', info.growth);
+    final hatch = _speciesOverride(sp.dex, 'hatch', info.hatch == null ? '' : '${(info.hatch! + 1) * 255}');
+    final happy = _speciesOverride(sp.dex, 'happy', '${info.happy ?? ''}');
+    final statValues = _varietyOverride(sp.dex, cur.name, 'stats', cur.stats.join(', '))
+        .split(',').map((v) => int.tryParse(v.trim())).toList();
+    final total = statValues.length == 6 && statValues.every((v) => v != null)
+        ? statValues.cast<int>().fold<int>(0, (a, b) => a + b)
+        : cur.stats.fold<int>(0, (a, b) => a + b);
 
     return [
+      Align(
+        alignment: Alignment.centerRight,
+        child: TextButton.icon(
+          onPressed: () => _editDetails(info, cur),
+          icon: const Icon(Icons.edit, size: 16),
+          label: const Text('Editar datos'),
+        ),
+      ),
       if (vs.length > 1)
         Padding(
           padding: const EdgeInsets.only(bottom: 8),
@@ -172,43 +284,48 @@ class _PokemonInfoState extends State<PokemonInfo> {
             ],
           ),
         ),
-      if (info.genus.isNotEmpty) Text(info.genus, style: t.textTheme.titleSmall),
+      if (genus.isNotEmpty) Text(genus, style: t.textTheme.titleSmall),
       const SizedBox(height: 6),
       Wrap(spacing: 6, runSpacing: 6, children: [
         for (final ty in cur.types) _TypeChip(ty),
       ]),
-      if (info.text.isNotEmpty)
+      if (description.isNotEmpty)
         Padding(
           padding: const EdgeInsets.only(top: 8),
-          child: Text(info.text,
+          child: Text(description,
               style: t.textTheme.bodySmall
                   ?.copyWith(fontStyle: FontStyle.italic)),
         ),
       _title(t, 'Datos'),
       Wrap(spacing: 12, runSpacing: 10, children: [
-        _fact(t, 'Altura', '${_num(cur.height / 10)} m'),
-        _fact(t, 'Peso', '${_num(cur.weight / 10)} kg'),
-        if (cur.exp > 0) _fact(t, 'Exp. base', '${cur.exp}'),
-        if (info.catchRate != null)
-          _fact(t, 'Ratio de captura', '${info.catchRate}'),
+        _fact(t, 'Altura', '${_num(height)} m'),
+        _fact(t, 'Peso', '${_num(weight)} kg'),
+        if (exp > 0) _fact(t, 'Exp. base', '$exp'),
+        if (catchRate.isNotEmpty) _fact(t, 'Ratio de captura', catchRate),
         _fact(
             t,
             'Género',
             info.female < 0
                 ? 'Sin género'
                 : '♂ ${_num(100 - info.female * 12.5)}% · ♀ ${_num(info.female * 12.5)}%'),
-        if (info.growth.isNotEmpty) _fact(t, 'Crecimiento', info.growth),
-        if (info.egg.isNotEmpty) _fact(t, 'Grupo huevo', info.egg.join(', ')),
-        if (info.hatch != null)
-          _fact(t, 'Pasos de huevo', '${(info.hatch! + 1) * 255}'),
-        if (info.happy != null) _fact(t, 'Amistad base', '${info.happy}'),
+        if (growth.isNotEmpty) _fact(t, 'Crecimiento', growth),
+        if (egg.isNotEmpty) _fact(t, 'Grupo huevo', egg),
+        if (hatch.isNotEmpty) _fact(t, 'Pasos de huevo', hatch),
+        if (happy.isNotEmpty) _fact(t, 'Amistad base', happy),
       ]),
       _title(t, 'Habilidades'),
       Wrap(spacing: 6, runSpacing: 6, children: [
         for (final (id, hidden) in cur.abilities)
-          Chip(
-            visualDensity: VisualDensity.compact,
-            label: Text('${abilities[id] ?? id}${hidden ? ' (oculta)' : ''}'),
+          Tooltip(
+            waitDuration: const Duration(milliseconds: 350),
+            preferBelow: false,
+            message: widget.details?.abilityEffects[id] ??
+                'Efecto no disponible. Actualiza la ficha con tools\\build_details.py.',
+            child: Chip(
+              avatar: const Icon(Icons.info_outline, size: 16),
+              visualDensity: VisualDensity.compact,
+              label: Text('${abilities[id] ?? id}${hidden ? ' (oculta)' : ''}'),
+            ),
           ),
       ]),
       _title(t, 'Estadísticas base'),
@@ -221,7 +338,7 @@ class _PokemonInfoState extends State<PokemonInfo> {
                 child: Text(statNames[i], style: t.textTheme.bodySmall)),
             SizedBox(
               width: 34,
-              child: Text('${cur.stats[i]}',
+              child: Text('${i < statValues.length && statValues[i] != null ? statValues[i] : cur.stats[i]}',
                   textAlign: TextAlign.right,
                   style: t.textTheme.bodyMedium
                       ?.copyWith(fontWeight: FontWeight.w600)),
@@ -229,9 +346,9 @@ class _PokemonInfoState extends State<PokemonInfo> {
             const SizedBox(width: 8),
             Expanded(
               child: LinearProgressIndicator(
-                value: (cur.stats[i] / 255).clamp(0.0, 1.0).toDouble(),
+                value: ((i < statValues.length && statValues[i] != null ? statValues[i]! : cur.stats[i]) / 255).clamp(0.0, 1.0).toDouble(),
                 minHeight: 8,
-                color: _statColor(cur.stats[i]),
+                color: _statColor(i < statValues.length && statValues[i] != null ? statValues[i]! : cur.stats[i]),
                 borderRadius: BorderRadius.circular(4),
               ),
             ),
@@ -260,7 +377,8 @@ class _PokemonInfoState extends State<PokemonInfo> {
         width: 76,
         child: Column(children: [
           Sprite(s?.entries.first.sprite,
-              size: 48, pixel: widget.settings.pixelSprites),
+              size: 48, pixel: widget.settings.pixelSprites,
+              threeD: widget.settings.threeDSprites),
           Text(
             s?.displayName(widget.settings.spanish) ?? '#$d',
             textAlign: TextAlign.center,

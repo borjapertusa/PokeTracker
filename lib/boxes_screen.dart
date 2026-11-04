@@ -377,7 +377,7 @@ class _BoxesScreenState extends State<BoxesScreen> {
                   : Stack(
                       alignment: Alignment.center,
                       children: [
-                        Sprite(path, size: cell * 0.86, pixel: pixel),
+                        Sprite(path, size: cell * 0.86, pixel: pixel, threeD: widget.settings.threeDSprites),
                         if (shiny)
                           const Positioned(
                               top: 2,
@@ -411,7 +411,7 @@ class _BoxesScreenState extends State<BoxesScreen> {
             color: Colors.transparent,
             child: Opacity(
               opacity: 0.85,
-              child: Sprite(path, size: cell * 0.9, pixel: pixel),
+              child: Sprite(path, size: cell * 0.9, pixel: pixel, threeD: widget.settings.threeDSprites),
             ),
           ),
           childWhenDragging: Opacity(opacity: 0.35, child: content(false)),
@@ -575,7 +575,8 @@ class _PokemonPickerDialogState extends State<PokemonPickerDialog> {
                                 children: [
                                   Sprite(path,
                                       size: 64,
-                                      pixel: widget.settings.pixelSprites),
+                                      pixel: widget.settings.pixelSprites,
+                                      threeD: widget.settings.threeDSprites),
                                   Text(
                                     '${s.displayName(spanish)}$g$form',
                                     maxLines: 2,

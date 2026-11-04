@@ -226,11 +226,19 @@ def main():
     with ThreadPoolExecutor(16) as ex:
         ab_data = list(ex.map(safe_get, ab_urls))
     names = {}
+    ability_effects = {}
     for url, ad in zip(ab_urls, ab_data):
         if ad:
             es = [n["name"] for n in ad["names"] if n["language"]["name"] == "es"]
             en = [n["name"] for n in ad["names"] if n["language"]["name"] == "en"]
             names[ad["name"]] = (es or en or [pretty(ad["name"])])[0]
+            entries = ad.get("effect_entries", [])
+            localized = [e for e in entries if e.get("language", {}).get("name") == "es"]
+            fallback = [e for e in entries if e.get("language", {}).get("name") == "en"]
+            selected = localized or fallback
+            if selected:
+                effect = selected[0].get("short_effect") or selected[0].get("effect") or ""
+                ability_effects[ad["name"]] = effect.replace("\n", " ").replace("\f", " ").strip()
 
     species = {}
     cover = {}
@@ -243,7 +251,7 @@ def main():
         species[str(dex)] = info
 
     payload = {"generatedAt": datetime.now(timezone.utc).isoformat(), "abilities": names,
-               "chains": chains, "species": species}
+               "abilityEffects": ability_effects, "chains": chains, "species": species}
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(payload, ensure_ascii=False, separators=(",", ":")), "utf-8")
     print(f"\nListo: {len(species)} fichas, {len(chains)} líneas evolutivas -> {OUT} "

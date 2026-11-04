@@ -102,14 +102,17 @@ class DexDetails {
   final Map<String, dynamic> _species;
   final Map<String, dynamic> _chains;
   final Map<String, String> abilities;
+  final Map<String, String> abilityEffects;
 
-  DexDetails._(this._species, this._chains, this.abilities);
+  DexDetails._(this._species, this._chains, this.abilities, this.abilityEffects);
 
   factory DexDetails.fromJson(Map<String, dynamic> j) => DexDetails._(
         j['species'] as Map<String, dynamic>,
         j['chains'] as Map<String, dynamic>,
         (j['abilities'] as Map<String, dynamic>)
             .map((k, v) => MapEntry(k, v as String)),
+        ((j['abilityEffects'] as Map?) ?? const {}).map(
+            (k, v) => MapEntry(k.toString(), v.toString())),
       );
 
   SpeciesInfo? species(int dex) {

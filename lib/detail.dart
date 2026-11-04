@@ -145,6 +145,7 @@ class DetailView extends StatelessWidget {
                     progress: progress,
                     size: sz,
                     pixel: settings.pixelSprites,
+                    threeD: settings.threeDSprites,
                   ),
                   childCount: t,
                 ),
@@ -173,6 +174,7 @@ class EntryCard extends StatelessWidget {
   final Progress progress;
   final double size;
   final bool pixel;
+  final bool threeD;
   const EntryCard({
     super.key,
     required this.game,
@@ -180,6 +182,7 @@ class EntryCard extends StatelessWidget {
     required this.progress,
     required this.size,
     required this.pixel,
+    this.threeD = false,
   });
 
   static const _kinds = {
@@ -208,7 +211,7 @@ class EntryCard extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Sprite(url, size: size, pixel: pixel),
+            Sprite(url, size: size, pixel: pixel, threeD: threeD),
             Checkbox(
               value: progress.has(key, shiny: shiny),
               onChanged: (_) => progress.toggle(key, shiny: shiny),

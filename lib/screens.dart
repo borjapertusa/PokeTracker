@@ -60,6 +60,8 @@ class _HomeScreenState extends State<HomeScreen> {
   int gen = 0;
   DexFilter filter = DexFilter.all;
   GameSpecies? selected;
+  bool leftOpen = true;
+  bool rightOpen = true;
   late String _gameId =
       widget.games.any((g) => g.id == widget.settings.lastGame)
           ? widget.settings.lastGame
@@ -111,33 +113,60 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _selectGame(Game g) {
-    _scaffoldKey.currentState?.closeDrawer();
     setState(() {
       _gameId = g.id;
       selected = null;
+      rightOpen = false;
       if (!g.shiny && filter == DexFilter.missingShiny) filter = DexFilter.all;
     });
     st.update(() => st.lastGame = g.id);
   }
 
   void _open(GameSpecies gs, bool wide) {
-    if (wide) {
-      setState(() => selected = gs);
-    } else {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (_) => DetailScreen(
-              game: game,
-              gs: gs,
-              progress: p,
-              settings: st,
-              games: widget.games,
-              details: widget.details,
-              byDex: widget.byDex),
+    setState(() {
+      selected = gs;
+      rightOpen = true;
+    });
+  }
+
+  Future<void> _openFullscreen(GameSpecies gs) async {
+    setState(() {
+      selected = gs;
+      rightOpen = true;
+    });
+    await showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (dialogContext) => Dialog.fullscreen(
+        child: CallbackShortcuts(
+          bindings: {
+            const SingleActivator(LogicalKeyboardKey.escape): () => Navigator.of(dialogContext).pop(),
+          },
+          child: Focus(
+            autofocus: true,
+            child: Scaffold(
+          appBar: AppBar(
+            title: Text(gs.species.displayName(st.spanish)),
+            leading: IconButton(
+              tooltip: 'Cerrar (Esc)',
+              icon: const Icon(Icons.close),
+              onPressed: () => Navigator.of(dialogContext).pop(),
+            ),
+          ),
+          body: DetailView(
+            game: game,
+            gs: gs,
+            progress: p,
+            settings: st,
+            games: widget.games,
+            details: widget.details,
+            byDex: widget.byDex,
+          ),
+            ),
+          ),
         ),
-      );
-    }
+      ),
+    );
   }
 
   (int, int) _counts(GameSpecies gs) => (
@@ -193,65 +222,75 @@ class _HomeScreenState extends State<HomeScreen> {
             const SingleActivator(LogicalKeyboardKey.comma, control: true): () =>
                 _scaffoldKey.currentState?.openEndDrawer(),
             const SingleActivator(LogicalKeyboardKey.escape): () {
-              if (selected != null) setState(() => selected = null);
+              if (selected != null || rightOpen) {
+                setState(() { selected = null; rightOpen = false; });
+              }
             },
           },
           child: Focus(
             autofocus: true,
             child: Scaffold(
               key: _scaffoldKey,
-              drawer: Drawer(
-                width: 300,
-                child: SafeArea(
-                  child: GameList(
-                      store: widget.store,
-                      current: game,
-                      progress: p,
-                      onSelect: _selectGame),
-                ),
-              ),
               endDrawer: SettingsDrawer(
                   settings: st, onExport: _export, onImport: _import),
               body: SafeArea(
                 child: LayoutBuilder(
                   builder: (context, c) {
-                    final sidebar = c.maxWidth >= 1250;
-                    final wide = c.maxWidth >= 900;
+                    final showRight = selected != null && rightOpen;
+                    final sideBudget = (c.maxWidth - 360).clamp(0.0, c.maxWidth).toDouble();
+                    final leftLimit = showRight ? sideBudget * 0.45 : sideBudget;
+                    final leftWidth = leftOpen
+                        ? st.leftSidebarWidth.clamp(0.0, leftLimit).toDouble()
+                        : 0.0;
+                    final rightLimit = (sideBudget - leftWidth).clamp(0.0, sideBudget).toDouble();
+                    final rightWidth = showRight
+                        ? st.rightSidebarWidth.clamp(0.0, rightLimit).toDouble()
+                        : 0.0;
                     return Row(
                       children: [
-                        if (sidebar) ...[
+                        if (leftOpen && leftWidth > 1) ...[
                           SizedBox(
-                            width: 270,
+                            width: leftWidth,
                             child: ColoredBox(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .surfaceContainerLow,
+                              color: Theme.of(context).colorScheme.surfaceContainerLow,
                               child: GameList(
-                                  store: widget.store,
-                                  current: game,
-                                  progress: p,
-                                  onSelect: _selectGame),
+                                store: widget.store,
+                                current: game,
+                                progress: p,
+                                onSelect: _selectGame,
+                              ),
                             ),
                           ),
                           const VerticalDivider(width: 1),
                         ],
-                        Expanded(child: _browse(list, wide, sidebar)),
-                        if (wide) ...[
+                        Expanded(child: _browse(list, true, leftOpen)),
+                        if (showRight && rightWidth > 1) ...[
                           const VerticalDivider(width: 1),
                           SizedBox(
-                            width: 420,
-                            child: selected == null
-                                ? const Center(
-                                    child: Text(
-                                        'Selecciona un Pokémon para ver sus formas'))
-                                : DetailView(
+                            width: rightWidth,
+                            child: Column(
+                              children: [
+                                Align(
+                                  alignment: Alignment.centerRight,
+                                  child: IconButton(
+                                    tooltip: 'Cerrar panel (Esc)',
+                                    icon: const Icon(Icons.close),
+                                    onPressed: () => setState(() { selected = null; rightOpen = false; }),
+                                  ),
+                                ),
+                                Expanded(
+                                  child: DetailView(
                                     game: game,
                                     gs: selected!,
                                     progress: p,
                                     settings: st,
                                     games: widget.games,
                                     details: widget.details,
-                                    byDex: widget.byDex),
+                                    byDex: widget.byDex,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ],
@@ -281,12 +320,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 icon: const Icon(Icons.home_outlined),
                 onPressed: () => Navigator.maybePop(context),
               ),
-              if (!sidebar)
-                IconButton(
-                  tooltip: 'Juegos',
-                  icon: const Icon(Icons.menu),
-                  onPressed: () => _scaffoldKey.currentState?.openDrawer(),
-                ),
+              IconButton(
+                tooltip: leftOpen ? 'Ocultar lateral izquierdo' : 'Mostrar lateral izquierdo',
+                icon: const Icon(Icons.menu),
+                onPressed: () => setState(() => leftOpen = !leftOpen),
+              ),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -309,6 +347,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   entryIndex: widget.entryIndex,
                   size: 32,
                   pixel: st.pixelSprites,
+                  threeD: st.threeDSprites,
                 ),
               ),
             ],
@@ -455,12 +494,14 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       child: InkWell(
         onTap: () => _open(gs, wide),
+        onDoubleTap: () => _openFullscreen(gs),
         child: Padding(
           padding: const EdgeInsets.all(8),
           child: Column(
             children: [
               Sprite(gs.entries.first.sprite,
-                  size: st.spriteSize, pixel: st.pixelSprites),
+                  size: st.spriteSize, pixel: st.pixelSprites,
+                  threeD: st.threeDSprites),
               Text(dexNumber(game, gs), style: theme.textTheme.labelSmall),
               Text(
                 gs.species.displayName(st.spanish),
@@ -484,11 +525,15 @@ class _HomeScreenState extends State<HomeScreen> {
       itemCount: list.length,
       itemBuilder: (_, i) {
         final gs = list[i];
-        return ListTile(
-          selected: wide && identical(gs, selected),
+        return InkWell(
+          onTap: () => _open(gs, wide),
+          onDoubleTap: () => _openFullscreen(gs),
+          child: ListTile(
+          selected: identical(gs, selected),
           leading: Sprite(gs.entries.first.sprite,
               size: st.spriteSize.clamp(40.0, 64.0).toDouble(),
-              pixel: st.pixelSprites),
+              pixel: st.pixelSprites,
+                  threeD: st.threeDSprites),
           title: Text(
               '${dexNumber(game, gs)}  ${gs.species.displayName(st.spanish)}'),
           subtitle: Text(_label(gs)),
@@ -496,7 +541,7 @@ class _HomeScreenState extends State<HomeScreen> {
             width: 90,
             child: LinearProgressIndicator(value: _ratio(gs), minHeight: 4),
           ),
-          onTap: () => _open(gs, wide),
+          ),
         );
       },
     );
