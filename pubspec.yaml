@@ -17,5 +17,6 @@ flutter:
   uses-material-design: true
   assets:
     - assets/data/
+    - assets/items/
     - assets/sprites/
     - assets/sprites3d/

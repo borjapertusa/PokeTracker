@@ -33,7 +33,7 @@ class DetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar:
-            AppBar(title: Text(gs.species.displayName(settings.spanish))),
+            AppBar(title: Text(gs.displayName(settings.spanish))),
         body: DetailView(
             game: game,
             gs: gs,
@@ -41,7 +41,8 @@ class DetailScreen extends StatelessWidget {
             settings: settings,
             games: games,
             details: details,
-            byDex: byDex),
+            byDex: byDex,
+            showLocations: true),
       );
 }
 
@@ -54,6 +55,8 @@ class DetailView extends StatelessWidget {
   final List<Game> games;
   final DexDetails? details;
   final Map<int, Species> byDex;
+  final bool showLocations;
+  final bool showMoves;
   const DetailView({
     super.key,
     required this.games,
@@ -63,6 +66,8 @@ class DetailView extends StatelessWidget {
     required this.gs,
     required this.progress,
     required this.settings,
+    this.showLocations = false,
+    this.showMoves = false,
   });
 
   @override
@@ -85,11 +90,11 @@ class DetailView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '${dexNumber(game, gs)}  ${gs.species.displayName(settings.spanish)}',
+                    '${dexNumber(game, gs)}  ${gs.displayName(settings.spanish)}',
                     style: theme.textTheme.headlineSmall,
                   ),
                   const SizedBox(height: 2),
-                  Text(game.name, style: theme.textTheme.labelMedium),
+                  Row(mainAxisSize: MainAxisSize.min, children: [GameIcon(game, size: 34), const SizedBox(width: 8), Flexible(child: Text(game.name, style: theme.textTheme.labelMedium))]),
                   const SizedBox(height: 4),
                   Text(
                     game.shiny
@@ -134,7 +139,7 @@ class DetailView extends StatelessWidget {
               sliver: SliverGrid(
                 gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                   maxCrossAxisExtent: game.shiny ? sz * 2 + 56 : sz + 56,
-                  mainAxisExtent: sz + 72 + 56 * settings.textScale,
+                  mainAxisExtent: sz + 96 + 56 * settings.textScale,
                   crossAxisSpacing: 8,
                   mainAxisSpacing: 8,
                 ),
@@ -142,6 +147,7 @@ class DetailView extends StatelessWidget {
                   (_, i) => EntryCard(
                     game: game,
                     entry: es[i],
+                    species: gs.species,
                     progress: progress,
                     size: sz,
                     pixel: settings.pixelSprites,
@@ -159,6 +165,8 @@ class DetailView extends StatelessWidget {
                 details: details,
                 byDex: byDex,
                 settings: settings,
+                showLocations: showLocations,
+                showMoves: showMoves,
               ),
             ),
           ],
@@ -171,6 +179,7 @@ class DetailView extends StatelessWidget {
 class EntryCard extends StatelessWidget {
   final Game game;
   final DexEntry entry;
+  final Species species;
   final Progress progress;
   final double size;
   final bool pixel;
@@ -179,6 +188,7 @@ class EntryCard extends StatelessWidget {
     super.key,
     required this.game,
     required this.entry,
+    required this.species,
     required this.progress,
     required this.size,
     required this.pixel,
@@ -207,14 +217,14 @@ class EntryCard extends StatelessWidget {
     final key = game.key(entry);
     return Expanded(
       child: InkWell(
-        onTap: () => progress.toggle(key, shiny: shiny),
+        onTap: () => progress.toggleEntry(game, species, entry, shiny: shiny),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Sprite(url, size: size, pixel: pixel, threeD: threeD),
             Checkbox(
               value: progress.has(key, shiny: shiny),
-              onChanged: (_) => progress.toggle(key, shiny: shiny),
+              onChanged: (_) => progress.toggleEntry(game, species, entry, shiny: shiny),
             ),
             Text(shiny ? '✨ Variocolor' : (game.shiny ? 'Normal' : 'Registrado'),
                 style: const TextStyle(fontSize: 12)),

@@ -15,6 +15,12 @@ class Encounter {
         conds = (j[5] as List).cast<String>();
 }
 
+
+/// Etiqueta el tipo de disponibilidad de una habilidad.
+String abilityRoleLabel(String id, bool hidden) => id == 'embody-aspect'
+    ? 'Unitaria (al teracristalizar)'
+    : hidden ? 'Oculta' : 'Principal';
+
 class VarietyInfo {
   final String name;
   final bool isDefault;
@@ -103,8 +109,9 @@ class DexDetails {
   final Map<String, dynamic> _chains;
   final Map<String, String> abilities;
   final Map<String, String> abilityEffects;
+  final Map<String, String> abilityEffectsEs;
 
-  DexDetails._(this._species, this._chains, this.abilities, this.abilityEffects);
+  DexDetails._(this._species, this._chains, this.abilities, this.abilityEffects, this.abilityEffectsEs);
 
   factory DexDetails.fromJson(Map<String, dynamic> j) => DexDetails._(
         j['species'] as Map<String, dynamic>,
@@ -112,6 +119,8 @@ class DexDetails {
         (j['abilities'] as Map<String, dynamic>)
             .map((k, v) => MapEntry(k, v as String)),
         ((j['abilityEffects'] as Map?) ?? const {}).map(
+            (k, v) => MapEntry(k.toString(), v.toString())),
+        ((j['abilityEffectsEs'] as Map?) ?? const {}).map(
             (k, v) => MapEntry(k.toString(), v.toString())),
       );
 
@@ -125,4 +134,27 @@ class DexDetails {
     final m = _chains['$id'];
     return m == null ? null : EvoNode.fromJson(m as Map<String, dynamic>);
   }
+}
+
+
+const Map<String, String> _eggGroupNamesEs = {
+  'Monster': 'Monstruo', 'Water 1': 'Agua 1', 'Water 2': 'Agua 2',
+  'Water 3': 'Agua 3', 'Bug': 'Bicho', 'Flying': 'Volador',
+  'Field': 'Campo', 'Fairy': 'Hada', 'Grass': 'Planta',
+  'Human-Like': 'Humanoide', 'Mineral': 'Mineral', 'Amorphous': 'Amorfo',
+  'Ditto': 'Ditto', 'Dragon': 'Dragón', 'Undiscovered': 'No descubiertos',
+};
+String eggGroupName(String value) => _eggGroupNamesEs[value] ?? value;
+
+String localizedFormName(String value) {
+  const labels = {
+    'mega': 'Mega', 'mega-x': 'Mega-X', 'mega-y': 'Mega-Y',
+    'gmax': 'Gigamax', 'primal': 'Primigenio', 'alola': 'Alola',
+    'galar': 'Galar', 'hisui': 'Hisui', 'paldea': 'Paldea',
+    'bloodmoon': 'Luna Carmesí', 'busted': 'Roto',
+    'totem': 'Dominante', 'starter': 'Inicial',
+  };
+  if (value == 'ogerpon') return 'Ogerpon';
+  final parts = value.split('-');
+  return parts.map((part) => labels[part] ?? (part.isEmpty ? part : part[0].toUpperCase() + part.substring(1))).join(' ');
 }

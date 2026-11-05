@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'abilities_dex.dart';
+
 import 'boxes.dart';
 import 'data_actions.dart';
 import 'details.dart';
@@ -10,8 +12,12 @@ import 'profiles.dart';
 import 'profiles_screen.dart';
 import 'progress.dart';
 import 'screens.dart';
+import 'general_dex.dart';
+import 'global_moves_dex.dart';
+import 'objects_dex.dart';
 import 'settings.dart';
 import 'settings_drawer.dart';
+import 'tm_dex.dart';
 
 /// Una sección de la app que aparece en la pantalla de inicio.
 class AppSection {
@@ -37,6 +43,7 @@ class LauncherScreen extends StatefulWidget {
   final AppSettings settings;
   final DexDetails? details;
   final Map<int, Species> byDex;
+  final List<Species> allSpecies;
   final BoxStore boxes;
   final EntryIndex entryIndex;
   final ProfileStore profiles;
@@ -48,6 +55,7 @@ class LauncherScreen extends StatefulWidget {
     required this.settings,
     required this.details,
     required this.byDex,
+    required this.allSpecies,
     required this.boxes,
     required this.entryIndex,
     required this.profiles,
@@ -70,7 +78,7 @@ class _LauncherScreenState extends State<LauncherScreen> {
     return [
       AppSection(
         id: 'tracker',
-        title: 'Pokédex Tracker',
+        title: 'Tracker',
         subtitle:
             'Registra tus Pokémon por juego: formas, género y variocolor, con fichas y cajas.',
         icon: Icons.catching_pokemon,
@@ -88,14 +96,58 @@ class _LauncherScreenState extends State<LauncherScreen> {
         ),
       ),
       AppSection(
-        id: 'profiles',
-        title: 'Perfiles',
-        subtitle:
-            'Cada perfil tiene su progreso, sus cajas, su nombre e ID de entrenador por juego y un Pokémon favorito como icono.',
-        icon: Icons.account_circle_outlined,
-        stat:
-            '${widget.profiles.profiles.length} ${widget.profiles.profiles.length == 1 ? 'perfil' : 'perfiles'}  ·  activo: ${widget.profiles.active.name}',
-        builder: (_) => _profilesScreen(),
+        id: 'abilities',
+        title: 'Habilidades',
+        subtitle: 'Consulta las habilidades, sus efectos en combate y fuera de él, y qué Pokémon las pueden tener.',
+        icon: Icons.auto_awesome,
+        stat: '${widget.details?.abilities.length ?? 0} habilidades',
+        builder: (_) => AbilityDexScreen(
+          species: widget.allSpecies,
+          details: widget.details,
+          settings: widget.settings,
+        ),
+      ),
+      AppSection(
+        id: 'items',
+        title: 'Objetos',
+        subtitle: 'Consulta los objetos de cada grupo de ediciones, sus efectos, descripciones, precios y usos evolutivos.',
+        icon: Icons.inventory_2_outlined,
+        stat: 'Objetodex por juego',
+        builder: (_) => ObjectsDexScreen(
+          spanish: widget.settings.spanish,
+          details: widget.details,
+          species: widget.allSpecies,
+          settings: widget.settings,
+        ),
+      ),
+      AppSection(
+        id: 'tm_hm_tr',
+        title: 'MT/MO/DT',
+        subtitle: 'Consulta las máquinas técnicas, ocultas y técnicas especiales de cada grupo de juegos, con el movimiento que enseñan y sus datos.',
+        icon: Icons.album_outlined,
+        stat: 'Máquinas por juego',
+        builder: (_) => TmDexScreen(spanish: widget.settings.spanish, settings: widget.settings),
+      ),
+      AppSection(
+        id: 'moves',
+        title: 'Movimientos',
+        subtitle: 'Consulta potencia, precisión, PP, efectos, cambios históricos y Pokémon que aprenden cada movimiento.',
+        icon: Icons.flash_on_outlined,
+        stat: 'Pokédex de movimientos',
+        builder: (_) => MovesDexScreen(spanish: widget.settings.spanish, settings: widget.settings),
+      ),
+      AppSection(
+        id: 'general_dex',
+        title: 'Pokédex',
+        subtitle: 'Enciclopedia Pokémon: consulta especies, formas, estadísticas, habilidades, evoluciones y más, sin registrar progreso.',
+        icon: Icons.menu_book_outlined,
+        stat: '${widget.allSpecies.length} especies',
+        builder: (_) => GeneralDexScreen(
+          species: widget.allSpecies,
+          byDex: widget.byDex,
+          details: widget.details,
+          settings: widget.settings,
+        ),
       ),
     ];
   }

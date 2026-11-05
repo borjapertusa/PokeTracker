@@ -70,7 +70,7 @@ class ProfileMenu extends StatelessWidget {
         final a = profiles.active;
         return PopupMenuButton<String>(
           tooltip: 'Cambiar de perfil',
-          onSelected: (v) => v == '_manage' ? onManage() : profiles.select(v),
+          onSelected: (v) => v == '_settings' ? onManage() : profiles.select(v),
           itemBuilder: (_) => [
             for (final p in profiles.profiles)
               PopupMenuItem(
@@ -96,7 +96,13 @@ class ProfileMenu extends StatelessWidget {
               ),
             const PopupMenuDivider(),
             const PopupMenuItem(
-                value: '_manage', child: Text('Gestionar perfiles…')),
+                value: '_settings', child: Row(
+                  children: [
+                    const Icon(Icons.settings_outlined, size: 18),
+                    const SizedBox(width: 10),
+                    const Text('Ajustes'),
+                  ],
+                )),
           ],
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
@@ -435,8 +441,7 @@ class _GameFieldsState extends State<_GameFields> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(widget.game.name,
-                style: Theme.of(context).textTheme.titleSmall),
+            Row(children: [GameIcon(widget.game, size: 36), const SizedBox(width: 10), Expanded(child: Text(widget.game.name, style: Theme.of(context).textTheme.titleSmall))]),
             const SizedBox(height: 8),
             Row(
               children: [

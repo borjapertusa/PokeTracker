@@ -62,6 +62,8 @@ class _HomeScreenState extends State<HomeScreen> {
   GameSpecies? selected;
   bool leftOpen = true;
   bool rightOpen = true;
+  // Número de columnas real del grid, recalculado al cambiar el tamaño disponible.
+  int _gridColumnCount = 1;
   late String _gameId =
       widget.games.any((g) => g.id == widget.settings.lastGame)
           ? widget.settings.lastGame
@@ -129,6 +131,135 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  /// Acciones masivas sobre todas las entradas de la Pokédex abierta.
+  /// Normales incluye únicamente formas base, regionales y diferencias de género.
+  List<DexEntry> _bulkEntries(String kind) => game.allEntries.where((e) {
+        switch (kind) {
+          case 'normal':
+            return e.kind == 'base' || e.kind == 'regional';
+          case 'mega':
+            return e.kind == 'mega';
+          case 'gmax':
+            return e.kind == 'gmax';
+          default:
+            return false;
+        }
+      }).toList();
+
+  Future<void> _bulkSet(String kind, bool shiny, String label) async {
+    final entries = _bulkEntries(kind);
+    if (entries.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Esta Pokédex no contiene entradas de $label.')),
+      );
+      return;
+    }
+    final allMarked = entries.every((e) => p.has(game.key(e), shiny: shiny));
+    final mark = !allMarked;
+    final action = mark ? 'marcar' : 'desmarcar';
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text('${mark ? 'Marcar' : 'Desmarcar'} $label'),
+        content: Text('¿Quieres $action como capturados ${entries.length} registros de $label en «${game.name}»?'),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Cancelar')),
+          FilledButton(onPressed: () => Navigator.pop(ctx, true), child: Text(mark ? 'Marcar todos' : 'Desmarcar todos')),
+        ],
+      ),
+    );
+    if (confirmed != true || !mounted) return;
+    p.setAll(game, entries, shiny: shiny, value: mark);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('${entries.length} registros ${mark ? 'marcados' : 'desmarcados'}: $label.')),
+    );
+  }
+
+  Future<void> _bulkSetCombined(String scope, String label) async {
+    final items = <(Game, DexEntry)>[];
+    if (scope == 'global') {
+      for (final g in widget.games) {
+        for (final e in g.allEntries) {
+          items.add((g, e));
+        }
+      }
+    } else {
+      final entries = scope == 'forms'
+          ? game.allEntries.where((e) => e.kind != 'base').toList()
+          : game.allEntries;
+      items.addAll(entries.map((e) => (game, e)));
+    }
+    if (items.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('No hay registros para $label.')),
+      );
+      return;
+    }
+    final allMarked = items.every((item) {
+      final (g, e) = item;
+      return p.has(g.key(e)) && (!g.shiny || p.has(g.key(e), shiny: true));
+    });
+    final mark = !allMarked;
+    final action = mark ? 'marcar' : 'desmarcar';
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text('${mark ? 'Marcar' : 'Desmarcar'} $label'),
+        content: Text('¿Quieres $action como capturados ${items.length} registros de $label${scope == 'global' ? ' en todas las Pokédex' : ' en «${game.name}»'}?'),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Cancelar')),
+          FilledButton(onPressed: () => Navigator.pop(ctx, true), child: Text(mark ? 'Marcar todo' : 'Desmarcar todo')),
+        ],
+      ),
+    );
+    if (confirmed != true || !mounted) return;
+    p.setAllCombined(items, value: mark);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('${items.length} registros ${mark ? 'marcados' : 'desmarcados'}: $label.')),
+    );
+  }
+
+  Widget _bulkMenu() => PopupMenuButton<String>(
+        tooltip: 'Acciones masivas de captura',
+        icon: const Icon(Icons.checklist),
+        onSelected: (value) {
+          if (value.startsWith('combined:')) {
+            final scope = value.split(':')[1];
+            final label = switch (scope) {
+              'forms' => 'todas las formas',
+              'all' => 'todo',
+              _ => 'todo global',
+            };
+            _bulkSetCombined(scope, label);
+            return;
+          }
+          final parts = value.split(':');
+          final kind = parts[0];
+          final shiny = parts[1] == 'shiny';
+          final label = switch (kind) {
+            'normal' => shiny ? 'todos los variocolor normales y regionales' : 'todos los normales y regionales',
+            'mega' => shiny ? 'todos los Mega variocolor' : 'todos los Mega',
+            _ => shiny ? 'todos los Gigamax variocolor' : 'todos los Gigamax',
+          };
+          _bulkSet(kind, shiny, label);
+        },
+        itemBuilder: (_) => const [
+          PopupMenuItem(value: 'normal:normal', child: Text('Marcar/desmarcar todos los normales')),
+          PopupMenuItem(value: 'normal:shiny', child: Text('Marcar/desmarcar todos los variocolor')),
+          PopupMenuDivider(),
+          PopupMenuItem(value: 'mega:normal', child: Text('Marcar/desmarcar todos los Mega')),
+          PopupMenuItem(value: 'mega:shiny', child: Text('Marcar/desmarcar todos los Mega variocolor')),
+          PopupMenuDivider(),
+          PopupMenuItem(value: 'gmax:normal', child: Text('Marcar/desmarcar todos los Gigamax')),
+          PopupMenuItem(value: 'gmax:shiny', child: Text('Marcar/desmarcar todos los Gigamax variocolor')),
+          PopupMenuDivider(),
+          PopupMenuItem(value: 'combined:forms', child: Text('Marcar/desmarcar todas las formas (normal y variocolor)')),
+          PopupMenuItem(value: 'combined:all', child: Text('Marcar/desmarcar todo (normal y variocolor)')),
+          PopupMenuDivider(),
+          PopupMenuItem(value: 'combined:global', child: Text('Marcar/desmarcar todo global')),
+        ],
+      );
+
   Future<void> _openFullscreen(GameSpecies gs) async {
     setState(() {
       selected = gs;
@@ -146,7 +277,7 @@ class _HomeScreenState extends State<HomeScreen> {
             autofocus: true,
             child: Scaffold(
           appBar: AppBar(
-            title: Text(gs.species.displayName(st.spanish)),
+            title: Text(gs.displayName(st.spanish)),
             leading: IconButton(
               tooltip: 'Cerrar (Esc)',
               icon: const Icon(Icons.close),
@@ -161,12 +292,53 @@ class _HomeScreenState extends State<HomeScreen> {
             games: widget.games,
             details: widget.details,
             byDex: widget.byDex,
+            showLocations: true,
+            showMoves: true,
           ),
             ),
           ),
         ),
       ),
     );
+  }
+
+  /// Recorre la Pokédex con las flechas, respetando búsqueda, generación y filtro.
+  void _moveSelection(int delta) {
+    if (_searchFocus.hasFocus) return;
+    final items = _filtered();
+    if (items.isEmpty) return;
+
+    final current = selected == null
+        ? -1
+        : items.indexWhere((item) => item.species.dex == selected!.species.dex);
+    final next = current < 0
+        ? (delta > 0 ? 0 : items.length - 1)
+        : (current + delta).clamp(0, items.length - 1).toInt();
+
+    setState(() {
+      selected = items[next];
+      rightOpen = true;
+    });
+  }
+
+  /// Arriba/abajo desplaza una fila completa en cuadrícula. En vista de lista
+  /// equivale a anterior/siguiente. El número de columnas se adapta al ancho
+  /// real disponible, incluidos los paneles laterales abiertos o cerrados.
+  void _moveVerticalSelection(int direction) {
+    if (_searchFocus.hasFocus) return;
+    final items = _filtered();
+    if (items.isEmpty) return;
+    final current = selected == null
+        ? -1
+        : items.indexWhere((item) => item.species.dex == selected!.species.dex);
+    final step = st.viewMode == ViewMode.grid ? _gridColumnCount : 1;
+    final next = current < 0
+        ? (direction > 0 ? 0 : items.length - 1)
+        : (current + direction * step).clamp(0, items.length - 1).toInt();
+    setState(() {
+      selected = items[next];
+      rightOpen = true;
+    });
   }
 
   (int, int) _counts(GameSpecies gs) => (
@@ -226,6 +398,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 setState(() { selected = null; rightOpen = false; });
               }
             },
+            const SingleActivator(LogicalKeyboardKey.arrowRight): () => _moveSelection(1),
+            const SingleActivator(LogicalKeyboardKey.arrowLeft): () => _moveSelection(-1),
+            const SingleActivator(LogicalKeyboardKey.arrowDown): () => _moveVerticalSelection(1),
+            const SingleActivator(LogicalKeyboardKey.arrowUp): () => _moveVerticalSelection(-1),
           },
           child: Focus(
             autofocus: true,
@@ -305,6 +481,52 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  Widget _dailyChallenge() {
+    final targets = p.dailyChallenge(game);
+    final entries = <(GameSpecies, bool)>[];
+    for (final target in targets) {
+      final id = target['dex'] as int;
+      final shiny = target['shiny'] == true;
+      for (final gs in game.species) {
+        if (gs.species.dex == id) { entries.add((gs, shiny)); break; }
+      }
+    }
+    return Card(
+      margin: const EdgeInsets.fromLTRB(16, 8, 16, 2),
+      child: Padding(
+        padding: const EdgeInsets.all(10),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Row(children: [
+            const Icon(Icons.flag_outlined),
+            const SizedBox(width: 8),
+            const Expanded(child: Text('Desafío del día', style: TextStyle(fontWeight: FontWeight.bold))),
+            TextButton.icon(onPressed: () => p.rerollDailyChallenge(game), icon: const Icon(Icons.shuffle, size: 18), label: const Text('Aleatorizar 4')),
+          ]),
+          Wrap(spacing: 8, runSpacing: 8, children: [
+            for (final item in entries)
+              Builder(builder: (context) {
+                final gs = item.$1; final shiny = item.$2;
+                final entry = shiny ? gs.entries.firstWhere((e) => e.shiny != null, orElse: () => gs.entries.first) : gs.entries.first;
+                return InkWell(
+                  borderRadius: BorderRadius.circular(10), onTap: () => _open(gs, true),
+                  child: Container(width: 112, padding: const EdgeInsets.all(6),
+                    decoration: BoxDecoration(border: Border.all(color: Theme.of(context).colorScheme.outlineVariant), borderRadius: BorderRadius.circular(10)),
+                    child: Column(mainAxisSize: MainAxisSize.min, children: [
+                      Sprite(shiny ? entry.shiny ?? entry.sprite : entry.sprite, size: 58, pixel: st.pixelSprites, threeD: st.threeDSprites),
+                      Text(gs.displayName(st.spanish), maxLines: 1, overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.labelMedium),
+                      Text(shiny ? '✨ Variocolor' : 'Normal', style: Theme.of(context).textTheme.labelSmall),
+                      Text('#${gs.species.dex}', style: Theme.of(context).textTheme.labelSmall),
+                    ]),
+                  ),
+                );
+              }),
+            if (entries.isEmpty) const Padding(padding: EdgeInsets.all(8), child: Text('¡Has completado todos los objetivos de esta Pokédex!')),
+          ]),
+        ]),
+      ),
+    );
+  }
+
   Widget _browse(List<GameSpecies> list, bool wide, bool sidebar) {
     final theme = Theme.of(context);
     final all = game.allEntries;
@@ -325,6 +547,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 icon: const Icon(Icons.menu),
                 onPressed: () => setState(() => leftOpen = !leftOpen),
               ),
+              GameIcon(game, size: 42),
+              const SizedBox(width: 10),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -353,6 +577,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
+        _dailyChallenge(),
         Padding(
           padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
           child: Wrap(
@@ -404,6 +629,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 icon: const Icon(Icons.inventory_2_outlined),
                 label: const Text('Cajas'),
               ),
+              _bulkMenu(),
               IconButton.filledTonal(
                 tooltip: 'Opciones (Ctrl+,)',
                 icon: const Icon(Icons.settings),
@@ -465,16 +691,30 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _grid(List<GameSpecies> list, bool wide) {
     final sz = st.spriteSize;
-    return GridView.builder(
-      padding: const EdgeInsets.fromLTRB(16, 4, 16, 16),
-      gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-        maxCrossAxisExtent: sz + 56,
-        mainAxisExtent: sz + 32 + 56 * st.textScale,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
-      ),
-      itemCount: list.length,
-      itemBuilder: (_, i) => _card(list[i], wide),
+    const horizontalPadding = 32.0; // 16 px a cada lado del grid
+    const spacing = 10.0;
+    final maxExtent = sz + 56;
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final usableWidth =
+            (constraints.maxWidth - horizontalPadding).clamp(0.0, double.infinity);
+        // Es el mismo cálculo de columnas que usa
+        // SliverGridDelegateWithMaxCrossAxisExtent.
+        _gridColumnCount = (usableWidth / (maxExtent + spacing))
+            .ceil()
+            .clamp(1, 1000);
+        return GridView.builder(
+          padding: const EdgeInsets.fromLTRB(16, 4, 16, 16),
+          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+            maxCrossAxisExtent: maxExtent,
+            mainAxisExtent: sz + 32 + 56 * st.textScale,
+            crossAxisSpacing: spacing,
+            mainAxisSpacing: spacing,
+          ),
+          itemCount: list.length,
+          itemBuilder: (_, i) => _card(list[i], wide),
+        );
+      },
     );
   }
 
@@ -504,7 +744,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   threeD: st.threeDSprites),
               Text(dexNumber(game, gs), style: theme.textTheme.labelSmall),
               Text(
-                gs.species.displayName(st.spanish),
+                gs.displayName(st.spanish),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: theme.textTheme.bodyMedium
@@ -535,7 +775,7 @@ class _HomeScreenState extends State<HomeScreen> {
               pixel: st.pixelSprites,
                   threeD: st.threeDSprites),
           title: Text(
-              '${dexNumber(game, gs)}  ${gs.species.displayName(st.spanish)}'),
+              '${dexNumber(game, gs)}  ${gs.displayName(st.spanish)}'),
           subtitle: Text(_label(gs)),
           trailing: SizedBox(
             width: 90,

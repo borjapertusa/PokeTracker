@@ -7,12 +7,15 @@ import 'models.dart';
 import 'progress.dart';
 
 /// Cómo se ordena la lista de la barra lateral.
-enum GameSort { generation, name, progress, manual }
+enum GameSort { generation, generationDesc, name, nameDesc, progress, progressAsc, manual }
 
 const gameSortLabels = {
-  GameSort.generation: 'Por generación',
+  GameSort.generation: 'Generación (más antigua → más nueva)',
+  GameSort.generationDesc: 'Generación (más nueva → más antigua)',
   GameSort.name: 'Nombre (A–Z)',
-  GameSort.progress: 'Mayor progreso',
+  GameSort.nameDesc: 'Nombre (Z–A)',
+  GameSort.progress: 'Progreso (mayor a menor)',
+  GameSort.progressAsc: 'Progreso (menor a mayor)',
   GameSort.manual: 'Manual',
 };
 
@@ -189,7 +192,19 @@ class GameStore extends ChangeNotifier {
   List<Game> sorted(Progress p) {
     switch (sort) {
       case GameSort.generation:
-        return List.of(games);
+      case GameSort.generationDesc:
+        final originalPosition = {
+          for (var i = 0; i < games.length; i++) games[i].id: i
+        };
+        return List.of(games)
+          ..sort((a, b) {
+            final generationOrder = sort == GameSort.generation
+                ? a.gen.compareTo(b.gen)
+                : b.gen.compareTo(a.gen);
+            return generationOrder != 0
+                ? generationOrder
+                : originalPosition[a.id]!.compareTo(originalPosition[b.id]!);
+          });
       case GameSort.name:
         final byName = {for (var i = 0; i < games.length; i++) games[i].id: i};
         return List.of(games)
@@ -197,12 +212,22 @@ class GameStore extends ChangeNotifier {
             final c = a.name.toLowerCase().compareTo(b.name.toLowerCase());
             return c != 0 ? c : byName[a.id]!.compareTo(byName[b.id]!);
           });
+      case GameSort.nameDesc:
+        final byName = {for (var i = 0; i < games.length; i++) games[i].id: i};
+        return List.of(games)
+          ..sort((a, b) {
+            final c = b.name.toLowerCase().compareTo(a.name.toLowerCase());
+            return c != 0 ? c : byName[a.id]!.compareTo(byName[b.id]!);
+          });
       case GameSort.progress:
+      case GameSort.progressAsc:
         final pos = {for (var i = 0; i < games.length; i++) games[i].id: i};
         final ratio = {for (final g in games) g.id: _ratio(g, p)};
         return List.of(games)
           ..sort((a, b) {
-            final c = ratio[b.id]!.compareTo(ratio[a.id]!);
+            final c = sort == GameSort.progress
+                ? ratio[b.id]!.compareTo(ratio[a.id]!)
+                : ratio[a.id]!.compareTo(ratio[b.id]!);
             return c != 0 ? c : pos[a.id]!.compareTo(pos[b.id]!);
           });
       case GameSort.manual:

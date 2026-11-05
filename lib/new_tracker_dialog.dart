@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'game_store.dart';
 import 'models.dart';
+import 'widgets.dart';
 
 class _DexRow {
   final TextEditingController name;
@@ -81,6 +82,7 @@ class _NewTrackerDialogState extends State<NewTrackerDialog> {
     required T value,
     required Map<T, String> items,
     required ValueChanged<T> onChanged,
+    Map<T, Game>? gameItems,
   }) {
     return InputDecorator(
       decoration: InputDecoration(
@@ -95,7 +97,9 @@ class _NewTrackerDialogState extends State<NewTrackerDialog> {
           isDense: true,
           items: [
             for (final e in items.entries)
-              DropdownMenuItem<T>(value: e.key, child: Text(e.value)),
+              DropdownMenuItem<T>(value: e.key, child: gameItems != null && gameItems[e.key] != null
+                  ? Row(children: [GameIcon(gameItems[e.key]!, size: 30), const SizedBox(width: 8), Expanded(child: Text(e.value, overflow: TextOverflow.ellipsis))])
+                  : Text(e.value)),
           ],
           onChanged: (v) {
             if (v != null) onChanged(v);
@@ -179,6 +183,7 @@ class _NewTrackerDialogState extends State<NewTrackerDialog> {
                 label: 'Juego',
                 value: r.copyOf!,
                 items: {for (final g in widget.copyable) g.id: g.name},
+                gameItems: {for (final g in widget.copyable) g.id: g},
                 onChanged: (v) => setState(() => r.copyOf = v),
               ),
             ],

@@ -1,0 +1,13 @@
+Pokémon Pokopia - Pokédex principal (300 entradas)
+
+Orden y selección de especies basados en:
+https://pokopia.dev/pokopia-pokemon-list
+
+Esta integración añade la Pokédex principal numerada del 001 al 300.
+Las Pokédex de eventos y del contenido adicional Bubbly Basin no están incluidas
+como listas separadas en esta versión. Las formas exclusivas de Pokopia se
+representan mediante la especie/forma más cercana disponible en el catálogo
+principal de PokeTracker cuando no existe un registro independiente.
+
+Los iconos de edición de PokeTracker son identificadores gráficos propios
+(siglas y color), no carátulas oficiales.

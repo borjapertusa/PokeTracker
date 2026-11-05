@@ -5,7 +5,7 @@ class DexEntry {
 
   DexEntry.fromJson(Map<String, dynamic> j)
       : id = j['id'],
-        label = j['label'],
+        label = _localizedEntryLabel((j['label'] ?? '').toString()),
         kind = j['kind'],
         gender = j['gender'],
         sprite = j['sprite'],
@@ -41,7 +41,9 @@ class GameSpecies {
   final Species species;
   final int no;
   final List<DexEntry> entries;
-  const GameSpecies(this.species, this.no, this.entries);
+  final String? label;
+  const GameSpecies(this.species, this.no, this.entries, {this.label});
+  String displayName(bool spanish) => label ?? species.displayName(spanish);
 }
 
 /// Pokédex de un juego (o de Pokémon HOME, que lo incluye todo).
@@ -69,4 +71,18 @@ class Game {
   String key(DexEntry e) => id == 'home' ? e.id : '$id:${e.id}';
 
   List<DexEntry> get allEntries => species.expand((s) => s.entries).toList();
+}
+
+
+String _localizedEntryLabel(String value) {
+  const labels = {
+    'Base': 'Base', 'Mega': 'Mega', 'Mega X': 'Mega-X', 'Mega Y': 'Mega-Y',
+    'Mega Z': 'Mega-Z', 'Gmax': 'Gigamax', 'Alola': 'Alola', 'Galar': 'Galar',
+    'Hisui': 'Hisui', 'Paldea': 'Paldea', 'Totem': 'Dominante',
+    'Female': 'Hembra', 'Male': 'Macho', 'Starter': 'Inicial',
+    'Therian': 'Tótem', 'Incarnate': 'Avatar', 'Origin': 'Origen',
+    'Attack': 'Forma Ataque', 'Defense': 'Forma Defensa', 'Speed': 'Forma Velocidad',
+    'Sunny': 'Soleado', 'Rainy': 'Lluvioso', 'Snowy': 'Nevado',
+  };
+  return labels[value] ?? value;
 }

@@ -4,12 +4,14 @@ import 'game_store.dart';
 import 'models.dart';
 import 'new_tracker_dialog.dart';
 import 'progress.dart';
+import 'widgets.dart';
 
 const _roman = ['', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X'];
 
 String _groupOf(Game g) {
   if (g.custom) return 'MIS JUEGOS';
   if (g.gen == 0) return 'GENERAL';
+  if (g.id == 'pokopia' || g.id == 'pokopia-dlc') return 'POKOPIA';
   return 'GENERACIÓN ${g.gen < _roman.length ? _roman[g.gen] : g.gen}';
 }
 
@@ -128,6 +130,7 @@ class GameList extends StatelessWidget {
                             for (final g in hidden)
                               ListTile(
                                 dense: true,
+                                leading: GameIcon(g, size: 34),
                                 title: Text(g.name),
                                 trailing: const Icon(Icons.restore),
                                 onTap: () => store.restore(g),
@@ -208,9 +211,17 @@ class GameList extends StatelessWidget {
     final manual = store.sort == GameSort.manual;
     return ListTile(
       dense: true,
+      leading: GameIcon(g, size: 34),
       selected: g.id == current.id,
       selectedTileColor: theme.colorScheme.secondaryContainer,
-      title: Text(g.name, maxLines: 2, overflow: TextOverflow.ellipsis),
+      title: Row(children: [
+        Expanded(child: Text(g.name, maxLines: 2, overflow: TextOverflow.ellipsis)),
+        if (t > 0 && ratio >= 1.0)
+          const Padding(
+            padding: EdgeInsets.only(left: 6),
+            child: Tooltip(message: 'Pokédex completada al 100%', child: Icon(Icons.workspace_premium, color: Color(0xFFFFB300), size: 19)),
+          ),
+      ]),
       subtitle: Padding(
         padding: const EdgeInsets.only(top: 4),
         child: Column(

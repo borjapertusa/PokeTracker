@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'details.dart';
+import 'location_names_es.dart';
 import 'models.dart';
+import 'move_dex.dart';
 import 'settings.dart';
 import 'widgets.dart';
 
@@ -44,6 +46,8 @@ class PokemonInfo extends StatefulWidget {
   final DexDetails? details;
   final Map<int, Species> byDex;
   final AppSettings settings;
+  final bool showLocations;
+  final bool showMoves;
   const PokemonInfo({
     super.key,
     required this.game,
@@ -52,6 +56,8 @@ class PokemonInfo extends StatefulWidget {
     required this.details,
     required this.byDex,
     required this.settings,
+    this.showLocations = true,
+    this.showMoves = false,
   });
 
   @override
@@ -87,6 +93,7 @@ class _PokemonInfoState extends State<PokemonInfo> {
             )
           else
             ..._sections(context, info),
+          if (widget.showMoves) PokemonMovesSection(pokemon: sp.name, spanish: widget.settings.spanish),
           Padding(
             padding: const EdgeInsets.only(top: 12),
             child: Wrap(
@@ -129,7 +136,7 @@ class _PokemonInfoState extends State<PokemonInfo> {
       'weight': _varietyOverride(dex, varietyName, 'weight', _num(cur.weight / 10)),
       'exp': _varietyOverride(dex, varietyName, 'exp', '${cur.exp}'),
       'catch': _speciesOverride(dex, 'catch', '${info.catchRate ?? ''}'),
-      'egg': _speciesOverride(dex, 'egg', info.egg.join(', ')),
+      'egg': _speciesOverride(dex, 'egg', info.egg.map(eggGroupName).join(', ')),
       'growth': _speciesOverride(dex, 'growth', info.growth),
       'hatch': _speciesOverride(dex, 'hatch', info.hatch == null ? '' : '${(info.hatch! + 1) * 255}'),
       'happy': _speciesOverride(dex, 'happy', '${info.happy ?? ''}'),
@@ -146,7 +153,7 @@ class _PokemonInfoState extends State<PokemonInfo> {
     final saved = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text('Editar datos · ${widget.gs.species.displayName(widget.settings.spanish)}'),
+        title: Text('Editar datos · ${widget.gs.displayName(widget.settings.spanish)}'),
         content: SizedBox(
           width: 520,
           child: SingleChildScrollView(
@@ -177,6 +184,13 @@ class _PokemonInfoState extends State<PokemonInfo> {
       ),
     );
     try {
+      // Espera a que Flutter termine de retirar la ruta del diálogo. Notificar
+      // a los ListenableBuilder durante la transición puede dejar dependientes
+      // de InheritedElements todavía montados (assert _dependents.isEmpty).
+      if (saved == true) {
+        await WidgetsBinding.instance.endOfFrame;
+        await Future<void>.delayed(const Duration(milliseconds: 250));
+      }
       // No persistimos ni notificamos a toda la aplicación si el usuario
       // pulsa Guardar sin haber cambiado ningún dato.
       final changed = fields.keys.any(
@@ -208,10 +222,7 @@ class _PokemonInfoState extends State<PokemonInfo> {
     final suffix = v.name.startsWith('${sp.name}-')
         ? v.name.substring(sp.name.length + 1)
         : v.name;
-    return suffix
-        .split('-')
-        .map((w) => w.isEmpty ? w : w[0].toUpperCase() + w.substring(1))
-        .join(' ');
+    return localizedFormName(suffix);
   }
 
   Widget _title(ThemeData t, String s) => Padding(
@@ -249,7 +260,7 @@ class _PokemonInfoState extends State<PokemonInfo> {
     final weight = double.tryParse(_varietyOverride(sp.dex, cur.name, 'weight', _num(cur.weight / 10))) ?? cur.weight / 10;
     final exp = int.tryParse(_varietyOverride(sp.dex, cur.name, 'exp', '${cur.exp}')) ?? cur.exp;
     final catchRate = _speciesOverride(sp.dex, 'catch', '${info.catchRate ?? ''}');
-    final egg = _speciesOverride(sp.dex, 'egg', info.egg.join(', '));
+    final egg = _speciesOverride(sp.dex, 'egg', info.egg.map(eggGroupName).join(', '));
     final growth = _speciesOverride(sp.dex, 'growth', info.growth);
     final hatch = _speciesOverride(sp.dex, 'hatch', info.hatch == null ? '' : '${(info.hatch! + 1) * 255}');
     final happy = _speciesOverride(sp.dex, 'happy', '${info.happy ?? ''}');
@@ -324,7 +335,7 @@ class _PokemonInfoState extends State<PokemonInfo> {
             child: Chip(
               avatar: const Icon(Icons.info_outline, size: 16),
               visualDensity: VisualDensity.compact,
-              label: Text('${abilities[id] ?? id}${hidden ? ' (oculta)' : ''}'),
+              label: Text('${abilities[id] ?? id}${abilityRoleLabel(id, hidden) == 'Principal' ? '' : ' (${abilityRoleLabel(id, hidden)})'}'),
             ),
           ),
       ]),
@@ -360,56 +371,238 @@ class _PokemonInfoState extends State<PokemonInfo> {
       ),
       _title(t, 'Evolución'),
       _evolution(t, info),
-      ..._where(t, cur),
+      if (widget.showLocations) ..._where(t, cur),
     ];
   }
 
   Widget _evolution(ThemeData t, SpeciesInfo info) {
     final tree = widget.details?.chain(info.chain);
-    final edges = tree == null ? <(int, String, int)>[] : evoEdges(tree);
-    if (edges.isEmpty) {
+    if (tree == null || (tree.to.isEmpty && tree.dex != widget.gs.species.dex)) {
       return Text('No evoluciona.', style: t.textTheme.bodySmall);
     }
-    Widget mon(int d) {
-      final s = widget.byDex[d];
-      final isCur = d == widget.gs.species.dex;
-      return SizedBox(
-        width: 76,
-        child: Column(children: [
-          Sprite(s?.entries.first.sprite,
-              size: 48, pixel: widget.settings.pixelSprites,
-              threeD: widget.settings.threeDSprites),
+
+    // Cada evolución se representa como una rama independiente. Wrap permite
+    // que las ramas pasen a varias filas cuando la ventana es estrecha.
+    return LayoutBuilder(
+      builder: (context, _) => Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 14),
+        decoration: BoxDecoration(
+          color: t.colorScheme.surfaceContainerLowest,
+          border: Border.all(color: t.colorScheme.outlineVariant),
+          borderRadius: BorderRadius.circular(14),
+        ),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.vertical,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Wrap(
+                alignment: WrapAlignment.center,
+                spacing: 12,
+                runSpacing: 5,
+                children: [
+                  _evolutionLegend(t, const Color(0xFF2878D0), 'Desde forma base'),
+                  _evolutionLegend(t, const Color(0xFF299B58), 'Desde 1.ª evolución'),
+                  _evolutionLegend(t, const Color(0xFFE04444), 'Mega'),
+                  _evolutionLegend(t, const Color(0xFFE58A24), 'Gigamax'),
+                ],
+              ),
+              const SizedBox(height: 12),
+              Center(child: _evolutionNode(tree, t, 0)),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _evolutionLegend(ThemeData t, Color color, String label) => Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(Icons.arrow_downward, size: 14, color: color),
+          const SizedBox(width: 3),
+          Text(label, style: t.textTheme.labelSmall),
+        ],
+      );
+
+  Widget _evolutionNode(EvoNode node, ThemeData t, int depth) {
+    final species = widget.byDex[node.dex];
+    final isCurrent = node.dex == widget.gs.species.dex;
+    final name = species?.displayName(widget.settings.spanish) ?? '#${node.dex}';
+    final baseEntry = species == null
+        ? null
+        : (species.entries.where((e) => e.kind == 'base').isNotEmpty
+            ? species.entries.firstWhere((e) => e.kind == 'base')
+            : species.entries.first);
+    final specialForms = species?.entries
+            .where((e) => e.kind == 'mega' || e.kind == 'gmax')
+            .toList() ??
+        const <DexEntry>[];
+    final edgeColor = depth == 0
+        ? const Color(0xFF2878D0)
+        : const Color(0xFF299B58);
+
+    final card = Container(
+      width: 94,
+      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 7),
+      decoration: BoxDecoration(
+        color: isCurrent
+            ? t.colorScheme.primaryContainer
+            : t.colorScheme.surface,
+        borderRadius: BorderRadius.circular(11),
+        border: Border.all(
+          color: isCurrent
+              ? t.colorScheme.primary
+              : t.colorScheme.outlineVariant,
+          width: isCurrent ? 1.8 : 1,
+        ),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Sprite(
+            baseEntry?.sprite,
+            size: 48,
+            pixel: widget.settings.pixelSprites,
+            threeD: widget.settings.threeDSprites,
+          ),
           Text(
-            s?.displayName(widget.settings.spanish) ?? '#$d',
+            name,
             textAlign: TextAlign.center,
-            maxLines: 1,
+            maxLines: 2,
             overflow: TextOverflow.ellipsis,
             style: t.textTheme.labelSmall?.copyWith(
-                fontWeight: isCur ? FontWeight.bold : FontWeight.normal),
-          ),
-        ]),
-      );
-    }
-
-    return Column(children: [
-      for (final (from, req, to) in edges)
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 4),
-          child: Row(children: [
-            mon(from),
-            const Icon(Icons.arrow_forward, size: 16),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 6),
-                child: Text(req,
-                    textAlign: TextAlign.center, style: t.textTheme.bodySmall),
-              ),
+              fontWeight: isCurrent ? FontWeight.bold : FontWeight.w500,
             ),
-            const Icon(Icons.arrow_forward, size: 16),
-            mon(to),
-          ]),
+          ),
+        ],
+      ),
+    );
+
+    if (node.to.isEmpty && specialForms.isEmpty) return card;
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        card,
+        const SizedBox(height: 5),
+        if (specialForms.isNotEmpty)
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+              for (final form in specialForms)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
+                  child: SizedBox(
+                  width: 132,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        Icons.south,
+                        size: 19,
+                        color: form.kind == 'mega'
+                            ? const Color(0xFFE04444)
+                            : const Color(0xFFE58A24),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 5),
+                        child: Text(
+                          form.kind == 'mega' ? 'Megaevolución' : 'Gigamax',
+                          textAlign: TextAlign.center,
+                          style: t.textTheme.labelSmall?.copyWith(
+                            color: form.kind == 'mega'
+                                ? const Color(0xFFE04444)
+                                : const Color(0xFFE58A24),
+                          ),
+                        ),
+                      ),
+                      _evolutionFormCard(form, name, t),
+                    ],
+                  ),
+                ),
+                ),
+            ],
+            ),
+          ),
+        if (node.to.isNotEmpty) const SizedBox(height: 5),
+        if (node.to.isNotEmpty) Wrap(
+          alignment: WrapAlignment.center,
+          crossAxisAlignment: WrapCrossAlignment.start,
+          spacing: 10,
+          runSpacing: 12,
+          children: [
+            for (final (requirement, child) in node.to)
+              SizedBox(
+                width: 132,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      Icons.south,
+                      size: 19,
+                      color: edgeColor,
+                    ),
+                    if (requirement.trim().isNotEmpty)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 5),
+                        child: Text(
+                          requirement,
+                          textAlign: TextAlign.center,
+                          style: t.textTheme.labelSmall?.copyWith(
+                            color: edgeColor,
+                          ),
+                        ),
+                      ),
+                    _evolutionNode(child, t, depth + 1),
+                  ],
+                ),
+              ),
+          ],
         ),
-    ]);
+      ],
+    );
+  }
+
+  Widget _evolutionFormCard(DexEntry form, String baseName, ThemeData t) {
+    final formName = form.kind == 'mega'
+        ? 'Mega $baseName'
+        : '$baseName Gigamax';
+    return Container(
+      width: 94,
+      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 7),
+      decoration: BoxDecoration(
+        color: t.colorScheme.surface,
+        borderRadius: BorderRadius.circular(11),
+        border: Border.all(
+          color: form.kind == 'mega'
+              ? const Color(0xFFE04444)
+              : const Color(0xFFE58A24),
+        ),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Sprite(
+            form.sprite,
+            size: 48,
+            pixel: widget.settings.pixelSprites,
+            threeD: widget.settings.threeDSprites,
+          ),
+          Text(
+            formName,
+            textAlign: TextAlign.center,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: t.textTheme.labelSmall,
+          ),
+        ],
+      ),
+    );
   }
 
   List<Widget> _where(ThemeData t, VarietyInfo cur) {
@@ -420,7 +613,7 @@ class _PokemonInfoState extends State<PokemonInfo> {
     return [
       _title(t, 'Dónde conseguirlo'),
       if (g.id != 'home') ...[
-        Text(g.name, style: t.textTheme.labelLarge),
+        Row(mainAxisSize: MainAxisSize.min, children: [GameIcon(g, size: 32), const SizedBox(width: 8), Flexible(child: Text(g.name, style: t.textTheme.labelLarge))]),
         if (here == null)
           Padding(
             padding: const EdgeInsets.only(top: 4),
@@ -442,8 +635,12 @@ class _PokemonInfoState extends State<PokemonInfo> {
                 alignment: Alignment.centerLeft,
                 child: Padding(
                   padding: const EdgeInsets.only(top: 8),
-                  child: Text(names[o.key] ?? o.key,
-                      style: t.textTheme.labelLarge),
+                  child: Row(mainAxisSize: MainAxisSize.min, children: [
+                    if (widget.games.any((x) => x.id == o.key))
+                      GameIcon(widget.games.firstWhere((x) => x.id == o.key), size: 30),
+                    const SizedBox(width: 8),
+                    Flexible(child: Text(names[o.key] ?? o.key, style: t.textTheme.labelLarge)),
+                  ]),
                 ),
               ),
               ..._versionTiles(t, o.value, expanded: false),
@@ -471,7 +668,7 @@ class _PokemonInfoState extends State<PokemonInfo> {
               ListTile(
                 dense: true,
                 contentPadding: EdgeInsets.zero,
-                title: Text(r.area),
+                title: Text(locationNameEs(r.area)),
                 subtitle: Text([...r.methods, ...r.conds].join(' · ')),
                 trailing: Text(
                   [
