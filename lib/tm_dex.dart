@@ -64,6 +64,27 @@ class _TmDexScreenState extends State<TmDexScreen> {
 
   Future<List<_MachineRow>> _load(_GameSet set) => _cache.putIfAbsent(
       set.groups.join(','), () async {
+        // Leyendas Z-A tiene un catálogo propio (107 MT base + 53 del DLC),
+        // no compatible con los IDs de máquina de PokéAPI.
+        if (set.groups.contains('legends-z-a')) {
+          try {
+            final raw = await rootBundle.loadString('assets/data/za_machines.json');
+            final data = jsonDecode(raw) as Map<String, dynamic>;
+            final entries = (data['machines'] as List? ?? const []).cast<Map<String, dynamic>>();
+            return entries.map((e) {
+              final info = _MoveInfo(
+                e['nameEs']?.toString() ?? 'Movimiento no disponible',
+                e['typeEs']?.toString() ?? '—', e['categoryEs']?.toString() ?? '—',
+                e['effectEs']?.toString() ?? 'Consultar descripción en el juego',
+                e['power'] as int?, e['accuracy'] as int?, e['pp'] as int?,
+              );
+              return _MachineRow('za-tm-${e['number']}', e['move']?.toString() ?? 'za-tm-${e['number']}', '',
+                e['number'] as int, 'MT', 'legends-z-a', info: info);
+            }).toList();
+          } catch (_) {
+            throw Exception('Faltan los datos locales de Z-A. Ejecuta dart run tool/download_za_machines.dart');
+          }
+        }
         // Si se ejecutó tool/download_machines.dart, prioriza el catálogo local.
         // Al estar incluido en assets/data/, funciona también en Windows sin red.
         try {

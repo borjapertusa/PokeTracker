@@ -9,6 +9,8 @@ class _DexRow {
   DexSource source = DexSource.national;
   int gen = 1;
   String? copyOf;
+  bool nationalForGame = false;
+  bool includeDlc = false;
   _DexRow(String text) : name = TextEditingController(text: text);
 }
 
@@ -69,8 +71,9 @@ class _NewTrackerDialogState extends State<NewTrackerDialog> {
             DexSpec(
               name: r.name.text.trim(),
               source: r.source,
-              gen: r.gen,
               copyOf: r.copyOf,
+              nationalForGame: r.nationalForGame,
+              includeDlc: r.includeDlc,
             ),
         ],
       ),
@@ -113,12 +116,8 @@ class _NewTrackerDialogState extends State<NewTrackerDialog> {
     final theme = Theme.of(context);
     final r = _rows[i];
     final help = switch (r.source) {
-      DexSource.national =>
-        'Todas las especies, con su número nacional (como Pokémon HOME).',
-      DexSource.generation =>
-        'Las especies que debutaron en esa generación, con su número nacional.',
-      DexSource.copy =>
-        'Mismas especies y números que ese juego. Tu progreso será independiente.',
+      DexSource.national => 'Todas las especies, con su número nacional (como Pokémon HOME).',
+      DexSource.copy => 'Copia la Pokédex regional del juego seleccionado.',
     };
     return Card(
       key: ObjectKey(r),
@@ -155,7 +154,6 @@ class _NewTrackerDialogState extends State<NewTrackerDialog> {
               value: r.source,
               items: {
                 DexSource.national: 'Nacional (todos los Pokémon)',
-                DexSource.generation: 'Los Pokémon de una generación',
                 if (widget.copyable.isNotEmpty)
                   DexSource.copy: 'Copiar la lista de otro juego',
               },
@@ -166,17 +164,6 @@ class _NewTrackerDialogState extends State<NewTrackerDialog> {
                 }
               }),
             ),
-            if (r.source == DexSource.generation) ...[
-              const SizedBox(height: 8),
-              _dropdown<int>(
-                label: 'Generación',
-                value: r.gen,
-                items: {
-                  for (var g = 1; g <= widget.maxGen; g++) g: 'Generación $g',
-                },
-                onChanged: (v) => setState(() => r.gen = v),
-              ),
-            ],
             if (r.source == DexSource.copy && r.copyOf != null) ...[
               const SizedBox(height: 8),
               _dropdown<String>(
@@ -184,8 +171,23 @@ class _NewTrackerDialogState extends State<NewTrackerDialog> {
                 value: r.copyOf!,
                 items: {for (final g in widget.copyable) g.id: g.name},
                 gameItems: {for (final g in widget.copyable) g.id: g},
-                onChanged: (v) => setState(() => r.copyOf = v),
+                onChanged: (v) => setState(() { r.copyOf = v; r.includeDlc = false; }),
               ),
+              SwitchListTile(
+                contentPadding: EdgeInsets.zero, dense: true,
+                title: const Text('Usar Pokédex nacional de este juego'),
+                subtitle: const Text('Todas las especies, con el icono y generación del juego elegido.'),
+                value: r.nationalForGame,
+                onChanged: (v) => setState(() => r.nationalForGame = v),
+              ),
+              if (!r.nationalForGame && const ['sword-shield','scarlet-violet','legends-za'].contains(r.copyOf))
+                SwitchListTile(
+                  contentPadding: EdgeInsets.zero, dense: true,
+                  title: const Text('Incluir los DLC'),
+                  subtitle: const Text('Añade las secciones de expansiones disponibles.'),
+                  value: r.includeDlc,
+                  onChanged: (v) => setState(() => r.includeDlc = v),
+                ),
             ],
             const SizedBox(height: 6),
             Text(help, style: theme.textTheme.bodySmall),

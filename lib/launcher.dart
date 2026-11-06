@@ -17,6 +17,7 @@ import 'global_moves_dex.dart';
 import 'objects_dex.dart';
 import 'settings.dart';
 import 'settings_drawer.dart';
+import 'offline_content.dart';
 import 'tm_dex.dart';
 
 /// Una sección de la app que aparece en la pantalla de inicio.
@@ -76,6 +77,14 @@ class _LauncherScreenState extends State<LauncherScreen> {
     final n = widget.progress.count(home, all);
     final sh = widget.progress.count(home, all, shiny: true);
     return [
+      AppSection(
+        id: 'offline_content',
+        title: 'Contenido local',
+        subtitle: 'Comprueba qué catálogos e imágenes están incluidos y configura el uso sin conexión.',
+        icon: Icons.offline_bolt_outlined,
+        stat: 'Gestión offline',
+        builder: (_) => OfflineContentScreen(settings: widget.settings),
+      ),
       AppSection(
         id: 'tracker',
         title: 'Tracker',

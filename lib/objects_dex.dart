@@ -488,9 +488,11 @@ class _ItemSprite extends StatelessWidget {
     width: size, height: size,
     child: url == null || url!.isEmpty
       ? const Icon(Icons.inventory_2_outlined)
-      : url!.startsWith('assets/')
-          ? Image.asset(url!, fit: BoxFit.contain,
-              errorBuilder: (_, __, ___) => const Icon(Icons.inventory_2_outlined))
+      : url!.startsWith('assets/') || AppSettings.current?.offlineMode == true
+          ? (url!.startsWith('assets/')
+              ? Image.asset(url!, fit: BoxFit.contain,
+                  errorBuilder: (_, __, ___) => const Icon(Icons.inventory_2_outlined))
+              : const Icon(Icons.inventory_2_outlined))
           : Image.network(url!, fit: BoxFit.contain,
               errorBuilder: (_, __, ___) => const Icon(Icons.inventory_2_outlined)),
   );

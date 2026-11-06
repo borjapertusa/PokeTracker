@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'models.dart';
+import 'settings.dart';
 
 /// Muestra sprites locales/online y, opcionalmente, renderizados 3D de HOME.
 /// Si el renderizado 3D no existe o no hay conexión, conserva el sprite 2D.
@@ -36,9 +37,11 @@ class Sprite extends StatelessWidget {
   String? _homeAssetPath(String? source) {
     if (source == null) return null;
     final file = source.split('/').last;
-    return RegExp(r'^(shiny_)?(female_)?(\d+)\.png$').hasMatch(file)
-        ? 'assets/sprites3d/$file'
-        : null;
+    final m = RegExp(r'^(shiny_)?(female_)?(\d+)\.png$').firstMatch(file);
+    if (m == null) return null;
+    final shiny = m.group(1) != null;
+    final id = m.group(3)!.padLeft(4, '0');
+    return 'assets/sprites3d/${shiny ? 'shiny' : 'regular'}_$id.webp';
   }
 
   @override
@@ -50,6 +53,7 @@ class Sprite extends StatelessWidget {
     Widget fallback() {
       if (p == null) return const Icon(Icons.help_outline);
       if (p.startsWith('http')) {
+        if (AppSettings.current?.offlineMode == true) return broken;
         return Image.network(p, fit: BoxFit.contain, filterQuality: quality,
             errorBuilder: (_, __, ___) => broken);
       }
@@ -64,9 +68,23 @@ class Sprite extends StatelessWidget {
             ? (female ? 'shiny/female/' : 'shiny/')
             : (female ? 'female/' : '');
         final url = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$suffix$id.png';
-        return Image.asset(p, fit: BoxFit.contain, filterQuality: quality,
-            errorBuilder: (_, __, ___) => Image.network(url, fit: BoxFit.contain,
-                filterQuality: quality, errorBuilder: (_, __, ___) => broken));
+        if (AppSettings.current?.offlineMode == true) {
+          return Image.asset(p, fit: BoxFit.contain, filterQuality: quality,
+              errorBuilder: (_, __, ___) => broken);
+        }
+        // PokéPC sirve los iconos HOME 3D en WebP; se usa como primera
+        // alternativa visual y se conserva PokéAPI como respaldo.
+        final pokepc = 'https://static.pokepc.net/images/pokemon/home3d-icon-xl/${shiny ? 'shiny' : 'regular'}/${id.padLeft(4, '0')}.webp?v=20260515';
+        final localPokepc = _homeAssetPath(p);
+        Widget networkPokepc() => Image.network(pokepc, fit: BoxFit.contain,
+            filterQuality: FilterQuality.medium,
+            errorBuilder: (_, __, ___) => Image.asset(p, fit: BoxFit.contain,
+              filterQuality: quality,
+              errorBuilder: (_, __, ___) => Image.network(url, fit: BoxFit.contain,
+                filterQuality: quality, errorBuilder: (_, __, ___) => broken)));
+        return localPokepc == null ? networkPokepc() : Image.asset(localPokepc,
+          fit: BoxFit.contain, filterQuality: FilterQuality.medium,
+          errorBuilder: (_, __, ___) => networkPokepc());
       }
       return Image.asset(p, fit: BoxFit.contain, filterQuality: quality,
           errorBuilder: (_, __, ___) => broken);
@@ -74,7 +92,9 @@ class Sprite extends StatelessWidget {
 
     final home = threeD ? _homeUrl(p) : null;
     final local3d = threeD ? _homeAssetPath(p) : null;
-    Widget network3d() => home == null
+    Widget network3d() => AppSettings.current?.offlineMode == true
+        ? fallback()
+        : home == null
         ? fallback()
         : Image.network(
             home,
@@ -132,15 +152,17 @@ class GameIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final code = _codes[game.id] ??
-        (game.custom ? 'PRO' : game.name.substring(0, game.name.length >= 2 ? 2 : game.name.length).toUpperCase());
-    final color = game.id == 'home'
+    final customSource = game.custom ? game.id : null;
+    final code = _codes[game.id] ?? _codes[game.iconId] ??
+        (game.custom && customSource != null && customSource.startsWith('custom_')
+            ? 'NAC'
+            : game.name.substring(0, game.name.length >= 2 ? 2 : game.name.length).toUpperCase());
+    final iconGame = game.iconId ?? game.id;
+    final color = iconGame == 'home'
         ? const Color(0xFF477FB5)
-        : (game.id == 'pokopia' || game.id == 'pokopia-dlc')
+        : (iconGame == 'pokopia' || iconGame == 'pokopia-dlc')
             ? const Color(0xFF6B9B78)
-            : game.custom
-                ? Theme.of(context).colorScheme.tertiary
-                : _palette[(game.gen.clamp(1, 10).toInt() - 1) % _palette.length];
+            : _palette[(game.gen.clamp(1, 10).toInt() - 1) % _palette.length];
     return Tooltip(
       message: game.name,
       child: Container(

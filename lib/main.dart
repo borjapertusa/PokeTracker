@@ -79,8 +79,12 @@ Species _trackerSpecies(Map<String, dynamic> source) {
         if (translations.containsKey(id)) m['label'] = translations[id]!.trim();
         if (dex == 678 && id == 'meowstic-male-mega') m['label'] = 'Mega';
         if (dex == 978 && id == 'tatsugiri-curly-mega') m['label'] = 'Mega';
-        // El shiny de los Pikachu con gorra no fue liberado oficialmente.
-        if (dex == 25 && id.contains('cap')) m['shiny'] = null;
+        // Variantes sin distribución variocolor oficial conocida: no se ofrecen
+        // como objetivo de captura variocolor en el tracker.
+        const neverReleasedSpecies = <int>{494, 720, 789, 790, 801, 802, 891, 892, 893, 896, 897, 898, 1009, 1010, 1014, 1015, 1016, 1017, 1020, 1021, 1022, 1023, 1024, 1025};
+        if (neverReleasedSpecies.contains(dex) || (dex == 25 && id.contains('cap')) ||
+            (dex == 666 && (id.contains('pokeball') || id.contains('fancy'))) ||
+            (dex ==  670 && id.contains('eternal'))) m['shiny'] = null;
         return m;
       }).toList();
   return Species.fromJson({...source, 'entries': entries});
@@ -158,28 +162,48 @@ Future<List<Game>> _loadGames(List<Species> species) async {
     };
     final raw = await rootBundle.loadString('assets/data/games.json');
     final gj = jsonDecode(raw) as Map<String, dynamic>;
-    for (final g in gj['games'] as List) {
-      final m = g as Map<String, dynamic>;
+    final rawGames = (gj['games'] as List).cast<Map<String, dynamic>>();
+    final dlcParents = <String, (String, String)>{
+      'isle-of-armor': ('sword-shield', 'DLC 1 · La isla de la armadura'),
+      'crown-tundra': ('sword-shield', 'DLC 2 · Las nieves de la corona'),
+      'teal-mask': ('scarlet-violet', 'DLC 1 · La máscara turquesa'),
+      'indigo-disk': ('scarlet-violet', 'DLC 2 · El disco índigo'),
+      'za-mega-dimension': ('legends-za', 'DLC 1 · Megadimensión'),
+    };
+    final mergedSpecies = <String, List<GameSpecies>>{};
+    for (final m in rawGames) {
+      final id = m['id'] as String;
+      final dlc = dlcParents[id];
+      final parentId = dlc?.$1 ?? id;
+      final hasDlc = dlcParents.values.any((v) => v.$1 == id);
+      final section = dlc?.$2 ?? (hasDlc ? 'Juego base' : null);
       final list = <GameSpecies>[];
       for (final sp in m['species'] as List) {
         final sm = sp as Map<String, dynamic>;
         final base = byDex[sm['d'] as int];
         if (base == null) continue;
         final es = <DexEntry>[
-          for (final id in sm['e'] as List)
-            if (byId[id] != null) byId[id]!,
+          for (final entryId in sm['e'] as List)
+            if (byId[entryId] != null) byId[entryId]!,
         ];
-        if (es.isNotEmpty) list.add(GameSpecies(base, sm['n'] as int, es, label: sm['label'] as String?));
+        if (es.isNotEmpty) {
+          list.add(GameSpecies(base, sm['n'] as int, es,
+              label: sm['label'] as String?, section: section));
+        }
       }
+      mergedSpecies.putIfAbsent(parentId, () => []).addAll(list);
+      if (dlc != null) continue;
       games.add(Game(
-        id: m['id'] as String,
+        id: id,
         name: m['name'] as String,
         gen: m['gen'] as int,
         shiny: m['shiny'] as bool,
         genders: m['genders'] as bool,
-        species: list,
+        species: mergedSpecies[id]!,
       ));
     }
+    // Las listas DLC ya se han anexado a la misma lista mutable del juego base.
+
   } catch (_) {
     // Sin games.json (aún no generado) solo se muestra Pokémon HOME.
   }

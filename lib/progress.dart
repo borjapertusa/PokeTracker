@@ -187,6 +187,11 @@ class Progress extends ChangeNotifier {
 
   /// Borra el progreso de un juego propio en todos los perfiles.
   void removeGame(String gameId) {
+    // Elimina también los desafíos diarios guardados para este tracker en
+    // todos los perfiles; no deben reaparecer si se crea otro con el mismo ID.
+    for (final profile in _profiles.profiles) {
+      _prefs.remove('daily_challenge_v1_${profile.id}_$gameId');
+    }
     final prefix = '$gameId:';
     if (_bits.keys.any((k) => k.startsWith(prefix))) {
       _bits.removeWhere((k, _) => k.startsWith(prefix));

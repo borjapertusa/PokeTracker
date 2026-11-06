@@ -42,7 +42,8 @@ class GameSpecies {
   final int no;
   final List<DexEntry> entries;
   final String? label;
-  const GameSpecies(this.species, this.no, this.entries, {this.label});
+  final String? section;
+  const GameSpecies(this.species, this.no, this.entries, {this.label, this.section});
   String displayName(bool spanish) => label ?? species.displayName(spanish);
 }
 
@@ -56,6 +57,7 @@ class Game {
   final bool genders; // el juego muestra diferencias de género
   final List<GameSpecies> species;
   final bool custom;
+  final String? iconId;
 
   Game({
     required this.id,
@@ -65,6 +67,7 @@ class Game {
     required this.genders,
     required this.species,
     this.custom = false,
+    this.iconId,
   });
 
   /// Clave de progreso. HOME conserva las claves antiguas (sin prefijo).
