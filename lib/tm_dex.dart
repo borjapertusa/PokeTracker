@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'details.dart';
+import 'move_learners.dart';
 import 'settings.dart';
 import 'text_editor.dart';
 
@@ -64,6 +66,27 @@ class _TmDexScreenState extends State<TmDexScreen> {
 
   Future<List<_MachineRow>> _load(_GameSet set) => _cache.putIfAbsent(
       set.groups.join(','), () async {
+        // Leyendas Z-A tiene un catálogo propio (107 MT base + 53 del DLC),
+        // no compatible con los IDs de máquina de PokéAPI.
+        if (set.groups.contains('legends-z-a')) {
+          try {
+            final raw = await rootBundle.loadString('assets/data/za_machines.json');
+            final data = jsonDecode(raw) as Map<String, dynamic>;
+            final entries = (data['machines'] as List? ?? const []).cast<Map<String, dynamic>>();
+            return entries.map((e) {
+              final info = _MoveInfo(
+                e['nameEs']?.toString() ?? 'Movimiento no disponible',
+                e['typeEs']?.toString() ?? '—', e['categoryEs']?.toString() ?? '—',
+                DescriptionsEs.move(e['move']?.toString() ?? '') ?? e['effectEs']?.toString() ?? 'Consultar descripción en el juego',
+                e['power'] as int?, e['accuracy'] as int?, e['pp'] as int?,
+              );
+              return _MachineRow('za-tm-${e['number']}', e['move']?.toString() ?? 'za-tm-${e['number']}', '',
+                e['number'] as int, 'MT', 'legends-z-a', info: info);
+            }).toList();
+          } catch (_) {
+            throw Exception('Faltan los datos locales de Z-A. Ejecuta dart run tool/download_za_machines.dart');
+          }
+        }
         // Si se ejecutó tool/download_machines.dart, prioriza el catálogo local.
         // Al estar incluido en assets/data/, funciona también en Windows sin red.
         try {
@@ -83,7 +106,7 @@ class _TmDexScreenState extends State<TmDexScreen> {
                 (widget.spanish ? infoData['nameEs'] : infoData['nameEn'])?.toString() ?? _pretty(slug),
                 (widget.spanish ? infoData['typeEs'] : infoData['typeEn'])?.toString() ?? '—',
                 (widget.spanish ? infoData['categoryEs'] : infoData['categoryEn'])?.toString() ?? '—',
-                infoData['effect']?.toString() ?? 'Descripción no disponible.',
+                (widget.spanish ? DescriptionsEs.move(slug) : null) ?? infoData['effect']?.toString() ?? 'Descripción no disponible.',
                 infoData['power'] as int?, infoData['accuracy'] as int?, infoData['pp'] as int?,
               );
             }
@@ -110,7 +133,7 @@ class _TmDexScreenState extends State<TmDexScreen> {
     appBar: AppBar(title: const Text('MT/MO/DT')),
     body: Column(children: [
       Padding(padding: const EdgeInsets.fromLTRB(16, 14, 16, 8), child: DropdownButtonFormField<int>(
-        value: _selected, isExpanded: true,
+        initialValue: _selected, isExpanded: true,
         decoration: const InputDecoration(labelText: 'Grupo de juegos', border: OutlineInputBorder()),
         items: [for (var i=0; i<_gameSets.length; i++) DropdownMenuItem(value:i, child: Text(_gameSets[i].label, overflow: TextOverflow.ellipsis))],
         onChanged: (v) { if (v == null) return; setState(() { _selected=v; _filter='Todas'; _query=''; _future=_load(_gameSets[v]); }); },
@@ -142,8 +165,8 @@ class _TmDexScreenState extends State<TmDexScreen> {
 
 class _MachineDetail extends StatefulWidget { final _MachineRow row; final bool spanish; final AppSettings settings; const _MachineDetail({required this.row,required this.spanish,required this.settings}); @override State<_MachineDetail> createState()=>_MachineDetailState(); }
 class _MachineDetailState extends State<_MachineDetail> {
-  late Future<_MoveInfo> _future=widget.row.info != null ? Future.value(widget.row.info!) : _fetchMoveInfo(widget.row.moveUrl,widget.spanish);
-  @override Widget build(BuildContext context)=>SafeArea(child:Padding(padding:EdgeInsets.fromLTRB(20,20,20,MediaQuery.of(context).viewInsets.bottom+20),child:FutureBuilder<_MoveInfo>(future:_future,builder:(context,s){if(s.connectionState!=ConnectionState.done)return const SizedBox(height:180,child:Center(child:CircularProgressIndicator()));if(s.hasError)return const Text('No se han podido cargar los detalles del movimiento.');final m=s.data!;return SingleChildScrollView(child:Column(crossAxisAlignment:CrossAxisAlignment.start,mainAxisSize:MainAxisSize.min,children:[Text('${widget.row.kind}${widget.row.number}',style:Theme.of(context).textTheme.titleLarge),Text(m.name,style:Theme.of(context).textTheme.headlineSmall),const SizedBox(height:12),Wrap(spacing:8,runSpacing:8,children:[Chip(label:Text('Tipo: ${m.type}')),Chip(label:Text('Categoría: ${m.category}')),Chip(label:Text('Potencia: ${m.power??'—'}')),Chip(label:Text('Precisión: ${m.accuracy==null?'—':'${m.accuracy}%'}')),Chip(label:Text('PP: ${m.pp??'—'}'))]),const SizedBox(height:14),Text('Efecto',style:Theme.of(context).textTheme.titleMedium),Text(editableText(widget.settings, 'machine:${widget.row.group}:${widget.row.item}:effect', m.effect)),Align(alignment:Alignment.centerRight,child:TextButton.icon(onPressed:()=>editTextValue(context,widget.settings,'machine:${widget.row.group}:${widget.row.item}:effect',editableText(widget.settings,'machine:${widget.row.group}:${widget.row.item}:effect',m.effect),'efecto de ${widget.row.kind}${widget.row.number}'),icon:const Icon(Icons.edit,size:16),label:const Text('Editar texto'))),const SizedBox(height:8),Text('Grupo: ${_pretty(widget.row.group)}'),Text('Objeto en la fuente: ${widget.row.item}') ]));}))); }
+  late final Future<_MoveInfo> _future=widget.row.info != null ? Future.value(widget.row.info!) : _fetchMoveInfo(widget.row.moveUrl,widget.spanish);
+  @override Widget build(BuildContext context)=>SafeArea(child:Padding(padding:EdgeInsets.fromLTRB(20,20,20,MediaQuery.of(context).viewInsets.bottom+20),child:FutureBuilder<_MoveInfo>(future:_future,builder:(context,s){if(s.connectionState!=ConnectionState.done)return const SizedBox(height:180,child:Center(child:CircularProgressIndicator()));if(s.hasError)return const Text('No se han podido cargar los detalles del movimiento.');final m=s.data!;return SingleChildScrollView(child:Column(crossAxisAlignment:CrossAxisAlignment.start,mainAxisSize:MainAxisSize.min,children:[Text('${widget.row.kind}${widget.row.number}',style:Theme.of(context).textTheme.titleLarge),Text(m.name,style:Theme.of(context).textTheme.headlineSmall),const SizedBox(height:12),Wrap(spacing:8,runSpacing:8,children:[Chip(label:Text('Tipo: ${m.type}')),Chip(label:Text('Categoría: ${m.category}')),Chip(label:Text('Potencia: ${m.power??'—'}')),Chip(label:Text('Precisión: ${m.accuracy==null?'—':'${m.accuracy}%'}')),Chip(label:Text('PP: ${m.pp??'—'}'))]),const SizedBox(height:14),Text('Efecto',style:Theme.of(context).textTheme.titleMedium),Text(editableText(widget.settings, 'machine:${widget.row.group}:${widget.row.item}:effect', m.effect)),Align(alignment:Alignment.centerRight,child:TextButton.icon(onPressed:()=>editTextValue(context,widget.settings,'machine:${widget.row.group}:${widget.row.item}:effect',editableText(widget.settings,'machine:${widget.row.group}:${widget.row.item}:effect',m.effect),'efecto de ${widget.row.kind}${widget.row.number}'),icon:const Icon(Icons.edit,size:16),label:const Text('Editar texto'))),const SizedBox(height:8),Text('Grupo: ${_pretty(widget.row.group)}'),Text('Objeto en la fuente: ${widget.row.item}'),const SizedBox(height:16),Text('Pokémon que lo aprenden',style:Theme.of(context).textTheme.titleMedium),const SizedBox(height:8),MoveLearnersSection(slug:widget.row.move,spanish:widget.spanish,settings:widget.settings) ]));}))); }
 
 Future<List<_MachineRow>> _fetchMachines(List<String> groups) async {
   final c=HttpClient()..connectionTimeout=const Duration(seconds:20);

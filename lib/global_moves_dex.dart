@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'details.dart';
+import 'move_learners.dart';
 import 'settings.dart';
 import 'text_editor.dart';
 
@@ -18,7 +20,6 @@ class MovesDexScreen extends StatefulWidget {
 class _MovesDexScreenState extends State<MovesDexScreen> {
   late Future<List<_MoveSummary>> _future = _load();
   String _query = '';
-  String _type = 'Todos';
   Future<Map<String,dynamic>> _get(String url) async {
     final c = HttpClient()..connectionTimeout = const Duration(seconds: 15);
     try { final r = await c.getUrl(Uri.parse(url)); final s = await r.close();
@@ -65,4 +66,29 @@ class _MoveDetailState extends State<_MoveDetail> {
  String localizedType(String s) => const {'normal':'Normal','fire':'Fuego','water':'Agua','electric':'Eléctrico','grass':'Planta','ice':'Hielo','fighting':'Lucha','poison':'Veneno','ground':'Tierra','flying':'Volador','psychic':'Psíquico','bug':'Bicho','rock':'Roca','ghost':'Fantasma','dragon':'Dragón','dark':'Siniestro','steel':'Acero','fairy':'Hada'}[s] ?? pretty(s);
  String localizedClass(String s) => const {'physical':'Físico','special':'Especial','status':'Estado'}[s] ?? pretty(s);
  String localizedGeneration(String s) { final m=RegExp(r'generation-([ivx]+)').firstMatch(s); return m==null?pretty(s):'Generación ${m.group(1)!.toUpperCase()}'; }
- @override Widget build(BuildContext context)=>SafeArea(child:Padding(padding:const EdgeInsets.all(18),child:FutureBuilder<Map<String,dynamic>>(future:future,builder:(context,s){if(!s.hasData)return const Center(child:CircularProgressIndicator());final d=s.data!;final pp=d['pp'];final maxPp=pp==null?null:(pp as int)*8~/5;final learned=(d['learned_by_pokemon'] as List? ?? []);final past=d['past_values'] as List? ?? [];final names=(d['names'] as List? ?? []).cast<Map<String,dynamic>>();final lang=widget.spanish?'es':'en';final localized=names.where((n)=>(n['language'] as Map)['name']==lang).toList();final name=localized.isEmpty?pretty(d['name']):localized.first['name'];final typeNames=(d['type']['names'] as List? ?? []).cast<Map<String,dynamic>>();final typeEs=typeNames.where((n)=>(n['language'] as Map)['name']==lang).toList();final classNames=(d['damage_class']['names'] as List? ?? []).cast<Map<String,dynamic>>();final classEs=classNames.where((n)=>(n['language'] as Map)['name']==lang).toList();final typeName=typeEs.isNotEmpty?typeEs.first['name']:localizedType(d['type']['name']);final className=classEs.isNotEmpty?classEs.first['name']:localizedClass(d['damage_class']['name']);final flavor=(d['flavor_text_entries'] as List? ?? []).where((e)=>(e['language'] as Map?)?['name']==lang).toList();final effectEntries=(d['effect_entries'] as List? ?? []).where((e)=>(e['language'] as Map?)?['name']==lang).toList();final effect=widget.spanish?(flavor.isNotEmpty?flavor.last['flavor_text'].toString():'La fuente no ofrece una descripción en español para este movimiento.'):(effectEntries.isNotEmpty?effectEntries.first['effect'].toString():'No description available.');return SingleChildScrollView(child:Column(crossAxisAlignment:CrossAxisAlignment.start,mainAxisSize:MainAxisSize.min,children:[Text(name,style:Theme.of(context).textTheme.headlineSmall),const SizedBox(height:12),Wrap(spacing:8,runSpacing:8,children:[Chip(label:Text('Tipo: $typeName')),Chip(label:Text('Categoría: $className')),Chip(label:Text('Potencia: ${d['power']??'—'}')),Chip(label:Text('Precisión: ${d['accuracy']??'—'}')),Chip(label:Text('PP: ${pp??'—'} / ${maxPp??'—'} máx.')),Chip(label:Text('Prioridad: ${d['priority']}'))]),const SizedBox(height:12),Text('Efecto',style:Theme.of(context).textTheme.titleMedium),Text(editableText(widget.settings,'move:${d['name']}:effect',effect)),Align(alignment:Alignment.centerRight,child:TextButton.icon(onPressed:()=>editTextValue(context,widget.settings,'move:${d['name']}:effect',editableText(widget.settings,'move:${d['name']}:effect',effect),'efecto del movimiento'),icon:const Icon(Icons.edit,size:16),label:const Text('Editar texto'))),const SizedBox(height:12),Text('Cambios entre generaciones',style:Theme.of(context).textTheme.titleMedium),if(past.isEmpty)const Text('No constan cambios históricos en PokéAPI.') else ...past.map((p){final v=p as Map;final g=v['generation']?['name']??'Generación anterior';final ppast=v['power'];final ap=v['accuracy'];final ppp=v['pp'];return Text('${widget.spanish?localizedGeneration(g):pretty(g)}: potencia ${ppast??'—'}, precisión ${ap??'—'}, PP ${ppp??'—'}');}),const SizedBox(height:12),Text('Pokémon que lo aprenden (${learned.length})',style:Theme.of(context).textTheme.titleMedium),Text(learned.map((p)=>(d['_localized_pokemon_names'] as Map<String,String>)[p['name']] ?? pretty(p['name'])).join(', ')),const SizedBox(height:8),const Text('Nota: los PP máximos se calculan aplicando tres PP Máximos (×1,6). Los métodos y juegos concretos de aprendizaje se consultan en la ficha individual del Pokémon; la disponibilidad puede variar por versión.'),const SizedBox(height:12)]));}))); }
+
+ /// «Cambios entre generaciones»: solo las generaciones en las que algo cambió y
+ /// solo lo que cambió. Si el movimiento nunca cambió, no se muestra la sección.
+ List<Widget> _pastChanges(BuildContext context, List past) {
+   final lines = <String>[];
+   for (final p in past) {
+     final v = p as Map;
+     final g = (v['generation'] as Map?)?['name']?.toString() ?? 'Generación anterior';
+     final parts = <String>[];
+     if (v['power'] != null) parts.add('potencia ${v['power']}');
+     if (v['accuracy'] != null) parts.add('precisión ${v['accuracy']}');
+     if (v['pp'] != null) parts.add('PP ${v['pp']}');
+     final type = (v['type'] as Map?)?['name']?.toString();
+     if (type != null) parts.add('tipo ${widget.spanish ? localizedType(type) : pretty(type)}');
+     if (v['effect_chance'] != null) parts.add('probabilidad del efecto ${v['effect_chance']} %');
+     if (parts.isEmpty) continue;
+     lines.add('${widget.spanish ? localizedGeneration(g) : pretty(g)}: ${parts.join(', ')}');
+   }
+   if (lines.isEmpty) return const [];
+   return [
+     const SizedBox(height: 12),
+     Text('Cambios entre generaciones', style: Theme.of(context).textTheme.titleMedium),
+     for (final l in lines) Text(l),
+   ];
+ }
+ @override Widget build(BuildContext context)=>SafeArea(child:Padding(padding:const EdgeInsets.all(18),child:FutureBuilder<Map<String,dynamic>>(future:future,builder:(context,s){if(!s.hasData)return const Center(child:CircularProgressIndicator());final d=s.data!;final pp=d['pp'];final maxPp=pp==null?null:(pp as int)*8~/5;final learned=(d['learned_by_pokemon'] as List? ?? []);final past=d['past_values'] as List? ?? [];final names=(d['names'] as List? ?? []).cast<Map<String,dynamic>>();final lang=widget.spanish?'es':'en';final localized=names.where((n)=>(n['language'] as Map)['name']==lang).toList();final name=localized.isEmpty?pretty(d['name']):localized.first['name'];final typeNames=(d['type']['names'] as List? ?? []).cast<Map<String,dynamic>>();final typeEs=typeNames.where((n)=>(n['language'] as Map)['name']==lang).toList();final classNames=(d['damage_class']['names'] as List? ?? []).cast<Map<String,dynamic>>();final classEs=classNames.where((n)=>(n['language'] as Map)['name']==lang).toList();final typeName=typeEs.isNotEmpty?typeEs.first['name']:localizedType(d['type']['name']);final className=classEs.isNotEmpty?classEs.first['name']:localizedClass(d['damage_class']['name']);final flavor=(d['flavor_text_entries'] as List? ?? []).where((e)=>(e['language'] as Map?)?['name']==lang).toList();final effectEntries=(d['effect_entries'] as List? ?? []).where((e)=>(e['language'] as Map?)?['name']==lang).toList();final effect=widget.spanish?(DescriptionsEs.move(d['name'].toString())??(flavor.isNotEmpty?flavor.last['flavor_text'].toString():'La fuente no ofrece una descripción en español para este movimiento.')):(effectEntries.isNotEmpty?effectEntries.first['effect'].toString():'No description available.');return SingleChildScrollView(child:Column(crossAxisAlignment:CrossAxisAlignment.start,mainAxisSize:MainAxisSize.min,children:[Text(name,style:Theme.of(context).textTheme.headlineSmall),const SizedBox(height:12),Wrap(spacing:8,runSpacing:8,children:[Chip(label:Text('Tipo: $typeName')),Chip(label:Text('Categoría: $className')),Chip(label:Text('Potencia: ${d['power']??'—'}')),Chip(label:Text('Precisión: ${d['accuracy']??'—'}')),Chip(label:Text('PP: ${pp??'—'} / ${maxPp??'—'} máx.')),Chip(label:Text('Prioridad: ${d['priority']}'))]),const SizedBox(height:12),Text('Efecto',style:Theme.of(context).textTheme.titleMedium),Text(editableText(widget.settings,'move:${d['name']}:effect',effect)),Align(alignment:Alignment.centerRight,child:TextButton.icon(onPressed:()=>editTextValue(context,widget.settings,'move:${d['name']}:effect',editableText(widget.settings,'move:${d['name']}:effect',effect),'efecto del movimiento'),icon:const Icon(Icons.edit,size:16),label:const Text('Editar texto'))),..._pastChanges(context,past),const SizedBox(height:12),Text('Pokémon que lo aprenden',style:Theme.of(context).textTheme.titleMedium),const SizedBox(height:8),MoveLearnersSection(slug:d['name'].toString(),spanish:widget.spanish,settings:widget.settings),const SizedBox(height:8),const Text('Nota: los PP máximos se calculan aplicando tres PP Máximos (×1,6). Los métodos y juegos concretos de aprendizaje se consultan en la ficha individual del Pokémon; la disponibilidad puede variar por versión.'),const SizedBox(height:12)]));}))); }

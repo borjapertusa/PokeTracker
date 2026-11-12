@@ -78,7 +78,7 @@ class _PokemonMovesSectionState extends State<PokemonMovesSection> {
           Text('Movimientos', style: Theme.of(context).textTheme.titleLarge),
           const SizedBox(height: 8),
           DropdownButtonFormField<String>(
-            value: selected,
+            initialValue: selected,
             isExpanded: true,
             decoration: const InputDecoration(labelText: 'Grupo de juegos', border: OutlineInputBorder(), isDense: true),
             items: [for (final g in groups) DropdownMenuItem(value: g, child: Text(_groupNames[g] ?? _pretty(g)))],

@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'boxes.dart';
 import 'boxes_screen.dart';
 import 'data_actions.dart';
+import 'web_export.dart';
 import 'detail.dart';
 import 'details.dart';
 import 'game_store.dart';
@@ -136,7 +137,8 @@ class _HomeScreenState extends State<HomeScreen> {
   List<DexEntry> _bulkEntries(String kind) => game.allEntries.where((e) {
         switch (kind) {
           case 'normal':
-            return e.kind == 'base' || e.kind == 'regional';
+            // Incluye todas las formas registrables: base, regionales, Mega y Gigamax.
+            return true;
           case 'mega':
             return e.kind == 'mega';
           case 'gmax':
@@ -147,7 +149,7 @@ class _HomeScreenState extends State<HomeScreen> {
       }).toList();
 
   Future<void> _bulkSet(String kind, bool shiny, String label) async {
-    final entries = _bulkEntries(kind);
+    final entries = _bulkEntries(kind).where((e) => !shiny || game.shinyFor(e)).toList();
     if (entries.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Esta Pokédex no contiene entradas de $label.')),
@@ -175,69 +177,16 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Future<void> _bulkSetCombined(String scope, String label) async {
-    final items = <(Game, DexEntry)>[];
-    if (scope == 'global') {
-      for (final g in widget.games) {
-        for (final e in g.allEntries) {
-          items.add((g, e));
-        }
-      }
-    } else {
-      final entries = scope == 'forms'
-          ? game.allEntries.where((e) => e.kind != 'base').toList()
-          : game.allEntries;
-      items.addAll(entries.map((e) => (game, e)));
-    }
-    if (items.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('No hay registros para $label.')),
-      );
-      return;
-    }
-    final allMarked = items.every((item) {
-      final (g, e) = item;
-      return p.has(g.key(e)) && (!g.shiny || p.has(g.key(e), shiny: true));
-    });
-    final mark = !allMarked;
-    final action = mark ? 'marcar' : 'desmarcar';
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: Text('${mark ? 'Marcar' : 'Desmarcar'} $label'),
-        content: Text('¿Quieres $action como capturados ${items.length} registros de $label${scope == 'global' ? ' en todas las Pokédex' : ' en «${game.name}»'}?'),
-        actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('Cancelar')),
-          FilledButton(onPressed: () => Navigator.pop(ctx, true), child: Text(mark ? 'Marcar todo' : 'Desmarcar todo')),
-        ],
-      ),
-    );
-    if (confirmed != true || !mounted) return;
-    p.setAllCombined(items, value: mark);
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('${items.length} registros ${mark ? 'marcados' : 'desmarcados'}: $label.')),
-    );
-  }
 
   Widget _bulkMenu() => PopupMenuButton<String>(
         tooltip: 'Acciones masivas de captura',
         icon: const Icon(Icons.checklist),
         onSelected: (value) {
-          if (value.startsWith('combined:')) {
-            final scope = value.split(':')[1];
-            final label = switch (scope) {
-              'forms' => 'todas las formas',
-              'all' => 'todo',
-              _ => 'todo global',
-            };
-            _bulkSetCombined(scope, label);
-            return;
-          }
           final parts = value.split(':');
           final kind = parts[0];
           final shiny = parts[1] == 'shiny';
           final label = switch (kind) {
-            'normal' => shiny ? 'todos los variocolor normales y regionales' : 'todos los normales y regionales',
+            'normal' => shiny ? 'todos los variocolor disponibles' : 'todos los registros normales y formas',
             'mega' => shiny ? 'todos los Mega variocolor' : 'todos los Mega',
             _ => shiny ? 'todos los Gigamax variocolor' : 'todos los Gigamax',
           };
@@ -252,11 +201,6 @@ class _HomeScreenState extends State<HomeScreen> {
           PopupMenuDivider(),
           PopupMenuItem(value: 'gmax:normal', child: Text('Marcar/desmarcar todos los Gigamax')),
           PopupMenuItem(value: 'gmax:shiny', child: Text('Marcar/desmarcar todos los Gigamax variocolor')),
-          PopupMenuDivider(),
-          PopupMenuItem(value: 'combined:forms', child: Text('Marcar/desmarcar todas las formas (normal y variocolor)')),
-          PopupMenuItem(value: 'combined:all', child: Text('Marcar/desmarcar todo (normal y variocolor)')),
-          PopupMenuDivider(),
-          PopupMenuItem(value: 'combined:global', child: Text('Marcar/desmarcar todo global')),
         ],
       );
 
@@ -294,6 +238,7 @@ class _HomeScreenState extends State<HomeScreen> {
             byDex: widget.byDex,
             showLocations: true,
             showMoves: true,
+            expanded: true,
           ),
             ),
           ),
@@ -341,25 +286,23 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  (int, int) _counts(GameSpecies gs) => (
-        p.count(game, gs.entries),
-        game.shiny ? p.count(game, gs.entries, shiny: true) : 0,
-      );
-
-  double _ratio(GameSpecies gs) {
-    final (n, sh) = _counts(gs);
-    final t = gs.entries.length;
-    return t == 0 ? 0 : (n + sh) / ((game.shiny ? 2 : 1) * t);
+  /// Contadores de una especie calculados en una sola pasada.
+  ({int n, int sh, int shT, int t, double ratio}) _stats(GameSpecies gs) {
+    final es = gs.entries;
+    final t = es.length;
+    final n = p.count(game, es);
+    final shT = game.shinyTotal(es);
+    final sh = shT > 0 ? p.count(game, es, shiny: true) : 0;
+    final total = t + shT;
+    return (n: n, sh: sh, shT: shT, t: t, ratio: total == 0 ? 0.0 : (n + sh) / total);
   }
 
-  String _label(GameSpecies gs) {
-    final (n, sh) = _counts(gs);
-    final t = gs.entries.length;
-    return game.shiny ? '$n/$t  ·  ✨ $sh/$t' : '$n/$t';
-  }
+  String _label(({int n, int sh, int shT, int t, double ratio}) s) =>
+      s.shT > 0 ? '${s.n}/${s.t}  ·  ✨ ${s.sh}/${s.shT}' : '${s.n}/${s.t}';
 
   List<GameSpecies> _filtered() {
     final q = query.trim().toLowerCase();
+    final needStats = filter != DexFilter.all;
     return game.species.where((gs) {
       final s = gs.species;
       if (gen != 0 && s.gen != gen) return false;
@@ -370,13 +313,13 @@ class _HomeScreenState extends State<HomeScreen> {
               '${s.dex}' == q)) {
         return false;
       }
-      final t = gs.entries.length;
-      final (n, sh) = _counts(gs);
+      if (!needStats) return true;
+      final c = _stats(gs);
       return switch (filter) {
         DexFilter.all => true,
-        DexFilter.missing => n < t,
-        DexFilter.missingShiny => game.shiny && sh < t,
-        DexFilter.complete => n == t && (!game.shiny || sh == t),
+        DexFilter.missing => c.n < c.t,
+        DexFilter.missingShiny => c.sh < c.shT,
+        DexFilter.complete => c.n == c.t && c.sh == c.shT,
       };
     }).toList();
   }
@@ -408,7 +351,14 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Scaffold(
               key: _scaffoldKey,
               endDrawer: SettingsDrawer(
-                  settings: st, onExport: _export, onImport: _import),
+                  settings: st,
+                  onExport: _export,
+                  onImport: _import,
+                  onExportHtml: () => exportTrackingPage(context,
+                      games: widget.games,
+                      progress: p,
+                      profiles: widget.profiles,
+                      settings: st)),
               body: SafeArea(
                 child: LayoutBuilder(
                   builder: (context, c) {
@@ -493,36 +443,40 @@ class _HomeScreenState extends State<HomeScreen> {
     }
     return Card(
       margin: const EdgeInsets.fromLTRB(16, 8, 16, 2),
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Row(children: [
-            const Icon(Icons.flag_outlined),
-            const SizedBox(width: 8),
-            const Expanded(child: Text('Desafío del día', style: TextStyle(fontWeight: FontWeight.bold))),
-            TextButton.icon(onPressed: () => p.rerollDailyChallenge(game), icon: const Icon(Icons.shuffle, size: 18), label: const Text('Aleatorizar 4')),
-          ]),
-          Wrap(spacing: 8, runSpacing: 8, children: [
-            for (final item in entries)
-              Builder(builder: (context) {
-                final gs = item.$1; final shiny = item.$2;
-                final entry = shiny ? gs.entries.firstWhere((e) => e.shiny != null, orElse: () => gs.entries.first) : gs.entries.first;
-                return InkWell(
-                  borderRadius: BorderRadius.circular(10), onTap: () => _open(gs, true),
-                  child: Container(width: 112, padding: const EdgeInsets.all(6),
-                    decoration: BoxDecoration(border: Border.all(color: Theme.of(context).colorScheme.outlineVariant), borderRadius: BorderRadius.circular(10)),
-                    child: Column(mainAxisSize: MainAxisSize.min, children: [
-                      Sprite(shiny ? entry.shiny ?? entry.sprite : entry.sprite, size: 58, pixel: st.pixelSprites, threeD: st.threeDSprites),
-                      Text(gs.displayName(st.spanish), maxLines: 1, overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.labelMedium),
-                      Text(shiny ? '✨ Variocolor' : 'Normal', style: Theme.of(context).textTheme.labelSmall),
-                      Text('#${gs.species.dex}', style: Theme.of(context).textTheme.labelSmall),
-                    ]),
-                  ),
-                );
-              }),
-            if (entries.isEmpty) const Padding(padding: EdgeInsets.all(8), child: Text('¡Has completado todos los objetivos de esta Pokédex!')),
-          ]),
-        ]),
+      child: Theme(
+        data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+        child: ExpansionTile(
+          initiallyExpanded: false,
+          tilePadding: const EdgeInsets.symmetric(horizontal: 14),
+          title: const Center(child: Text('Desafío del día', style: TextStyle(fontWeight: FontWeight.bold))),
+          trailing: const Icon(Icons.expand_more),
+          childrenPadding: const EdgeInsets.fromLTRB(10, 0, 10, 12),
+          children: [
+            Align(alignment: Alignment.center, child: TextButton.icon(
+              onPressed: () => p.rerollDailyChallenge(game),
+              icon: const Icon(Icons.shuffle, size: 18), label: const Text('Aleatorizar 4'))),
+            Wrap(spacing: 8, runSpacing: 8, alignment: WrapAlignment.center, children: [
+              for (final item in entries)
+                Builder(builder: (context) {
+                  final gs = item.$1; final shiny = item.$2;
+                  final entry = shiny ? gs.entries.firstWhere(game.shinyFor, orElse: () => gs.entries.first) : gs.entries.first;
+                  return InkWell(
+                    borderRadius: BorderRadius.circular(10), onTap: () => _open(gs, true),
+                    child: Container(width: 112, padding: const EdgeInsets.all(6),
+                      decoration: BoxDecoration(border: Border.all(color: Theme.of(context).colorScheme.outlineVariant), borderRadius: BorderRadius.circular(10)),
+                      child: Column(mainAxisSize: MainAxisSize.min, children: [
+                        Sprite(shiny ? entry.shiny ?? entry.sprite : entry.sprite, size: 58, pixel: st.pixelSprites, threeD: st.threeDSprites),
+                        Text(gs.displayName(st.spanish), maxLines: 1, overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.labelMedium),
+                        Text(shiny ? '✨ Variocolor' : 'Normal', style: Theme.of(context).textTheme.labelSmall),
+                        Text('#${gs.species.dex}', style: Theme.of(context).textTheme.labelSmall),
+                      ]),
+                    ),
+                  );
+                }),
+              if (entries.isEmpty) const Padding(padding: EdgeInsets.all(8), child: Text('¡Has completado todos los objetivos de esta Pokédex!')),
+            ]),
+          ],
+        ),
       ),
     );
   }
@@ -649,7 +603,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(width: 24),
                 Expanded(
                     child: _Bar('✨ Variocolor',
-                        p.count(game, all, shiny: true), total)),
+                        p.count(game, all, shiny: true), game.shinyTotal(all))),
               ],
             ],
           ),
@@ -689,39 +643,69 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  List<(String, List<GameSpecies>)> _sectionGroups(List<GameSpecies> list) {
+    final groups = <String, List<GameSpecies>>{};
+    for (final gs in list) {
+      groups.putIfAbsent(gs.section ?? '', () => []).add(gs);
+    }
+    return groups.entries.map((e) => (e.key, e.value)).toList();
+  }
+
+  Widget _sectionTitle(String title) => Padding(
+        padding: const EdgeInsets.fromLTRB(16, 18, 16, 8),
+        child: Row(children: [
+          Expanded(child: Divider(color: Theme.of(context).colorScheme.outlineVariant)),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            child: Text(title, style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold)),
+          ),
+          Expanded(child: Divider(color: Theme.of(context).colorScheme.outlineVariant)),
+        ]),
+      );
+
   Widget _grid(List<GameSpecies> list, bool wide) {
     final sz = st.spriteSize;
-    const horizontalPadding = 32.0; // 16 px a cada lado del grid
     const spacing = 10.0;
     final maxExtent = sz + 56;
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final usableWidth =
-            (constraints.maxWidth - horizontalPadding).clamp(0.0, double.infinity);
-        // Es el mismo cálculo de columnas que usa
-        // SliverGridDelegateWithMaxCrossAxisExtent.
-        _gridColumnCount = (usableWidth / (maxExtent + spacing))
-            .ceil()
-            .clamp(1, 1000);
-        return GridView.builder(
-          padding: const EdgeInsets.fromLTRB(16, 4, 16, 16),
-          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: maxExtent,
-            mainAxisExtent: sz + 32 + 56 * st.textScale,
-            crossAxisSpacing: spacing,
-            mainAxisSpacing: spacing,
-          ),
-          itemCount: list.length,
-          itemBuilder: (_, i) => _card(list[i], wide),
-        );
-      },
-    );
+    final groups = _sectionGroups(list);
+    return LayoutBuilder(builder: (context, constraints) {
+      final usableWidth = (constraints.maxWidth - 32).clamp(0.0, double.infinity);
+      _gridColumnCount = (usableWidth / (maxExtent + spacing)).ceil().clamp(1, 1000);
+      // Slivers: solo se construyen las tarjetas visibles (antes, con
+      // shrinkWrap, se construían todas a la vez).
+      return CustomScrollView(
+        key: ValueKey('grid-${game.id}'),
+        slivers: [
+          const SliverToBoxAdapter(child: SizedBox(height: 4)),
+          for (final group in groups) ...[
+            if (group.$1.isNotEmpty) SliverToBoxAdapter(child: _sectionTitle(group.$1)),
+            SliverPadding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              sliver: SliverGrid(
+                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                  maxCrossAxisExtent: maxExtent,
+                  mainAxisExtent: sz + 32 + 56 * st.textScale,
+                  crossAxisSpacing: spacing,
+                  mainAxisSpacing: spacing,
+                ),
+                delegate: SliverChildBuilderDelegate(
+                  (_, i) => _card(group.$2[i], wide),
+                  childCount: group.$2.length,
+                ),
+              ),
+            ),
+          ],
+          const SliverToBoxAdapter(child: SizedBox(height: 16)),
+        ],
+      );
+    });
   }
 
   Widget _card(GameSpecies gs, bool wide) {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
     final sel = wide && identical(gs, selected);
+    final stats = _stats(gs);
     return Card(
       margin: EdgeInsets.zero,
       clipBehavior: Clip.antiAlias,
@@ -750,9 +734,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 style: theme.textTheme.bodyMedium
                     ?.copyWith(fontWeight: FontWeight.w600),
               ),
-              Text(_label(gs), style: theme.textTheme.labelSmall),
+              Text(_label(stats), style: theme.textTheme.labelSmall),
               const Spacer(),
-              LinearProgressIndicator(value: _ratio(gs), minHeight: 4),
+              LinearProgressIndicator(value: stats.ratio, minHeight: 4),
             ],
           ),
         ),
@@ -761,29 +745,37 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _list(List<GameSpecies> list, bool wide) {
-    return ListView.builder(
-      itemCount: list.length,
-      itemBuilder: (_, i) {
-        final gs = list[i];
-        return InkWell(
-          onTap: () => _open(gs, wide),
-          onDoubleTap: () => _openFullscreen(gs),
-          child: ListTile(
-          selected: identical(gs, selected),
-          leading: Sprite(gs.entries.first.sprite,
-              size: st.spriteSize.clamp(40.0, 64.0).toDouble(),
-              pixel: st.pixelSprites,
-                  threeD: st.threeDSprites),
-          title: Text(
-              '${dexNumber(game, gs)}  ${gs.displayName(st.spanish)}'),
-          subtitle: Text(_label(gs)),
-          trailing: SizedBox(
-            width: 90,
-            child: LinearProgressIndicator(value: _ratio(gs), minHeight: 4),
+    final groups = _sectionGroups(list);
+    return CustomScrollView(
+      key: ValueKey('list-${game.id}'),
+      slivers: [
+        for (final group in groups) ...[
+          if (group.$1.isNotEmpty) SliverToBoxAdapter(child: _sectionTitle(group.$1)),
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (_, i) {
+                final gs = group.$2[i];
+                final stats = _stats(gs);
+                return InkWell(
+                  onTap: () => _open(gs, wide),
+                  onDoubleTap: () => _openFullscreen(gs),
+                  child: ListTile(
+                    selected: identical(gs, selected),
+                    leading: Sprite(gs.entries.first.sprite,
+                        size: st.spriteSize.clamp(40.0, 64.0).toDouble(),
+                        pixel: st.pixelSprites, threeD: st.threeDSprites),
+                    title: Text('${dexNumber(game, gs)}  ${gs.displayName(st.spanish)}'),
+                    subtitle: Text(_label(stats)),
+                    trailing: SizedBox(width: 90,
+                        child: LinearProgressIndicator(value: stats.ratio, minHeight: 4)),
+                  ),
+                );
+              },
+              childCount: group.$2.length,
+            ),
           ),
-          ),
-        );
-      },
+        ],
+      ],
     );
   }
 }

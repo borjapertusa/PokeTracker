@@ -11,6 +11,8 @@ import 'profiles.dart';
 import 'progress.dart';
 import 'launcher.dart';
 import 'settings.dart';
+import 'pokepc_local_repository.dart';
+import 'widgets.dart';
 
 
 /// Proyección visual del tracker. Los datos completos permanecen intactos en
@@ -27,7 +29,9 @@ Species _trackerSpecies(Map<String, dynamic> source) {
         if (dex == 25 && (id.contains('rock-star') || id.contains('belle') ||
             id.contains('pop-star') || id.contains('phd') || id.contains('libre') ||
             id.contains('cosplay') || id == 'pikachu-starter' ||
-            id == 'pikachu-starter-f')) return false;
+            id == 'pikachu-starter-f')) {
+          return false;
+        }
         if (dex == 133 && id.startsWith('eevee-starter')) return false;
         if (dex == 351 && id != 'castform') return false;
         if (dex == 421 && id == 'cherrim-sunshine') return false;
@@ -79,24 +83,65 @@ Species _trackerSpecies(Map<String, dynamic> source) {
         if (translations.containsKey(id)) m['label'] = translations[id]!.trim();
         if (dex == 678 && id == 'meowstic-male-mega') m['label'] = 'Mega';
         if (dex == 978 && id == 'tatsugiri-curly-mega') m['label'] = 'Mega';
-        // El shiny de los Pikachu con gorra no fue liberado oficialmente.
-        if (dex == 25 && id.contains('cap')) m['shiny'] = null;
+        // Variantes sin distribución variocolor oficial conocida: no se ofrecen
+        // como objetivo de captura variocolor en el tracker.
+        const neverReleasedSpecies = <int>{494, 720, 789, 790, 801, 802, 891, 892, 893, 896, 897, 898, 1009, 1010, 1014, 1015, 1016, 1017, 1020, 1021, 1022, 1023, 1024, 1025};
+        if (neverReleasedSpecies.contains(dex) || (dex == 25 && id.contains('cap')) ||
+            (dex == 666 && (id.contains('pokeball') || id.contains('fancy'))) ||
+            (dex ==  670 && id.contains('eternal'))) {
+          m['shiny'] = null;
+        }
         return m;
       }).toList();
   return Species.fromJson({...source, 'entries': entries});
 }
 
+/// Scatterbug y Spewpa: en el tracker solo se conserva una forma (la base).
+/// Si no hay una entrada con el nombre de la especie, se usa la de patrón
+/// Meadow (la forma por defecto) o, en su defecto, la primera.
+Species _trimForTracker(Species s) {
+  if (s.dex != 664 && s.dex != 665) return s;
+  if (s.entries.length <= 1) return s;
+  DexEntry keep = s.entries.first;
+  for (final e in s.entries) {
+    if (e.id == s.name) {
+      keep = e;
+      break;
+    }
+    if (e.id.endsWith('-meadow')) keep = e;
+  }
+  return Species.withEntries(s, [keep]);
+}
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // Si existe una copia portable de PokéPC, su catálogo de Pokémon/formas
+  // pasa a ser la fuente principal. En instalaciones aún no actualizadas se
+  // mantiene el catálogo incluido para que la app pueda arrancar igualmente.
   final raw = await rootBundle.loadString('assets/data/pokedex.json');
   final data = jsonDecode(raw) as Map<String, dynamic>;
-  final allSpecies = (data['species'] as List)
+  final legacyAllSpecies = (data['species'] as List)
       .map((e) => Species.fromJson(e as Map<String, dynamic>))
       .toList();
-  final species = (data['species'] as List)
+  final legacyTrackerSpecies = (data['species'] as List)
       .map((e) => _trackerSpecies(e as Map<String, dynamic>))
       .toList();
+  final hasPokepc = await PokepcLocalRepository.isInstalled;
+  final allSpecies = hasPokepc
+      ? await PokepcLocalRepository.loadTrackerSpecies(
+          namesByDex: {for (final s in legacyAllSpecies) s.dex: s.name})
+      : legacyAllSpecies;
+  final species = [
+    for (final s in (hasPokepc ? allSpecies : legacyTrackerSpecies))
+      _trimForTracker(s),
+  ];
+  // Sprites animados: enlaza cada sprite de PokéPC con el recurso de PokéAPI.
+  AnimatedSprites.registerCatalog(allSpecies, legacyAllSpecies);
   final baseGames = await _loadGames(species);
+  kOfficialGames = [for (final g in baseGames) if (g.id != 'home') g];
+  kHomeGame = baseGames.first;
+  await GameTiles.load();
+  await DescriptionsEs.load();
   final profiles = await ProfileStore.load();
   final progress = await Progress.load(profiles);
   final settings = await AppSettings.load();
@@ -140,6 +185,7 @@ Future<DexDetails?> _loadDetails() async {
 
 /// Pokémon HOME (todo) + los juegos de assets/data/games.json, si existe.
 Future<List<Game>> _loadGames(List<Species> species) async {
+  final shinyRules = await _loadShinyRules();
   final games = <Game>[
     Game(
       id: 'home',
@@ -150,6 +196,7 @@ Future<List<Game>> _loadGames(List<Species> species) async {
       species: [for (final s in species) GameSpecies(s, s.dex, s.entries)],
     ),
   ];
+  games.first.shinyLocked = _shinyLocks(shinyRules, species, 'home', 0);
   try {
     final byDex = {for (final s in species) s.dex: s};
     final byId = {
@@ -158,32 +205,104 @@ Future<List<Game>> _loadGames(List<Species> species) async {
     };
     final raw = await rootBundle.loadString('assets/data/games.json');
     final gj = jsonDecode(raw) as Map<String, dynamic>;
-    for (final g in gj['games'] as List) {
-      final m = g as Map<String, dynamic>;
+    final rawGames = (gj['games'] as List).cast<Map<String, dynamic>>();
+    final dlcParents = <String, (String, String)>{
+      'isle-of-armor': ('sword-shield', 'DLC 1 · La isla de la armadura'),
+      'crown-tundra': ('sword-shield', 'DLC 2 · Las nieves de la corona'),
+      'teal-mask': ('scarlet-violet', 'DLC 1 · La máscara turquesa'),
+      'indigo-disk': ('scarlet-violet', 'DLC 2 · El disco índigo'),
+      'za-mega-dimension': ('legends-za', 'DLC 1 · Megadimensión'),
+      'pokopia-dlc': ('pokopia', 'DLC · Cuenca coralina'),
+    };
+    final mergedSpecies = <String, List<GameSpecies>>{};
+    for (final m in rawGames) {
+      final id = m['id'] as String;
+      final dlc = dlcParents[id];
+      final parentId = dlc?.$1 ?? id;
+      final hasDlc = dlcParents.values.any((v) => v.$1 == id);
+      final section = dlc?.$2 ?? (hasDlc ? 'Juego base' : null);
       final list = <GameSpecies>[];
       for (final sp in m['species'] as List) {
         final sm = sp as Map<String, dynamic>;
         final base = byDex[sm['d'] as int];
         if (base == null) continue;
         final es = <DexEntry>[
-          for (final id in sm['e'] as List)
-            if (byId[id] != null) byId[id]!,
+          for (final entryId in sm['e'] as List)
+            if (byId[entryId] != null) byId[entryId]!,
         ];
-        if (es.isNotEmpty) list.add(GameSpecies(base, sm['n'] as int, es, label: sm['label'] as String?));
+        // Si el tracker recortó todas las formas que listaba el juego (p. ej.
+        // Scatterbug), se conserva la especie con su forma base.
+        if (es.isEmpty && base.entries.isNotEmpty && (sm['e'] as List).isNotEmpty) {
+          es.add(base.entries.first);
+        }
+        if (es.isNotEmpty) {
+          list.add(GameSpecies(base, sm['n'] as int, es,
+              label: sm['label'] as String?,
+              // `sec` (p. ej. Kalos Central/Costera/Montañosa) tiene prioridad.
+              section: (sm['sec'] as String?) ?? section));
+        }
+      }
+      mergedSpecies.putIfAbsent(parentId, () => []).addAll(list);
+      final locks = _shinyLocks(shinyRules, species, id, m['gen'] as int);
+      if (dlc != null) {
+        // Los bloqueos del DLC se suman a los de su juego base.
+        for (final g in games) {
+          if (g.id == parentId) g.shinyLocked = {...g.shinyLocked, ...locks};
+        }
+        continue;
       }
       games.add(Game(
-        id: m['id'] as String,
+        id: id,
         name: m['name'] as String,
         gen: m['gen'] as int,
         shiny: m['shiny'] as bool,
         genders: m['genders'] as bool,
-        species: list,
-      ));
+        species: mergedSpecies[id]!,
+      )..shinyLocked = locks);
     }
+    // Las listas DLC ya se han anexado a la misma lista mutable del juego base.
+
   } catch (_) {
     // Sin games.json (aún no generado) solo se muestra Pokémon HOME.
   }
   return games;
+}
+
+/// Reglas de disponibilidad del variocolor (assets/data/shiny_availability.json).
+Future<Map<String, dynamic>> _loadShinyRules() async {
+  try {
+    final raw = await rootBundle.loadString('assets/data/shiny_availability.json');
+    return jsonDecode(raw) as Map<String, dynamic>;
+  } catch (_) {
+    return const {};
+  }
+}
+
+/// Ids de entrada sin variocolor en la Pokédex [gameId] (de generación [gen]).
+/// Una regla aplica si su lista `games` contiene el id del juego o `gen:N`.
+Set<String> _shinyLocks(
+    Map<String, dynamic> rules, List<Species> species, String gameId, int gen) {
+  final byDex = {for (final s in species) s.dex: s};
+  final out = <String>{
+    for (final id in (rules['never'] as List? ?? const [])) id.toString(),
+  };
+  for (final r in (rules['rules'] as List? ?? const [])) {
+    final rule = r as Map<String, dynamic>;
+    final games = (rule['games'] as List? ?? const []).map((g) => g.toString());
+    if (!games.any((g) => g == gameId || (gen > 0 && g == 'gen:$gen'))) continue;
+    for (final d in (rule['species'] as List? ?? const [])) {
+      final sp = byDex[(d as num).toInt()];
+      if (sp != null) out.addAll(sp.entries.map((e) => e.id));
+    }
+    ((rule['speciesExcept'] as Map?) ?? const {}).forEach((d, keep) {
+      final sp = byDex[int.tryParse(d.toString())];
+      if (sp == null) return;
+      final keepIds = (keep as List).map((k) => k.toString()).toSet();
+      out.addAll(sp.entries.map((e) => e.id).where((id) => !keepIds.contains(id)));
+    });
+    out.addAll((rule['entries'] as List? ?? const []).map((e) => e.toString()));
+  }
+  return out;
 }
 
 class PokedexApp extends StatelessWidget {

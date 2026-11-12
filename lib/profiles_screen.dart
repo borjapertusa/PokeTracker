@@ -98,9 +98,9 @@ class ProfileMenu extends StatelessWidget {
             const PopupMenuItem(
                 value: '_settings', child: Row(
                   children: [
-                    const Icon(Icons.settings_outlined, size: 18),
-                    const SizedBox(width: 10),
-                    const Text('Ajustes'),
+                    Icon(Icons.settings_outlined, size: 18),
+                    SizedBox(width: 10),
+                    Text('Ajustes'),
                   ],
                 )),
           ],

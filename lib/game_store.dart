@@ -20,19 +20,21 @@ const gameSortLabels = {
 };
 
 /// De dónde salen las especies de una Pokédex propia.
-enum DexSource { national, generation, copy }
+enum DexSource { national, copy }
 
 /// Una Pokédex que se quiere crear (la rellena el diálogo "Nuevo tracker").
 class DexSpec {
   String name;
   DexSource source;
-  int gen; // para DexSource.generation
-  String? copyOf; // id de un juego, para DexSource.copy
+  String? copyOf; // juego de referencia
+  bool nationalForGame = false;
+  bool includeDlc = false;
   DexSpec({
     this.name = '',
     this.source = DexSource.national,
-    this.gen = 1,
     this.copyOf,
+    this.nationalForGame = false,
+    this.includeDlc = false,
   });
 }
 
@@ -57,6 +59,7 @@ class CustomDex {
   final DexSource source;
   final int gen;
   final String? copyOf;
+  final bool nationalForGame, includeDlc;
   final bool shiny, genders, forms;
 
   CustomDex({
@@ -65,6 +68,8 @@ class CustomDex {
     required this.source,
     required this.gen,
     required this.copyOf,
+    this.nationalForGame = false,
+    this.includeDlc = false,
     required this.shiny,
     required this.genders,
     required this.forms,
@@ -76,6 +81,8 @@ class CustomDex {
         'source': source.name,
         'gen': gen,
         'copyOf': copyOf,
+        'nationalForGame': nationalForGame,
+        'includeDlc': includeDlc,
         'shiny': shiny,
         'genders': genders,
         'forms': forms,
@@ -88,6 +95,8 @@ class CustomDex {
             orElse: () => DexSource.national),
         gen: (j['gen'] as num?)?.toInt() ?? 1,
         copyOf: j['copyOf'] as String?,
+        nationalForGame: j['nationalForGame'] == true,
+        includeDlc: j['includeDlc'] == true,
         shiny: j['shiny'] != false,
         genders: j['genders'] != false,
         forms: j['forms'] != false,
@@ -118,7 +127,7 @@ class GameStore extends ChangeNotifier {
   final void Function(String gameId)? onPurge;
 
   final List<Game> games = [];
-  GameSort sort = GameSort.generation;
+  GameSort sort = GameSort.generationDesc;
 
   GameStore._(this._prefs, this._species, this._base, this.onPurge) {
     for (final g in _base) {
@@ -134,11 +143,15 @@ class GameStore extends ChangeNotifier {
     final s = GameStore._(
         await SharedPreferences.getInstance(), species, base, onPurge);
     final raw = s._prefs.getString(_key);
+    // Instalación nueva: HOME es la única Pokédex visible inicialmente.
+    if (raw == null) {
+      s._hidden.addAll([for (final g in s._base) if (g.id != 'home') g.id]);
+    }
     if (raw != null) {
       try {
         final j = jsonDecode(raw) as Map<String, dynamic>;
         s.sort = GameSort.values.firstWhere((m) => m.name == j['sort'],
-            orElse: () => GameSort.generation);
+            orElse: () => GameSort.generationDesc);
         (j['names'] as Map<String, dynamic>? ?? {}).forEach((id, n) {
           if (s._baseNames.containsKey(id) && n is String && n.isNotEmpty) {
             s._names[id] = n;
@@ -162,7 +175,7 @@ class GameStore extends ChangeNotifier {
         s._names.clear();
         s._hidden.clear();
         s._order.clear();
-        s.sort = GameSort.generation;
+        s.sort = GameSort.generationDesc;
       }
     }
     for (final g in s._base) {
@@ -198,6 +211,8 @@ class GameStore extends ChangeNotifier {
         };
         return List.of(games)
           ..sort((a, b) {
+            if (a.id == 'home') return b.id == 'home' ? 0 : -1;
+            if (b.id == 'home') return 1;
             final generationOrder = sort == GameSort.generation
                 ? a.gen.compareTo(b.gen)
                 : b.gen.compareTo(a.gen);
@@ -235,14 +250,7 @@ class GameStore extends ChangeNotifier {
     }
   }
 
-  static double _ratio(Game g, Progress p) {
-    final all = g.allEntries;
-    final t = all.length;
-    if (t == 0) return 0;
-    final n = p.count(g, all);
-    final sh = g.shiny ? p.count(g, all, shiny: true) : 0;
-    return (n + sh) / ((g.shiny ? 2 : 1) * t);
-  }
+  static double _ratio(Game g, Progress p) => p.ratio(g, g.allEntries);
 
   List<Game> _manual() {
     final byId = {for (final g in games) g.id: g};
@@ -308,8 +316,10 @@ class GameStore extends ChangeNotifier {
         id: 'custom_${stamp}_$i',
         name: multi ? '${r.name.trim()} · $label' : r.name.trim(),
         source: d.source,
-        gen: d.gen,
+        gen: 1,
         copyOf: d.copyOf,
+        nationalForGame: d.nationalForGame,
+        includeDlc: d.includeDlc,
         shiny: r.shiny,
         genders: r.genders,
         forms: r.forms,
@@ -403,27 +413,56 @@ class GameStore extends ChangeNotifier {
     }
 
     final list = <GameSpecies>[];
-    if (src != null) {
+    if (src != null && !c.nationalForGame) {
       for (final gs in src.species) {
         final x = make(gs.species, gs.no, gs.entries);
-        if (x != null) list.add(x);
+        if (x != null) list.add(GameSpecies(x.species, x.no, x.entries, label: x.label, section: gs.section ?? 'Juego base'));
+      }
+      if (c.includeDlc) {
+        final related = <String, List<String>>{
+          'sword-shield': ['isle-of-armor', 'crown-tundra'],
+          'scarlet-violet': ['teal-mask', 'indigo-disk'],
+          'legends-za': ['za-mega-dimension'],
+        }[src.id] ?? const <String>[];
+        final labels = <String, String>{
+          'isle-of-armor': 'DLC 1 · Isla de la Armadura',
+          'crown-tundra': 'DLC 2 · Nieves de la Corona',
+          'teal-mask': 'DLC 1 · La máscara turquesa',
+          'indigo-disk': 'DLC 2 · El disco índigo',
+          'za-mega-dimension': 'DLC · Megadimensión',
+        };
+        for (final id in related) {
+          Game? dlc;
+          for (final candidate in _base) { if (candidate.id == id) { dlc = candidate; break; } }
+          if (dlc == null) continue;
+          for (final gs in dlc.species) {
+            final x = make(gs.species, gs.no, gs.entries);
+            if (x != null) list.add(GameSpecies(x.species, x.no, x.entries, label: x.label, section: labels[id]));
+          }
+        }
       }
     } else {
       for (final s in _species) {
-        if (c.source == DexSource.generation && s.gen != c.gen) continue;
         final x = make(s, s.dex, s.entries);
-        if (x != null) list.add(x);
+        if (x != null) list.add(GameSpecies(x.species, x.no, x.entries, section: c.nationalForGame ? 'Pokédex nacional' : null));
       }
     }
 
+    // Copia de un juego: hereda sus variocolores no disponibles. Si no, solo
+    // se aplican los bloqueos globales (los de HOME).
+    Game? home;
+    for (final g in _base) {
+      if (g.id == 'home') home = g;
+    }
     return Game(
       id: c.id,
       name: c.name,
-      gen: 0,
+      gen: src?.gen ?? 0,
       shiny: c.shiny,
       genders: c.genders,
       species: list,
       custom: true,
-    );
+      iconId: c.copyOf,
+    )..shinyLocked = src?.shinyLocked ?? home?.shinyLocked ?? const {};
   }
 }

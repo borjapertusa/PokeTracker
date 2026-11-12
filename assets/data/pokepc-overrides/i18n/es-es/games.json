@@ -1,0 +1,18 @@
+{
+  "rby": { "name": "Rojo, Azul y Amarillo" },
+  "gsc": { "name": "Oro, Plata y Cristal" },
+  "rse": { "name": "Rubí, Zafiro y Esmeralda" },
+  "frlg": { "name": "Rojo Fuego y Verde Hoja" },
+  "dppt": { "name": "Diamante, Perla y Platino" },
+  "bwb2w2": { "name": "Blanco, Negro, Blanco 2 y Negro 2" },
+  "xy": { "name": "X e Y" },
+  "oras": { "name": "Rubí Omega y Zafiro Alfa" },
+  "smusum": { "name": "Sol, Luna, Ultrasol y Ultraluna" },
+  "lgpe": { "name": "Let's Go, Pikachu! y Let's Go, Eevee!" },
+  "swsh": { "name": "Espada y Escudo" },
+  "bdsp": { "name": "Diamante Brillante y Perla Reluciente" },
+  "sv": { "name": "Escarlata y Púrpura" },
+  "lza": { "name": "Leyendas Pokémon: Z-A" },
+  "pokopia": { "name": "Pokémon Pokopia" },
+  "home": { "name": "Pokémon HOME" }
+}

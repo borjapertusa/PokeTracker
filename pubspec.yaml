@@ -13,6 +13,12 @@ dependencies:
   shared_preferences: ^2.2.3
   url_launcher: ^6.3.0
 
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  flutter_launcher_icons: ^0.14.3
+
 flutter:
   uses-material-design: true
   assets:
@@ -20,3 +26,19 @@ flutter:
     - assets/items/
     - assets/sprites/
     - assets/sprites3d/
+
+# Icono de la app: dart run flutter_launcher_icons
+flutter_launcher_icons:
+  image_path: "assets/icon/app_icon.png"
+  android: true
+  ios: true
+  remove_alpha_ios: true
+  adaptive_icon_background: "#1E2C4E"
+  adaptive_icon_foreground: "assets/icon/app_icon_foreground.png"
+  windows:
+    generate: true
+    image_path: "assets/icon/app_icon.png"
+    icon_size: 256
+  macos:
+    generate: true
+    image_path: "assets/icon/app_icon.png"

@@ -13,7 +13,7 @@ typedef EntryIndex = Map<String, (Species, DexEntry)>;
 
 class DexBox {
   String name;
-  final List<String?> slots; // 'idEntrada' o 'idEntrada|s' (variocolor); null = vacío
+  final List<String?> slots; // 'idEntrada[|s][|ball]'; null = vacío. Ver parseSlot/encodeSlot
 
   DexBox(this.name, [List<String?>? slots])
       : slots = slots ?? List<String?>.filled(boxSize, null);
@@ -178,3 +178,20 @@ class BoxStore extends ChangeNotifier {
     _save();
   }
 }
+
+/// Contenido de un hueco de caja.
+typedef SlotData = ({String id, bool shiny, String? ball});
+
+/// 'idEntrada', 'idEntrada|s' o 'idEntrada|s|great-ball' (variocolor y ball opcionales).
+SlotData parseSlot(String v) {
+  final parts = v.split('|');
+  return (
+    id: parts[0],
+    shiny: parts.length > 1 && parts[1] == 's',
+    ball: parts.length > 2 && parts[2].isNotEmpty ? parts[2] : null,
+  );
+}
+
+String encodeSlot(String id, bool shiny, String? ball) => ball == null
+    ? (shiny ? '$id|s' : id)
+    : '$id|${shiny ? 's' : ''}|$ball';

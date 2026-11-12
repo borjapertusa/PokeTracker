@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "about": "Variocolores que NO se pueden conseguir en una Pokédex concreta. HOME no aplica reglas de juego (solo 'never'). Si dudas de un caso, no lo pongas: es mejor mostrar una casilla de más que ocultar un variocolor real. Fuente principal: Bulbapedia, 'List of unobtainable Shiny Pokémon'.",
+  "never": [
+    "pikachu-starter", "pikachu-starter-f", "eevee-starter", "eevee-starter-f",
+    "pikachu-rock-star", "pikachu-belle", "pikachu-pop-star", "pikachu-phd",
+    "pikachu-libre", "pikachu-cosplay",
+    "pikachu-original-cap", "pikachu-world-cap",
+    "pichu-spiky-eared",
+    "greninja-battle-bond", "greninja-ash",
+    "floette-eternal",
+    "vivillon-poke-ball", "vivillon-pokeball"
+  ],
+  "rules": [
+    {
+      "games": ["x-y"],
+      "species": [718, 719, 720, 721],
+      "note": "Zygarde, Diancie, Hoopa y Volcanion: sin variocolor en la gen. VI (Diancie y Volcanion solo existen después, vía GO/HOME)."
+    },
+    {
+      "games": ["gen:5"],
+      "species": [494, 643, 644, 646, 647, 648],
+      "note": "Victini, Reshiram, Zekrom, Kyurem (bloqueados en la gen. V); Keldeo y Meloetta (solo existen vía HOME)."
+    },
+    {
+      "games": ["gold-silver", "heartgold-soulsilver"],
+      "species": [251],
+      "note": "Celebi bloqueado (en Cristal sí es posible, edición Consola Virtual)."
+    },
+    {
+      "games": ["gold-silver", "crystal"],
+      "speciesExcept": { "201": ["unown-i", "unown-v"] },
+      "note": "En la gen. II el variocolor depende de los DV: solo las Unown I y V pueden serlo."
+    },
+    {
+      "games": ["lets-go"],
+      "species": [151],
+      "entries": ["pikachu-starter", "pikachu-starter-f", "eevee-starter", "eevee-starter-f"],
+      "note": "Mew no se puede conseguir variocolor en Let's Go; Pikachu/Eevee compañeros están bloqueados."
+    }
+  ]
+}

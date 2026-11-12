@@ -1,17 +1,22 @@
 import 'package:flutter/material.dart';
 
 import 'settings.dart';
+import 'offline_content.dart';
 
 /// Panel de opciones que se abre desde la derecha (botón ⚙ o Ctrl+,).
 class SettingsDrawer extends StatelessWidget {
   final AppSettings settings;
   final VoidCallback onExport;
   final VoidCallback onImport;
+
+  /// Genera la página web de seguimiento (para publicarla y compartir un enlace).
+  final VoidCallback? onExportHtml;
   const SettingsDrawer({
     super.key,
     required this.settings,
     required this.onExport,
     required this.onImport,
+    this.onExportHtml,
   });
 
   @override
@@ -49,6 +54,24 @@ class SettingsDrawer extends StatelessWidget {
                       ),
                     ],
                   ),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.offline_bolt_outlined),
+                  title: const Text('Contenido local'),
+                  subtitle: const Text('Gestionar datos e imágenes sin conexión'),
+                  trailing: const Icon(Icons.chevron_right),
+                  onTap: () {
+                    Scaffold.of(context).closeEndDrawer();
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (_) => OfflineContentScreen(settings: st),
+                    ));
+                  },
+                ),
+                SwitchListTile(
+                  title: const Text('Modo sin conexión para imágenes'),
+                  subtitle: const Text('No cargar sprites ni iconos desde Internet'),
+                  value: st.offlineMode,
+                  onChanged: (v) => st.update(() => st.offlineMode = v),
                 ),
                 section('Tema'),
                 pad(SegmentedButton<ThemeMode>(
@@ -139,11 +162,30 @@ class SettingsDrawer extends StatelessWidget {
                   label: '${st.rightSidebarWidth.round()} px',
                   onChanged: (v) => st.update(() => st.rightSidebarWidth = v),
                 ),
-                SwitchListTile(
-                  title: const Text('Renderizados 3D (Pokémon HOME)'),
-                  subtitle: const Text('Usa ilustraciones 3D; requiere conexión a Internet. Si falta alguna forma, se muestra el sprite original.'),
-                  value: st.threeDSprites,
-                  onChanged: (v) => st.update(() => st.threeDSprites = v),
+                section('Estilo de sprites'),
+                pad(DropdownButtonFormField<SpriteMode>(
+                  value: st.spriteMode,
+                  isExpanded: true,
+                  decoration: const InputDecoration(border: OutlineInputBorder(), isDense: true),
+                  items: const [
+                    DropdownMenuItem(value: SpriteMode.twoD, child: Text('2D (sprites clásicos)')),
+                    DropdownMenuItem(value: SpriteMode.threeD, child: Text('3D (renders de Pokémon HOME)')),
+                    DropdownMenuItem(value: SpriteMode.animated, child: Text('3D animados')),
+                  ],
+                  onChanged: (v) {
+                    if (v != null) st.update(() => st.spriteMode = v);
+                  },
+                )),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 6, 16, 8),
+                  child: Text(
+                    switch (st.spriteMode) {
+                      SpriteMode.twoD => 'Usa los sprites 2D incluidos en la app.',
+                      SpriteMode.threeD => 'Usa los renders 3D descargados con el contenido local. Si falta alguna forma, se muestra el sprite 2D.',
+                      SpriteMode.animated => 'Usa sprites animados (Pokémon Showdown). Se descargan la primera vez que se ven y se guardan en el equipo; si no hay conexión o falta alguno, se muestra el render 3D.',
+                    },
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
                 ),
                 SwitchListTile(
                   title: const Text('Sprites pixelados (nítidos)'),
@@ -178,6 +220,16 @@ class SettingsDrawer extends StatelessWidget {
                     onImport();
                   },
                 ),
+                if (onExportHtml != null)
+                  ListTile(
+                    leading: const Icon(Icons.public),
+                    title: const Text('Exportar seguimiento (página web)…'),
+                    subtitle: const Text('Crea un HTML con tu progreso para publicarlo y compartir un enlace'),
+                    onTap: () {
+                      Scaffold.of(context).closeEndDrawer();
+                      onExportHtml!();
+                    },
+                  ),
                 pad(Align(
                   alignment: Alignment.centerLeft,
                   child: TextButton.icon(

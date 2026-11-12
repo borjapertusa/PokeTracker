@@ -1,0 +1,130 @@
+{
+ "about": "Claves de iconos de juego de PokéPC (static.pokepc.net/images/games/gametiles/<clave>.webp). Cada lista son prefijos de id (p. ej. 'frlg' -> frlg-fr, frlg-lg); '~texto' se busca dentro del nombre inglés del juego (sin signos); '=clave' es una clave exacta que se prueba si el índice local no da resultados. Si no hay icono, se mantiene el de siglas.",
+ "games": {
+  "home": [
+   "home"
+  ],
+  "red-blue": [
+   "rb",
+   "rgby",
+   "rbg"
+  ],
+  "yellow": [
+   "y",
+   "rgby"
+  ],
+  "gold-silver": [
+   "gs",
+   "gsc"
+  ],
+  "crystal": [
+   "c",
+   "gsc"
+  ],
+  "ruby-sapphire": [
+   "rs",
+   "rse"
+  ],
+  "emerald": [
+   "e",
+   "rse"
+  ],
+  "firered-leafgreen": [
+   "frlg"
+  ],
+  "firered-leafgreen-switch": [
+   "frlg"
+  ],
+  "diamond-pearl": [
+   "dp",
+   "dppt"
+  ],
+  "platinum": [
+   "pt",
+   "dppt"
+  ],
+  "heartgold-soulsilver": [
+   "hgss"
+  ],
+  "black-white": [
+   "bw"
+  ],
+  "black-2-white-2": [
+   "b2w2",
+   "bw2"
+  ],
+  "x-y": [
+   "xy"
+  ],
+  "omega-ruby-alpha-sapphire": [
+   "oras"
+  ],
+  "sun-moon": [
+   "sm"
+  ],
+  "ultra-sun-ultra-moon": [
+   "usum"
+  ],
+  "lets-go": [
+   "lgpe",
+   "lg"
+  ],
+  "sword-shield": [
+   "swsh"
+  ],
+  "isle-of-armor": [
+   "swsh"
+  ],
+  "crown-tundra": [
+   "swsh"
+  ],
+  "bdsp": [
+   "bdsp"
+  ],
+  "legends-arceus": [
+   "pla",
+   "la",
+   "~legendsarceus",
+   "=pla",
+   "=la",
+   "=legends-arceus"
+  ],
+  "scarlet-violet": [
+   "sv"
+  ],
+  "teal-mask": [
+   "sv"
+  ],
+  "indigo-disk": [
+   "sv"
+  ],
+  "legends-za": [
+   "lza",
+   "plza",
+   "za",
+   "~legendsza",
+   "=lza",
+   "=plza",
+   "=za",
+   "=legends-za"
+  ],
+  "za-mega-dimension": [
+   "lza",
+   "plza",
+   "za",
+   "~legendsza",
+   "=lza",
+   "=plza",
+   "=za",
+   "=legends-za"
+  ],
+  "pokopia": [
+   "pokopia",
+   "~pokopia"
+  ],
+  "pokopia-dlc": [
+   "pokopia",
+   "~pokopia"
+  ]
+ }
+}

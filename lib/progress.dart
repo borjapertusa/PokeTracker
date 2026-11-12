@@ -15,6 +15,9 @@ class Progress extends ChangeNotifier {
   final ProfileStore _profiles;
   final Map<String, int> _bits = {};
   String _pid;
+  // Sube con cada cambio de progreso; invalida el caché del desafío diario.
+  int _rev = 0;
+  final Map<String, (int, List<Map<String, dynamic>>)> _challengeCache = {};
 
   Progress._(this._prefs, this._profiles) : _pid = _profiles.activeId {
     _read();
@@ -26,6 +29,7 @@ class Progress extends ChangeNotifier {
 
   void _read() {
     _bits.clear();
+    _rev++;
     // El primer perfil recoge el progreso guardado antes de existir los perfiles.
     final raw = _prefs.getString(progressKey(_pid)) ??
         (_pid == defaultProfileId ? _prefs.getString('progress_v1') : null);
@@ -47,7 +51,10 @@ class Progress extends ChangeNotifier {
     }
   }
 
-  void _save() => _prefs.setString(progressKey(_pid), jsonEncode(_bits));
+  void _save() {
+    _rev++;
+    _prefs.setString(progressKey(_pid), jsonEncode(_bits));
+  }
 
   bool has(String key, {bool shiny = false}) =>
       ((_bits[key] ?? 0) & (shiny ? 2 : 1)) != 0;
@@ -55,16 +62,17 @@ class Progress extends ChangeNotifier {
   String _challengeKey(Game game) => 'daily_challenge_v1_${_pid}_${game.id}';
 
   bool _targetCaught(Game game, GameSpecies gs, bool shiny) => gs.entries.any((entry) =>
+      (!shiny || game.shinyFor(entry)) &&
       ((_bits[game.key(entry)] ?? 0) & (shiny ? 2 : 1)) != 0);
 
   List<Map<String, dynamic>> _eligibleChallenge(Game game,
       {Set<String> except = const {}}) => [
-        for (final gs in game.species)
+        for (final gs in game.uniqueSpecies)
           if (!_targetCaught(game, gs, false) && !except.contains('${gs.species.dex}:n'))
             {'dex': gs.species.dex, 'shiny': false},
         if (game.shiny)
-          for (final gs in game.species)
-            if (gs.entries.any((e) => e.shiny != null) &&
+          for (final gs in game.uniqueSpecies)
+            if (gs.entries.any(game.shinyFor) &&
                 !_targetCaught(game, gs, true) && !except.contains('${gs.species.dex}:s'))
               {'dex': gs.species.dex, 'shiny': true},
       ];
@@ -83,16 +91,24 @@ class Progress extends ChangeNotifier {
   }
 
   void _saveChallenge(Game game, List<Map<String,dynamic>> targets) {
+    _challengeCache.remove(_challengeKey(game));
     _prefs.setString(_challengeKey(game), jsonEncode(targets));
   }
 
   /// Cuatro objetivos persistentes; cada especie puede aparecer como normal y variocolor.
+  /// El resultado se guarda en memoria hasta que cambie el progreso, y solo se
+  /// escribe en disco si los objetivos cambian (esto se llama al pintar).
   List<Map<String,dynamic>> dailyChallenge(Game game) {
-    final valid = game.species.map((s) => s.species.dex).toSet();
-    final current = _readChallenge(game).where((t) {
-      GameSpecies? gs;
-      for (final candidate in game.species) { if (candidate.species.dex == t['dex']) { gs = candidate; break; } }
-      if (!valid.contains(t['dex']) || gs == null) return false;
+    final cacheKey = _challengeKey(game);
+    final cached = _challengeCache[cacheKey];
+    if (cached != null && cached.$1 == _rev) return cached.$2;
+    final stored = _readChallenge(game);
+    final valid = <int, GameSpecies>{
+      for (final gs in game.species) gs.species.dex: gs,
+    };
+    final current = stored.where((t) {
+      final gs = valid[t['dex']];
+      if (gs == null) return false;
       final shiny = t['shiny'] == true;
       return (!shiny || game.shiny) && !_targetCaught(game, gs, shiny);
     }).toList();
@@ -106,8 +122,11 @@ class Progress extends ChangeNotifier {
       final target = eligible.removeAt(index);
       unique.add(target);
     }
-    _saveChallenge(game, unique);
-    return List.unmodifiable(unique);
+    final changed = jsonEncode(stored) != jsonEncode(unique);
+    if (changed) _saveChallenge(game, unique);
+    final result = List<Map<String,dynamic>>.unmodifiable(unique);
+    _challengeCache[cacheKey] = (_rev, result);
+    return result;
   }
 
   void rerollDailyChallenge(Game game) {
@@ -145,14 +164,26 @@ class Progress extends ChangeNotifier {
     notifyListeners();
   }
 
-  int count(Game g, Iterable<DexEntry> es, {bool shiny = false}) =>
-      es.where((e) => has(g.key(e), shiny: shiny)).length;
+  /// Cuenta registros. Los variocolor solo cuentan en entradas donde se pueden
+  /// conseguir; un marcado antiguo en una entrada sin variocolor se ignora.
+  int count(Game g, Iterable<DexEntry> es, {bool shiny = false}) => es
+      .where((e) => (!shiny || g.shinyFor(e)) && has(g.key(e), shiny: shiny))
+      .length;
+
+  /// Progreso total (0–1) de [es]: normales + variocolor disponibles.
+  double ratio(Game g, Iterable<DexEntry> es) {
+    final list = es is List<DexEntry> ? es : es.toList();
+    final total = list.length + g.shinyTotal(list);
+    if (total == 0) return 0;
+    return (count(g, list) + count(g, list, shiny: true)) / total;
+  }
 
   /// Marca o desmarca (value) la casilla normal o variocolor de varias entradas.
   void setAll(Game g, Iterable<DexEntry> es,
       {required bool shiny, required bool value}) {
     final bit = shiny ? 2 : 1;
     for (final e in es) {
+      if (shiny && !g.shinyFor(e)) continue; // sin variocolor: no se marca
       final k = g.key(e);
       final cur = _bits[k] ?? 0;
       final next = value ? (cur | bit) : (cur & ~bit);
@@ -172,7 +203,7 @@ class Progress extends ChangeNotifier {
       {required bool value}) {
     for (final (game, entry) in items) {
       final key = game.key(entry);
-      final bits = game.shiny ? 3 : 1;
+      final bits = game.shinyFor(entry) ? 3 : 1;
       final current = _bits[key] ?? 0;
       final next = value ? (current | bits) : (current & ~bits);
       if (next == 0) {
@@ -187,6 +218,11 @@ class Progress extends ChangeNotifier {
 
   /// Borra el progreso de un juego propio en todos los perfiles.
   void removeGame(String gameId) {
+    // Elimina también los desafíos diarios guardados para este tracker en
+    // todos los perfiles; no deben reaparecer si se crea otro con el mismo ID.
+    for (final profile in _profiles.profiles) {
+      _prefs.remove('daily_challenge_v1_${profile.id}_$gameId');
+    }
     final prefix = '$gameId:';
     if (_bits.keys.any((k) => k.startsWith(prefix))) {
       _bits.removeWhere((k, _) => k.startsWith(prefix));

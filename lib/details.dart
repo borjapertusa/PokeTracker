@@ -1,4 +1,8 @@
-/// Datos de ficha (assets/data/details.json, generado por tools/build_details.py).
+// Datos de ficha (assets/data/details.json, generado por tools/build_details.py).
+
+import 'dart:convert';
+
+import 'package:flutter/services.dart' show rootBundle;
 
 class Encounter {
   final String area;
@@ -103,6 +107,30 @@ List<(int, String, int)> evoEdges(EvoNode n) => [
         ...evoEdges(child),
       ],
     ];
+
+/// Descripciones en español (ES-ES) de WikiDex para habilidades y movimientos
+/// (assets/data/descriptions_es.json). Si falta alguna, se usa la que ya hubiera.
+class DescriptionsEs {
+  DescriptionsEs._();
+  static Map<String, String> _abilities = {};
+  static Map<String, String> _moves = {};
+
+  static Future<void> load() async {
+    try {
+      final raw = await rootBundle.loadString('assets/data/descriptions_es.json');
+      final j = jsonDecode(raw) as Map<String, dynamic>;
+      Map<String, String> read(Object? o) => {
+            for (final e in ((o as Map?) ?? const {}).entries)
+              e.key.toString(): e.value.toString(),
+          };
+      _abilities = read(j['abilities']);
+      _moves = read(j['moves']);
+    } catch (_) {}
+  }
+
+  static String? ability(String slug) => _abilities[slug];
+  static String? move(String slug) => _moves[slug];
+}
 
 class DexDetails {
   final Map<String, dynamic> _species;

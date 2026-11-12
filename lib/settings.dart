@@ -5,8 +5,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 enum ViewMode { grid, list }
 
+/// Estilo de sprites: 2D clásico, render 3D de HOME o 3D animado.
+enum SpriteMode { twoD, threeD, animated }
+
 /// Opciones visuales de la app, guardadas en el equipo.
 class AppSettings extends ChangeNotifier {
+  static AppSettings? current;
   static const _key = 'settings_v1';
 
   static const accents = <String, Color>{
@@ -33,7 +37,13 @@ class AppSettings extends ChangeNotifier {
   ViewMode viewMode = ViewMode.grid;
   bool spanish = true;
   bool pixelSprites = true;
-  bool threeDSprites = false;
+  /// Estilo de los sprites: 2D, 3D (render HOME) o 3D animados.
+  SpriteMode spriteMode = SpriteMode.twoD;
+
+  /// Los sprites 3D (estáticos o animados) usan el render de HOME.
+  bool get threeDSprites => spriteMode != SpriteMode.twoD;
+  bool get animatedSprites => spriteMode == SpriteMode.animated;
+  bool offlineMode = false;
   String lastGame = 'home';
 
   Color get seed => accents[accent] ?? Colors.red;
@@ -63,12 +73,18 @@ class AppSettings extends ChangeNotifier {
             orElse: () => ViewMode.grid);
         s.spanish = j['spanish'] != false;
         s.pixelSprites = j['pixelSprites'] != false;
-        s.threeDSprites = j['threeDSprites'] == true;
+        final mode = j['spriteMode'];
+        s.spriteMode = SpriteMode.values.firstWhere((m) => m.name == mode,
+            orElse: () => j['threeDSprites'] == true
+                ? SpriteMode.threeD
+                : SpriteMode.twoD);
+        s.offlineMode = j['offlineMode'] == true;
         s.lastGame = (j['lastGame'] as String?) ?? 'home';
       } catch (_) {
         // Si el archivo está dañado se usan los valores por defecto.
       }
     }
+    current = s;
     return s;
   }
 
@@ -88,7 +104,9 @@ class AppSettings extends ChangeNotifier {
           'viewMode': viewMode.name,
           'spanish': spanish,
           'pixelSprites': pixelSprites,
+          'spriteMode': spriteMode.name,
           'threeDSprites': threeDSprites,
+          'offlineMode': offlineMode,
           'lastGame': lastGame,
         }));
     notifyListeners();
@@ -104,6 +122,7 @@ class AppSettings extends ChangeNotifier {
         viewMode = ViewMode.grid;
         spanish = true;
         pixelSprites = true;
-        threeDSprites = false;
+        spriteMode = SpriteMode.twoD;
+        offlineMode = false;
       });
 }

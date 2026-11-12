@@ -14,10 +14,11 @@ import 'progress.dart';
 import 'screens.dart';
 import 'general_dex.dart';
 import 'global_moves_dex.dart';
-import 'objects_dex.dart';
+import 'roadmap_screen.dart';
 import 'settings.dart';
 import 'settings_drawer.dart';
 import 'tm_dex.dart';
+import 'web_export.dart';
 
 /// Una sección de la app que aparece en la pantalla de inicio.
 class AppSection {
@@ -82,7 +83,7 @@ class _LauncherScreenState extends State<LauncherScreen> {
         subtitle:
             'Registra tus Pokémon por juego: formas, género y variocolor, con fichas y cajas.',
         icon: Icons.catching_pokemon,
-        stat: 'HOME: $n/$t  ·  ✨ $sh/$t',
+        stat: 'HOME: $n/$t  ·  ✨ $sh/${home.shinyTotal(all)}',
         builder: (_) => HomeScreen(
           games: widget.games,
           store: widget.store,
@@ -104,19 +105,6 @@ class _LauncherScreenState extends State<LauncherScreen> {
         builder: (_) => AbilityDexScreen(
           species: widget.allSpecies,
           details: widget.details,
-          settings: widget.settings,
-        ),
-      ),
-      AppSection(
-        id: 'items',
-        title: 'Objetos',
-        subtitle: 'Consulta los objetos de cada grupo de ediciones, sus efectos, descripciones, precios y usos evolutivos.',
-        icon: Icons.inventory_2_outlined,
-        stat: 'Objetodex por juego',
-        builder: (_) => ObjectsDexScreen(
-          spanish: widget.settings.spanish,
-          details: widget.details,
-          species: widget.allSpecies,
           settings: widget.settings,
         ),
       ),
@@ -149,6 +137,13 @@ class _LauncherScreenState extends State<LauncherScreen> {
           settings: widget.settings,
         ),
       ),
+      AppSection(
+        id: 'roadmap',
+        title: 'Roadmap',
+        subtitle: 'Tarjetas para apuntar qué quieres hacer a continuación en la app.',
+        icon: Icons.checklist_rtl,
+        builder: (_) => const RoadmapScreen(),
+      ),
     ];
   }
 
@@ -175,6 +170,11 @@ class _LauncherScreenState extends State<LauncherScreen> {
             settings: widget.settings,
             onExport: () => exportProgress(context, widget.progress),
             onImport: () => importProgress(context, widget.progress),
+            onExportHtml: () => exportTrackingPage(context,
+                games: widget.games,
+                progress: widget.progress,
+                profiles: widget.profiles,
+                settings: widget.settings),
           ),
           appBar: AppBar(
             title: ProfileMenu(
@@ -220,7 +220,6 @@ class _LauncherScreenState extends State<LauncherScreen> {
                           alignment: WrapAlignment.center,
                           children: [
                             for (final s in sections) _SectionCard(section: s),
-                            const _ComingCard(),
                           ],
                         ),
                       ],
@@ -280,39 +279,3 @@ class _SectionCard extends StatelessWidget {
 }
 
 /// Hueco reservado para las próximas secciones.
-class _ComingCard extends StatelessWidget {
-  const _ComingCard();
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final muted = theme.colorScheme.outline;
-    return SizedBox(
-      width: 280,
-      height: 200,
-      child: Card(
-        margin: EdgeInsets.zero,
-        elevation: 0,
-        color: Colors.transparent,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-          side: BorderSide(color: theme.colorScheme.outlineVariant),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.add_circle_outline, size: 36, color: muted),
-              const SizedBox(height: 12),
-              Text('Más secciones',
-                  style: theme.textTheme.titleMedium?.copyWith(color: muted)),
-              Text('Próximamente',
-                  style: theme.textTheme.bodySmall?.copyWith(color: muted)),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}

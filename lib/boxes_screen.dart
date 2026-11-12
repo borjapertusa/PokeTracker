@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'balls.dart';
 import 'boxes.dart';
 import 'models.dart';
 import 'settings.dart';
@@ -93,6 +94,8 @@ class _BoxesScreenState extends State<BoxesScreen> {
         games: widget.games,
         filled: filled,
         settings: widget.settings,
+        showBalls: true,
+        currentValue: store.boxesOf(game.id)[b].slots[s],
       ),
     );
     if (v == null) return;
@@ -100,7 +103,7 @@ class _BoxesScreenState extends State<BoxesScreen> {
   }
 
   Future<void> _fill() async {
-    final n = game.species.length;
+    final n = game.uniqueSpecies.length;
     final boxes = (n / boxSize).ceil();
     final ok = await _confirm(
       'Rellenar con la Pokédex',
@@ -109,7 +112,7 @@ class _BoxesScreenState extends State<BoxesScreen> {
       'Rellenar',
     );
     if (!ok) return;
-    store.fill(game.id, [for (final gs in game.species) gs.entries.first.id]);
+    store.fill(game.id, [for (final gs in game.uniqueSpecies) gs.entries.first.id]);
     setState(() => cur = 0);
   }
 
@@ -352,9 +355,10 @@ class _BoxesScreenState extends State<BoxesScreen> {
     final spanish = widget.settings.spanish;
     final pixel = widget.settings.pixelSprites;
     final v = boxes[b].slots[s];
-    final parts = v?.split('|');
-    final mon = parts == null ? null : widget.entryIndex[parts[0]];
-    final shiny = parts != null && parts.length > 1;
+    final data = v == null ? null : parseSlot(v);
+    final mon = data == null ? null : widget.entryIndex[data.id];
+    final shiny = data?.shiny ?? false;
+    final ball = data?.ball;
     final path = mon == null
         ? null
         : (shiny ? (mon.$2.shiny ?? mon.$2.sprite) : mon.$2.sprite);
@@ -383,6 +387,11 @@ class _BoxesScreenState extends State<BoxesScreen> {
                               top: 2,
                               right: 4,
                               child: Text('✨', style: TextStyle(fontSize: 12))),
+                        if (ball != null)
+                          Positioned(
+                              bottom: 1,
+                              left: 2,
+                              child: BallIcon(ball, size: cell * 0.3)),
                       ],
                     ),
         );
@@ -400,7 +409,10 @@ class _BoxesScreenState extends State<BoxesScreen> {
         final tipped = mon == null
             ? tap
             : Tooltip(
-                message: _tip(mon.$1, mon.$2, shiny, spanish),
+                message: _tip(mon.$1, mon.$2, shiny, spanish) +
+                    (ballById(ball) == null
+                        ? ''
+                        : '\nCapturado en ${spanish ? ballById(ball)!.es : ballById(ball)!.en}'),
                 waitDuration: const Duration(milliseconds: 400),
                 child: tap,
               );
@@ -441,6 +453,12 @@ class PokemonPickerDialog extends StatefulWidget {
   final AppSettings settings;
   final String title;
   final String removeLabel;
+
+  /// Muestra el desplegable de balls y devuelve el hueco con la ball elegida.
+  final bool showBalls;
+
+  /// Contenido actual del hueco (si se está editando uno ya ocupado).
+  final String? currentValue;
   const PokemonPickerDialog({
     super.key,
     required this.game,
@@ -449,6 +467,8 @@ class PokemonPickerDialog extends StatefulWidget {
     required this.settings,
     this.title = 'Elegir Pokémon',
     this.removeLabel = 'Quitar de la caja',
+    this.showBalls = false,
+    this.currentValue,
   });
 
   @override
@@ -459,6 +479,7 @@ class _PokemonPickerDialogState extends State<PokemonPickerDialog> {
   String query = '';
   bool all = false;
   bool shiny = false;
+  late String? ball = widget.currentValue == null ? null : parseSlot(widget.currentValue!).ball;
 
   @override
   Widget build(BuildContext context) {
@@ -482,6 +503,8 @@ class _PokemonPickerDialogState extends State<PokemonPickerDialog> {
     }
     final canShiny = game.shiny || all;
     final useShiny = shiny && canShiny;
+    // Variocolor disponible según la lista que se está viendo (HOME o el juego).
+    final shinyGame = all ? home : game;
 
     return Dialog(
       child: SizedBox(
@@ -541,6 +564,30 @@ class _PokemonPickerDialogState extends State<PokemonPickerDialog> {
                     ),
                 ],
               ),
+              if (widget.showBalls) ...[
+                const SizedBox(height: 8),
+                Row(children: [
+                  SizedBox(
+                    width: 300,
+                    child: BallDropdown(
+                      value: ball,
+                      spanish: spanish,
+                      onChanged: (v) => setState(() => ball = v),
+                    ),
+                  ),
+                  if (widget.currentValue != null) ...[
+                    const SizedBox(width: 10),
+                    OutlinedButton.icon(
+                      icon: const Icon(Icons.check),
+                      label: const Text('Guardar solo la ball'),
+                      onPressed: () {
+                        final d = parseSlot(widget.currentValue!);
+                        Navigator.pop(context, encodeSlot(d.id, d.shiny, ball));
+                      },
+                    ),
+                  ],
+                ]),
+              ],
               const SizedBox(height: 8),
               Expanded(
                 child: items.isEmpty
@@ -556,8 +603,9 @@ class _PokemonPickerDialogState extends State<PokemonPickerDialog> {
                         itemCount: items.length,
                         itemBuilder: (_, i) {
                           final (s, e) = items[i];
+                          final asShiny = useShiny && shinyGame.shinyFor(e);
                           final path =
-                              useShiny ? (e.shiny ?? e.sprite) : e.sprite;
+                              asShiny ? (e.shiny ?? e.sprite) : e.sprite;
                           final g = e.gender == 'female'
                               ? ' ♀'
                               : e.gender == 'male'
@@ -568,7 +616,10 @@ class _PokemonPickerDialogState extends State<PokemonPickerDialog> {
                           return InkWell(
                             borderRadius: BorderRadius.circular(8),
                             onTap: () => Navigator.pop(
-                                context, '${e.id}${useShiny ? '|s' : ''}'),
+                                context,
+                                widget.showBalls
+                                    ? encodeSlot(e.id, asShiny, ball)
+                                    : '${e.id}${asShiny ? '|s' : ''}'),
                             child: Padding(
                               padding: const EdgeInsets.all(4),
                               child: Column(

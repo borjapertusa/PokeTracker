@@ -206,8 +206,9 @@ class GameList extends StatelessWidget {
     final all = g.allEntries;
     final t = all.length;
     final n = progress.count(g, all);
-    final sh = g.shiny ? progress.count(g, all, shiny: true) : 0;
-    final ratio = t == 0 ? 0.0 : (n + sh) / ((g.shiny ? 2 : 1) * t);
+    final shT = g.shinyTotal(all);
+    final sh = shT > 0 ? progress.count(g, all, shiny: true) : 0;
+    final ratio = (t + shT) == 0 ? 0.0 : (n + sh) / (t + shT);
     final manual = store.sort == GameSort.manual;
     return ListTile(
       dense: true,
@@ -227,7 +228,7 @@ class GameList extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(g.shiny ? '$n/$t  ·  ✨ $sh/$t' : '$n/$t',
+            Text(shT > 0 ? '$n/$t  ·  ✨ $sh/$shT' : '$n/$t',
                 style: theme.textTheme.labelSmall),
             const SizedBox(height: 4),
             LinearProgressIndicator(value: ratio, minHeight: 3),
@@ -301,7 +302,8 @@ class GameList extends StatelessWidget {
         final theme = Theme.of(context);
         final games = store.sorted(progress);
         final grouped = store.sort == GameSort.generation;
-        final items = <Widget>[];
+        // Filas (cabeceras de grupo y juegos) para construirlas bajo demanda.
+        final rows = <Object>[];
         String? lastGroup;
         for (var i = 0; i < games.length; i++) {
           final g = games[i];
@@ -309,22 +311,34 @@ class GameList extends StatelessWidget {
             final group = _groupOf(g);
             if (group != lastGroup) {
               lastGroup = group;
-              items.add(Padding(
-                padding: const EdgeInsets.fromLTRB(16, 16, 16, 4),
-                child: Text(
-                  group,
-                  style: theme.textTheme.labelSmall?.copyWith(
-                      color: theme.colorScheme.primary, letterSpacing: 1),
-                ),
-              ));
+              rows.add(group);
             }
           }
-          items.add(_tile(context, g, i, games.length));
+          rows.add(i);
         }
         return Column(
           children: [
             _header(context),
-            Expanded(child: ListView(children: items)),
+            Expanded(
+              child: ListView.builder(
+                itemCount: rows.length,
+                itemBuilder: (context, r) {
+                  final row = rows[r];
+                  if (row is String) {
+                    return Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 16, 16, 4),
+                      child: Text(
+                        row,
+                        style: theme.textTheme.labelSmall?.copyWith(
+                            color: theme.colorScheme.primary, letterSpacing: 1),
+                      ),
+                    );
+                  }
+                  final i = row as int;
+                  return _tile(context, games[i], i, games.length);
+                },
+              ),
+            ),
           ],
         );
       },

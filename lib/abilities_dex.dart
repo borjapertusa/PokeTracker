@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'details.dart';
+import 'pokemon_table.dart';
 import 'models.dart';
 import 'settings.dart';
 
@@ -47,11 +48,15 @@ class _AbilityDexScreenState extends State<AbilityDexScreen> {
   Widget build(BuildContext context) {
     final details = widget.details;
     final abilities = details?.abilities.entries.toList() ?? [];
-    abilities.sort((a,b) => a.value.toLowerCase().compareTo(b.value.toLowerCase()));
+    // Orden alfabético tratando las vocales acentuadas como si no llevaran acento.
+    abilities.sort((a,b) {
+      final c = _sortKey(a.value).compareTo(_sortKey(b.value));
+      return c != 0 ? c : a.value.compareTo(b.value);
+    });
     final q = _query.trim().toLowerCase();
     final filtered = abilities.where((a) {
       final matches = q.isEmpty || a.value.toLowerCase().contains(q) || a.key.contains(q) ||
-          ((widget.settings.spanish ? details?.abilityEffectsEs[a.key] : details?.abilityEffects[a.key]) ?? '').toLowerCase().contains(q) ||
+          ((widget.settings.spanish ? (DescriptionsEs.ability(a.key) ?? details?.abilityEffectsEs[a.key] ?? details?.abilityEffects[a.key]) : details?.abilityEffects[a.key]) ?? '').toLowerCase().contains(q) ||
           (_fieldEffects[a.key] ?? '').toLowerCase().contains(q) ||
           widget.species.any((sp) => sp.displayName(widget.settings.spanish).toLowerCase().contains(q) &&
             (details?.species(sp.dex)?.varieties.any((v) => v.abilities.any((entry) => entry.$1 == a.key)) ?? false));
@@ -122,35 +127,61 @@ class AbilityDetailScreen extends StatelessWidget {
     for(final s in species) {
       final info=details?.species(s.dex); if(info==null) continue;
       final forms=<String>{}; final roles=<String>{};
-      for(final v in info.varieties) for(final (a,hidden) in v.abilities) {
-        if(a==id) { forms.add(localizedFormName(v.name)); roles.add(abilityRoleLabel(a, hidden)); }
+      for (final v in info.varieties) {
+        for (final (a, hidden) in v.abilities) {
+          if (a == id) {
+            forms.add(localizedFormName(v.name));
+            roles.add(abilityRoleLabel(a, hidden));
+          }
+        }
       }
       if(forms.isNotEmpty) holders.add(_AbilityHolder(s,forms.toList()..sort(),roles.toList()));
     }
     holders.sort((a,b)=>a.species.dex.compareTo(b.species.dex));
     final battle = settings.spanish
-        ? (details?.abilityEffectsEs[id] ?? 'La fuente no ofrece una descripción de esta habilidad en español.')
+        ? (DescriptionsEs.ability(id) ?? details?.abilityEffectsEs[id] ?? details?.abilityEffects[id] ?? 'La fuente no ofrece una descripción de esta habilidad en español.')
         : (details?.abilityEffects[id] ?? 'No hay descripción disponible.');
-    final field=id == 'embody-aspect' ? 'No tiene efecto fuera de combate.' : _fieldEffects[id];
+    // Sin efecto fuera de combate: no se muestra esa sección.
+    final field = id == 'embody-aspect' ? null : _fieldEffects[id];
     final theme=Theme.of(context);
     return Scaffold(appBar:AppBar(title:Text(name)),body:ListView(padding:const EdgeInsets.all(18),children:[
       Center(child:Icon(Icons.auto_awesome,size:54,color:theme.colorScheme.primary)),
       Center(child:Text(name,style:theme.textTheme.headlineMedium,textAlign:TextAlign.center)),
       Center(child:Text(id,style:theme.textTheme.labelMedium)),
       _section(context,'Efecto en combate',battle),
-      _section(context,'Efecto fuera de combate',field ?? 'No se conoce un efecto fuera de combate en los juegos principales.'),
-      if(field!=null && id != 'embody-aspect') Padding(padding:const EdgeInsets.only(top:4),child:Text('Nota: algunos efectos dependen del juego, del método de encuentro y de la generación; se indican las generaciones conocidas en la descripción.',style:theme.textTheme.bodySmall)),
+      if(field!=null) _section(context,'Efecto fuera de combate',field),
+      if(field!=null) Padding(padding:const EdgeInsets.only(top:4),child:Text('Nota: algunos efectos dependen del juego, del método de encuentro y de la generación; se indican las generaciones conocidas en la descripción.',style:theme.textTheme.bodySmall)),
       Padding(padding:const EdgeInsets.only(top:24,bottom:8),child:Text('Pokémon que pueden tenerla (${holders.length})',style:theme.textTheme.titleLarge)),
-      for(final h in holders) Card(child:ListTile(
-        leading:CircleAvatar(child:Text('#${h.species.dex}')),
-        title:Text(h.species.displayName(settings.spanish)),
-        subtitle:Text('${h.roles.join(' / ')}\nFormas: ${h.forms.join(', ')}'),
-        isThreeLine:true,
-      )),
+      PokemonTable(
+        settings: settings,
+        extraHeaders: const ['Tipo de habilidad', 'Formas'],
+        extraFlex: const [1.4, 2],
+        rows: [
+          for (final h in holders)
+            PokemonRow(
+              no: h.species.dex,
+              name: h.species.displayName(settings.spanish),
+              sprite: h.species.entries.isEmpty ? null : h.species.entries.first.sprite,
+              cells: [h.roles.join(' / '), h.forms.join(', ')],
+            ),
+        ],
+      ),
     ]));
   }
   Widget _section(BuildContext c,String title,String body)=>Padding(padding:const EdgeInsets.only(top:20),child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[
     Text(title,style:Theme.of(c).textTheme.titleLarge),const SizedBox(height:7),
     Card(child:Padding(padding:const EdgeInsets.all(14),child:Text(body))),
   ]));
+}
+
+/// Clave de ordenación: minúsculas y sin acentos (á→a, é→e, í→i, ó→o, ú/ü→u).
+String _sortKey(String value) {
+  const from = 'áàäâãéèëêíìïîóòöôõúùüû';
+  const to = 'aaaaaeeeeiiiiooooouuuu';
+  final b = StringBuffer();
+  for (final c in value.toLowerCase().split('')) {
+    final i = from.indexOf(c);
+    b.write(i >= 0 ? to[i] : c);
+  }
+  return b.toString();
 }

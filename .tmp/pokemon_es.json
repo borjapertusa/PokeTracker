@@ -1,0 +1,5706 @@
+{
+  "bulbasaur": {
+    "genus": "Pokémon Semilla"
+  },
+  "ivysaur": {
+    "genus": "Pokémon Semilla"
+  },
+  "venusaur": {
+    "name": "Venusaur",
+    "formName": "Macho",
+    "genus": "Pokémon Semilla"
+  },
+  "venusaur-f": {
+    "speciesName": "Venusaur",
+    "formName": "Hembra",
+    "genus": "Pokémon Semilla"
+  },
+  "venusaur-mega": {
+    "speciesName": "Venusaur",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Semilla"
+  },
+  "venusaur-gmax": {
+    "genus": "Pokémon Semilla"
+  },
+  "charmander": {
+    "genus": "Pokémon Lagartija"
+  },
+  "charmeleon": {
+    "genus": "Pokémon Llama"
+  },
+  "charizard": {
+    "name": "Charizard",
+    "genus": "Pokémon Llama"
+  },
+  "charizard-mega-x": {
+    "speciesName": "Charizard",
+    "formName": "Forma Mega X",
+    "genus": "Pokémon Llama"
+  },
+  "charizard-mega-y": {
+    "speciesName": "Charizard",
+    "formName": "Forma Mega Y",
+    "genus": "Pokémon Llama"
+  },
+  "charizard-gmax": {
+    "genus": "Pokémon Llama"
+  },
+  "squirtle": {
+    "genus": "Pokémon Tortuguita"
+  },
+  "wartortle": {
+    "genus": "Pokémon Tortuga"
+  },
+  "blastoise": {
+    "name": "Blastoise",
+    "genus": "Pokémon Armazón"
+  },
+  "blastoise-mega": {
+    "speciesName": "Blastoise",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Armazón"
+  },
+  "blastoise-gmax": {
+    "genus": "Pokémon Armazón"
+  },
+  "caterpie": {
+    "genus": "Pokémon Gusano"
+  },
+  "metapod": {
+    "genus": "Pokémon Capullo"
+  },
+  "butterfree": {
+    "formName": "Macho",
+    "genus": "Pokémon Mariposa"
+  },
+  "butterfree-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Mariposa"
+  },
+  "butterfree-gmax": {
+    "genus": "Pokémon Mariposa"
+  },
+  "weedle": {
+    "genus": "Pokémon Oruga"
+  },
+  "kakuna": {
+    "genus": "Pokémon Capullo"
+  },
+  "beedrill": {
+    "name": "Beedrill",
+    "genus": "Pokémon Abeja Veneno"
+  },
+  "beedrill-mega": {
+    "speciesName": "Beedrill",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Abeja Veneno"
+  },
+  "pidgey": {
+    "genus": "Pokémon Pajarito"
+  },
+  "pidgeotto": {
+    "genus": "Pokémon Pájaro"
+  },
+  "pidgeot": {
+    "name": "Pidgeot",
+    "genus": "Pokémon Pájaro"
+  },
+  "pidgeot-mega": {
+    "speciesName": "Pidgeot",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Pájaro"
+  },
+  "rattata": {
+    "formName": "Macho",
+    "genus": "Pokémon Ratón"
+  },
+  "rattata-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Ratón"
+  },
+  "rattata-alola": {
+    "name": "Rattata (Forma de Alola)",
+    "formName": "Forma de Alola",
+    "genus": "Pokémon Ratón"
+  },
+  "raticate": {
+    "formName": "Macho",
+    "genus": "Pokémon Ratón"
+  },
+  "raticate-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Ratón"
+  },
+  "raticate-alola": {
+    "name": "Raticate (Forma de Alola)",
+    "formName": "Forma de Alola",
+    "genus": "Pokémon Ratón"
+  },
+  "spearow": {
+    "genus": "Pokémon Pajarito"
+  },
+  "fearow": {
+    "genus": "Pokémon Pico"
+  },
+  "ekans": {
+    "genus": "Pokémon Serpiente"
+  },
+  "arbok": {
+    "name": "Arbok",
+    "genus": "Pokémon Cobra"
+  },
+  "pikachu": {
+    "name": "Pikachu",
+    "formName": "Macho",
+    "genus": "Pokémon Ratón"
+  },
+  "pikachu-f": {
+    "speciesName": "Pikachu",
+    "formName": "Hembra",
+    "genus": "Pokémon Ratón"
+  },
+  "pikachu-gmax": {
+    "genus": "Pokémon Ratón"
+  },
+  "pikachu-original": {
+    "name": "Pikachu (Gorra Original)",
+    "formName": "Gorra Original",
+    "genus": "Pokémon Ratón"
+  },
+  "pikachu-hoenn": {
+    "name": "Pikachu (Gorra Hoenn)",
+    "formName": "Gorra Hoenn",
+    "genus": "Pokémon Ratón"
+  },
+  "pikachu-sinnoh": {
+    "name": "Pikachu (Gorra Sinnoh)",
+    "formName": "Gorra Sinnoh",
+    "genus": "Pokémon Ratón"
+  },
+  "pikachu-unova": {
+    "name": "Pikachu (Gorra Teselia)",
+    "formName": "Gorra Teselia",
+    "genus": "Pokémon Ratón"
+  },
+  "pikachu-kalos": {
+    "name": "Pikachu (Gorra Kalos)",
+    "formName": "Gorra Kalos",
+    "genus": "Pokémon Ratón"
+  },
+  "pikachu-alola": {
+    "name": "Pikachu (Gorra Alola)",
+    "formName": "Gorra Alola",
+    "genus": "Pokémon Ratón"
+  },
+  "pikachu-partner": {
+    "name": "Pikachu (Gorra Compañero)",
+    "formName": "Gorra Compañero",
+    "genus": "Pokémon Ratón"
+  },
+  "pikachu-world": {
+    "name": "Pikachu (Gorra Trotamundos)",
+    "formName": "Gorra Trotamundos",
+    "genus": "Pokémon Ratón"
+  },
+  "raichu": {
+    "name": "Raichu",
+    "formName": "Macho",
+    "genus": "Pokémon Ratón"
+  },
+  "raichu-f": {
+    "speciesName": "Raichu",
+    "formName": "Hembra",
+    "genus": "Pokémon Ratón"
+  },
+  "raichu-alola": {
+    "name": "Raichu (Forma de Alola)",
+    "speciesName": "Raichu",
+    "formName": "Forma de Alola",
+    "genus": "Pokémon Ratón"
+  },
+  "raichu-mega-x": {
+    "speciesName": "Raichu",
+    "formName": "Forma Mega X",
+    "genus": "Pokémon Ratón"
+  },
+  "raichu-mega-y": {
+    "speciesName": "Raichu",
+    "formName": "Forma Mega Y",
+    "genus": "Pokémon Ratón"
+  },
+  "sandshrew": {
+    "genus": "Pokémon Ratón"
+  },
+  "sandshrew-alola": {
+    "name": "Sandshrew (Forma de Alola)",
+    "formName": "Forma de Alola",
+    "genus": "Pokémon Ratón"
+  },
+  "sandslash": {
+    "genus": "Pokémon Ratón"
+  },
+  "sandslash-alola": {
+    "name": "Sandslash (Forma de Alola)",
+    "formName": "Forma de Alola",
+    "genus": "Pokémon Ratón"
+  },
+  "nidoranf": {
+    "genus": "Pokémon Pin Veneno"
+  },
+  "nidorina": {
+    "genus": "Pokémon Pin Veneno"
+  },
+  "nidoqueen": {
+    "genus": "Pokémon Taladro"
+  },
+  "nidoranm": {
+    "genus": "Pokémon Pin Veneno"
+  },
+  "nidorino": {
+    "genus": "Pokémon Pin Veneno"
+  },
+  "nidoking": {
+    "genus": "Pokémon Taladro"
+  },
+  "clefairy": {
+    "genus": "Pokémon Hada"
+  },
+  "clefable": {
+    "name": "Clefable",
+    "genus": "Pokémon Hada"
+  },
+  "clefable-mega": {
+    "speciesName": "Clefable",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Hada"
+  },
+  "vulpix": {
+    "genus": "Pokémon Zorro"
+  },
+  "vulpix-alola": {
+    "name": "Vulpix (Forma de Alola)",
+    "formName": "Forma de Alola",
+    "genus": "Pokémon Zorro"
+  },
+  "ninetales": {
+    "name": "Ninetales",
+    "genus": "Pokémon Zorro"
+  },
+  "ninetales-alola": {
+    "name": "Ninetales (Forma de Alola)",
+    "speciesName": "Ninetales",
+    "formName": "Forma de Alola",
+    "genus": "Pokémon Zorro"
+  },
+  "jigglypuff": {
+    "genus": "Pokémon Globo"
+  },
+  "wigglytuff": {
+    "name": "Wigglytuff",
+    "genus": "Pokémon Globo"
+  },
+  "zubat": {
+    "formName": "Macho",
+    "genus": "Pokémon Murciélago"
+  },
+  "zubat-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Murciélago"
+  },
+  "golbat": {
+    "formName": "Macho",
+    "genus": "Pokémon Murciélago"
+  },
+  "golbat-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Murciélago"
+  },
+  "oddish": {
+    "genus": "Pokémon Hierbajo"
+  },
+  "gloom": {
+    "formName": "Macho",
+    "genus": "Pokémon Hierbajo"
+  },
+  "gloom-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Hierbajo"
+  },
+  "vileplume": {
+    "name": "Vileplume",
+    "formName": "Macho",
+    "genus": "Pokémon Flor"
+  },
+  "vileplume-f": {
+    "speciesName": "Vileplume",
+    "formName": "Hembra",
+    "genus": "Pokémon Flor"
+  },
+  "paras": {
+    "genus": "Pokémon Hongo"
+  },
+  "parasect": {
+    "genus": "Pokémon Hongo"
+  },
+  "venonat": {
+    "genus": "Pokémon Insecto"
+  },
+  "venomoth": {
+    "genus": "Pokémon Polilla Ven."
+  },
+  "diglett": {
+    "genus": "Pokémon Topo"
+  },
+  "diglett-alola": {
+    "name": "Diglett (Forma de Alola)",
+    "formName": "Forma de Alola",
+    "genus": "Pokémon Topo"
+  },
+  "dugtrio": {
+    "genus": "Pokémon Topo"
+  },
+  "dugtrio-alola": {
+    "name": "Dugtrio (Forma de Alola)",
+    "formName": "Forma de Alola",
+    "genus": "Pokémon Topo"
+  },
+  "meowth": {
+    "genus": "Pokémon Gato Araña"
+  },
+  "meowth-alola": {
+    "name": "Meowth (Forma de Alola)",
+    "formName": "Forma de Alola",
+    "genus": "Pokémon Gato Araña"
+  },
+  "meowth-galar": {
+    "name": "Meowth (Forma de Galar)",
+    "formName": "Forma de Galar",
+    "genus": "Pokémon Gato Araña"
+  },
+  "meowth-gmax": {
+    "genus": "Pokémon Gato Araña"
+  },
+  "persian": {
+    "name": "Persian",
+    "genus": "Pokémon Gato Fino"
+  },
+  "persian-alola": {
+    "name": "Persian (Forma de Alola)",
+    "speciesName": "Persian",
+    "formName": "Forma de Alola",
+    "genus": "Pokémon Gato Fino"
+  },
+  "psyduck": {
+    "genus": "Pokémon Pato"
+  },
+  "golduck": {
+    "genus": "Pokémon Pato"
+  },
+  "mankey": {
+    "genus": "Pokémon Mono Cerdo"
+  },
+  "primeape": {
+    "genus": "Pokémon Mono Cerdo"
+  },
+  "growlithe": {
+    "genus": "Pokémon Perrito"
+  },
+  "growlithe-hisui": {
+    "genus": "Pokémon Perrito"
+  },
+  "arcanine": {
+    "name": "Arcanine",
+    "genus": "Pokémon Leyenda"
+  },
+  "arcanine-hisui": {
+    "speciesName": "Arcanine",
+    "genus": "Pokémon Leyenda"
+  },
+  "poliwag": {
+    "genus": "Pokémon Renacuajo"
+  },
+  "poliwhirl": {
+    "genus": "Pokémon Renacuajo"
+  },
+  "poliwrath": {
+    "genus": "Pokémon Renacuajo"
+  },
+  "abra": {
+    "genus": "Pokémon Psi"
+  },
+  "kadabra": {
+    "formName": "Macho",
+    "genus": "Pokémon Psi"
+  },
+  "kadabra-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Psi"
+  },
+  "alakazam": {
+    "name": "Alakazam",
+    "formName": "Macho",
+    "genus": "Pokémon Psi"
+  },
+  "alakazam-f": {
+    "speciesName": "Alakazam",
+    "formName": "Hembra",
+    "genus": "Pokémon Psi"
+  },
+  "alakazam-mega": {
+    "speciesName": "Alakazam",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Psi"
+  },
+  "machop": {
+    "genus": "Pokémon Superpoder"
+  },
+  "machoke": {
+    "genus": "Pokémon Superpoder"
+  },
+  "machamp": {
+    "name": "Machamp",
+    "genus": "Pokémon Superpoder"
+  },
+  "machamp-gmax": {
+    "genus": "Pokémon Superpoder"
+  },
+  "bellsprout": {
+    "genus": "Pokémon Flor"
+  },
+  "weepinbell": {
+    "genus": "Pokémon Matamoscas"
+  },
+  "victreebel": {
+    "name": "Victreebel",
+    "genus": "Pokémon Matamoscas"
+  },
+  "victreebel-mega": {
+    "speciesName": "Victreebel",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Matamoscas"
+  },
+  "tentacool": {
+    "genus": "Pokémon Medusa"
+  },
+  "tentacruel": {
+    "genus": "Pokémon Medusa"
+  },
+  "geodude": {
+    "genus": "Pokémon Roca"
+  },
+  "geodude-alola": {
+    "name": "Geodude (Forma de Alola)",
+    "formName": "Forma de Alola",
+    "genus": "Pokémon Roca"
+  },
+  "graveler": {
+    "genus": "Pokémon Roca"
+  },
+  "graveler-alola": {
+    "name": "Graveler (Forma de Alola)",
+    "formName": "Forma de Alola",
+    "genus": "Pokémon Roca"
+  },
+  "golem": {
+    "genus": "Pokémon Megatón"
+  },
+  "golem-alola": {
+    "name": "Golem (Forma de Alola)",
+    "formName": "Forma de Alola",
+    "genus": "Pokémon Megatón"
+  },
+  "ponyta": {
+    "genus": "Pokémon Caballo Fuego"
+  },
+  "ponyta-galar": {
+    "name": "Ponyta (Forma de Galar)",
+    "formName": "Forma de Galar",
+    "genus": "Pokémon Caballo Fuego"
+  },
+  "rapidash": {
+    "genus": "Pokémon Caballo Fuego"
+  },
+  "rapidash-galar": {
+    "name": "Rapidash (Forma de Galar)",
+    "formName": "Forma de Galar",
+    "genus": "Pokémon Caballo Fuego"
+  },
+  "slowpoke": {
+    "genus": "Pokémon Atontado"
+  },
+  "slowpoke-galar": {
+    "name": "Slowpoke (Forma de Galar)",
+    "formName": "Forma de Galar",
+    "genus": "Pokémon Atontado"
+  },
+  "slowbro": {
+    "name": "Slowbro",
+    "genus": "Pokémon Ermitaño"
+  },
+  "slowbro-mega": {
+    "speciesName": "Slowbro",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Ermitaño"
+  },
+  "slowbro-galar": {
+    "name": "Slowbro (Forma de Galar)",
+    "speciesName": "Slowbro",
+    "formName": "Forma de Galar",
+    "genus": "Pokémon Ermitaño"
+  },
+  "magnemite": {
+    "genus": "Pokémon Imán"
+  },
+  "magneton": {
+    "genus": "Pokémon Imán"
+  },
+  "farfetchd": {
+    "name": "Farfetch'd",
+    "genus": "Pokémon Pato Salvaje"
+  },
+  "farfetchd-galar": {
+    "name": "Farfetch’d (Forma de Galar)",
+    "formName": "Forma de Galar",
+    "genus": "Pokémon Pato Salvaje"
+  },
+  "doduo": {
+    "formName": "Macho",
+    "genus": "Pokémon Ave Gemela"
+  },
+  "doduo-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Ave Gemela"
+  },
+  "dodrio": {
+    "formName": "Macho",
+    "genus": "Pokémon Ave Triple"
+  },
+  "dodrio-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Ave Triple"
+  },
+  "seel": {
+    "genus": "Pokémon León Marino"
+  },
+  "dewgong": {
+    "genus": "Pokémon León Marino"
+  },
+  "grimer": {
+    "genus": "Pokémon Lodo"
+  },
+  "grimer-alola": {
+    "name": "Grimer (Forma de Alola)",
+    "formName": "Forma de Alola",
+    "genus": "Pokémon Lodo"
+  },
+  "muk": {
+    "genus": "Pokémon Lodo"
+  },
+  "muk-alola": {
+    "name": "Muk (Forma de Alola)",
+    "formName": "Forma de Alola",
+    "genus": "Pokémon Lodo"
+  },
+  "shellder": {
+    "genus": "Pokémon Bivalvo"
+  },
+  "cloyster": {
+    "genus": "Pokémon Bivalvo"
+  },
+  "gastly": {
+    "genus": "Pokémon Gas"
+  },
+  "haunter": {
+    "genus": "Pokémon Gas"
+  },
+  "gengar": {
+    "name": "Gengar",
+    "genus": "Pokémon Sombra"
+  },
+  "gengar-mega": {
+    "speciesName": "Gengar",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Sombra"
+  },
+  "gengar-gmax": {
+    "genus": "Pokémon Sombra"
+  },
+  "onix": {
+    "genus": "Pokémon Serpiente Roca"
+  },
+  "drowzee": {
+    "genus": "Pokémon Hipnosis"
+  },
+  "hypno": {
+    "formName": "Macho",
+    "genus": "Pokémon Hipnosis"
+  },
+  "hypno-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Hipnosis"
+  },
+  "krabby": {
+    "genus": "Pokémon Cangrejo"
+  },
+  "kingler": {
+    "genus": "Pokémon Tenaza"
+  },
+  "kingler-gmax": {
+    "genus": "Pokémon Tenaza"
+  },
+  "voltorb": {
+    "genus": "Pokémon Bola"
+  },
+  "voltorb-hisui": {
+    "genus": "Pokémon Bola"
+  },
+  "electrode": {
+    "genus": "Pokémon Bola"
+  },
+  "electrode-hisui": {
+    "genus": "Pokémon Bola"
+  },
+  "exeggcute": {
+    "genus": "Pokémon Huevo"
+  },
+  "exeggutor": {
+    "genus": "Pokémon Coco"
+  },
+  "exeggutor-alola": {
+    "name": "Exeggutor (Forma de Alola)",
+    "formName": "Forma de Alola",
+    "genus": "Pokémon Coco"
+  },
+  "cubone": {
+    "genus": "Pokémon Solitario"
+  },
+  "marowak": {
+    "genus": "Pokémon Apilahueso"
+  },
+  "marowak-alola": {
+    "name": "Marowak (Forma de Alola)",
+    "formName": "Forma de Alola",
+    "genus": "Pokémon Apilahueso"
+  },
+  "hitmonlee": {
+    "genus": "Pokémon Patada"
+  },
+  "hitmonchan": {
+    "genus": "Pokémon Puñetazo"
+  },
+  "lickitung": {
+    "genus": "Pokémon Lametazo"
+  },
+  "koffing": {
+    "genus": "Pokémon Gas Venenoso"
+  },
+  "weezing": {
+    "genus": "Pokémon Gas Venenoso"
+  },
+  "weezing-galar": {
+    "name": "Weezing (Forma de Galar)",
+    "formName": "Forma de Galar",
+    "genus": "Pokémon Gas Venenoso"
+  },
+  "rhyhorn": {
+    "formName": "Macho",
+    "genus": "Pokémon Clavos"
+  },
+  "rhyhorn-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Clavos"
+  },
+  "rhydon": {
+    "formName": "Macho",
+    "genus": "Pokémon Taladro"
+  },
+  "rhydon-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Taladro"
+  },
+  "chansey": {
+    "genus": "Pokémon Huevo"
+  },
+  "tangela": {
+    "genus": "Pokémon Enredadera"
+  },
+  "kangaskhan": {
+    "name": "Kangaskhan",
+    "genus": "Pokémon Maternal"
+  },
+  "kangaskhan-mega": {
+    "speciesName": "Kangaskhan",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Maternal"
+  },
+  "horsea": {
+    "genus": "Pokémon Dragón"
+  },
+  "seadra": {
+    "genus": "Pokémon Dragón"
+  },
+  "goldeen": {
+    "formName": "Macho",
+    "genus": "Pokémon Pez Color"
+  },
+  "goldeen-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Pez Color"
+  },
+  "seaking": {
+    "formName": "Macho",
+    "genus": "Pokémon Pez Color"
+  },
+  "seaking-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Pez Color"
+  },
+  "staryu": {
+    "genus": "Pokémon Estrella"
+  },
+  "starmie": {
+    "name": "Starmie",
+    "genus": "Pokémon Misterioso"
+  },
+  "starmie-mega": {
+    "speciesName": "Starmie",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Misterioso"
+  },
+  "mrmime": {
+    "name": "Mr. Mime",
+    "genus": "Pokémon Barrera"
+  },
+  "mrmime-galar": {
+    "name": "Mr. Mime (Forma de Galar)",
+    "formName": "Forma de Galar",
+    "genus": "Pokémon Barrera"
+  },
+  "scyther": {
+    "formName": "Macho",
+    "genus": "Pokémon Mantis"
+  },
+  "scyther-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Mantis"
+  },
+  "jynx": {
+    "genus": "Pokémon Forma Humana"
+  },
+  "electabuzz": {
+    "genus": "Pokémon Eléctrico"
+  },
+  "magmar": {
+    "genus": "Pokémon Escupefuego"
+  },
+  "pinsir": {
+    "name": "Pinsir",
+    "genus": "Pokémon Escarabajo"
+  },
+  "pinsir-mega": {
+    "speciesName": "Pinsir",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Escarabajo"
+  },
+  "tauros": {
+    "name": "Tauros",
+    "genus": "Pokémon Toro Bravo"
+  },
+  "tauros-paldea": {
+    "speciesName": "Tauros",
+    "genus": "Pokémon Toro Bravo"
+  },
+  "tauros-paldea-fire": {
+    "speciesName": "Tauros",
+    "genus": "Pokémon Toro Bravo"
+  },
+  "tauros-paldea-water": {
+    "speciesName": "Tauros",
+    "genus": "Pokémon Toro Bravo"
+  },
+  "magikarp": {
+    "formName": "Macho",
+    "genus": "Pokémon Pez"
+  },
+  "magikarp-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Pez"
+  },
+  "gyarados": {
+    "name": "Gyarados",
+    "formName": "Macho",
+    "genus": "Pokémon Atrocidad"
+  },
+  "gyarados-f": {
+    "speciesName": "Gyarados",
+    "formName": "Hembra",
+    "genus": "Pokémon Atrocidad"
+  },
+  "gyarados-mega": {
+    "speciesName": "Gyarados",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Atrocidad"
+  },
+  "lapras": {
+    "genus": "Pokémon Transporte"
+  },
+  "lapras-gmax": {
+    "genus": "Pokémon Transporte"
+  },
+  "ditto": {
+    "name": "Ditto",
+    "genus": "Pokémon Transformación"
+  },
+  "eevee": {
+    "formName": "Macho",
+    "genus": "Pokémon Evolución"
+  },
+  "eevee-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Evolución"
+  },
+  "eevee-gmax": {
+    "genus": "Pokémon Evolución"
+  },
+  "vaporeon": {
+    "name": "Vaporeon",
+    "genus": "Pokémon Burbuja"
+  },
+  "jolteon": {
+    "name": "Jolteon",
+    "genus": "Pokémon Relámpago"
+  },
+  "flareon": {
+    "name": "Flareon",
+    "genus": "Pokémon Llama"
+  },
+  "porygon": {
+    "genus": "Pokémon Virtual"
+  },
+  "omanyte": {
+    "genus": "Pokémon Espiral"
+  },
+  "omastar": {
+    "genus": "Pokémon Espiral"
+  },
+  "kabuto": {
+    "genus": "Pokémon Armazón"
+  },
+  "kabutops": {
+    "genus": "Pokémon Armazón"
+  },
+  "aerodactyl": {
+    "name": "Aerodactyl",
+    "genus": "Pokémon Fósil"
+  },
+  "aerodactyl-mega": {
+    "speciesName": "Aerodactyl",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Fósil"
+  },
+  "snorlax": {
+    "name": "Snorlax",
+    "genus": "Pokémon Dormir"
+  },
+  "snorlax-gmax": {
+    "genus": "Pokémon Dormir"
+  },
+  "articuno": {
+    "genus": "Pokémon Congelar"
+  },
+  "articuno-galar": {
+    "name": "Articuno (Forma de Galar)",
+    "formName": "Forma de Galar",
+    "genus": "Pokémon Congelar"
+  },
+  "zapdos": {
+    "genus": "Pokémon Eléctrico"
+  },
+  "zapdos-galar": {
+    "name": "Zapdos (Forma de Galar)",
+    "formName": "Forma de Galar",
+    "genus": "Pokémon Eléctrico"
+  },
+  "moltres": {
+    "genus": "Pokémon Llama"
+  },
+  "moltres-galar": {
+    "name": "Moltres (Forma de Galar)",
+    "formName": "Forma de Galar",
+    "genus": "Pokémon Llama"
+  },
+  "dratini": {
+    "genus": "Pokémon Dragón"
+  },
+  "dragonair": {
+    "genus": "Pokémon Dragón"
+  },
+  "dragonite": {
+    "name": "Dragonite",
+    "genus": "Pokémon Dragón"
+  },
+  "dragonite-mega": {
+    "speciesName": "Dragonite",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Dragón"
+  },
+  "mewtwo": {
+    "genus": "Pokémon Genético"
+  },
+  "mewtwo-mega-x": {
+    "formName": "Forma Mega X",
+    "genus": "Pokémon Genético"
+  },
+  "mewtwo-mega-y": {
+    "formName": "Forma Mega Y",
+    "genus": "Pokémon Genético"
+  },
+  "mew": {
+    "genus": "Pokémon Nueva Especie"
+  },
+  "chikorita": {
+    "genus": "Pokémon Hoja"
+  },
+  "bayleef": {
+    "genus": "Pokémon Hoja"
+  },
+  "meganium": {
+    "name": "Meganium",
+    "formName": "Macho",
+    "genus": "Pokémon Hierba"
+  },
+  "meganium-f": {
+    "speciesName": "Meganium",
+    "formName": "Hembra",
+    "genus": "Pokémon Hierba"
+  },
+  "meganium-mega": {
+    "speciesName": "Meganium",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Hierba"
+  },
+  "cyndaquil": {
+    "genus": "Pokémon Ratón Fuego"
+  },
+  "quilava": {
+    "genus": "Pokémon Volcán"
+  },
+  "typhlosion": {
+    "name": "Typhlosion",
+    "genus": "Pokémon Volcán"
+  },
+  "typhlosion-hisui": {
+    "speciesName": "Typhlosion",
+    "genus": "Pokémon Volcán"
+  },
+  "totodile": {
+    "genus": "Pokémon Fauces"
+  },
+  "croconaw": {
+    "genus": "Pokémon Fauces"
+  },
+  "feraligatr": {
+    "name": "Feraligatr",
+    "genus": "Pokémon Fauces"
+  },
+  "feraligatr-mega": {
+    "speciesName": "Feraligatr",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Fauces"
+  },
+  "sentret": {
+    "genus": "Pokémon Explorador"
+  },
+  "furret": {
+    "genus": "Pokémon Alargado"
+  },
+  "hoothoot": {
+    "genus": "Pokémon Búho"
+  },
+  "noctowl": {
+    "genus": "Pokémon Búho"
+  },
+  "ledyba": {
+    "formName": "Macho",
+    "genus": "Pokémon 5 Estrellas"
+  },
+  "ledyba-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon 5 Estrellas"
+  },
+  "ledian": {
+    "formName": "Macho",
+    "genus": "Pokémon 5 Estrellas"
+  },
+  "ledian-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon 5 Estrellas"
+  },
+  "spinarak": {
+    "genus": "Pokémon Escupesoga"
+  },
+  "ariados": {
+    "name": "Ariados",
+    "genus": "Pokémon Pata Larga"
+  },
+  "crobat": {
+    "genus": "Pokémon Murciélago"
+  },
+  "chinchou": {
+    "genus": "Pokémon Rape"
+  },
+  "lanturn": {
+    "genus": "Pokémon Luz"
+  },
+  "pichu": {
+    "genus": "Pokémon Ratoncito"
+  },
+  "cleffa": {
+    "genus": "Pokémon Estrella"
+  },
+  "igglybuff": {
+    "genus": "Pokémon Globo"
+  },
+  "togepi": {
+    "genus": "Pokémon Bolaclavos"
+  },
+  "togetic": {
+    "genus": "Pokémon Felicidad"
+  },
+  "natu": {
+    "genus": "Pokémon Pajarito"
+  },
+  "xatu": {
+    "formName": "Macho",
+    "genus": "Pokémon Místico"
+  },
+  "xatu-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Místico"
+  },
+  "mareep": {
+    "genus": "Pokémon Lana"
+  },
+  "flaaffy": {
+    "genus": "Pokémon Lana"
+  },
+  "ampharos": {
+    "name": "Ampharos",
+    "genus": "Pokémon Luz"
+  },
+  "ampharos-mega": {
+    "speciesName": "Ampharos",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Luz"
+  },
+  "bellossom": {
+    "genus": "Pokémon Flor"
+  },
+  "marill": {
+    "genus": "Pokémon Ratón Agua"
+  },
+  "azumarill": {
+    "name": "Azumarill",
+    "genus": "Pokémon Conejo Agua"
+  },
+  "sudowoodo": {
+    "formName": "Macho",
+    "genus": "Pokémon Imitación"
+  },
+  "sudowoodo-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Imitación"
+  },
+  "politoed": {
+    "name": "Politoed",
+    "formName": "Macho",
+    "genus": "Pokémon Rana"
+  },
+  "politoed-f": {
+    "speciesName": "Politoed",
+    "formName": "Hembra",
+    "genus": "Pokémon Rana"
+  },
+  "hoppip": {
+    "genus": "Pokémon Algadón"
+  },
+  "skiploom": {
+    "genus": "Pokémon Algadón"
+  },
+  "jumpluff": {
+    "genus": "Pokémon Algadón"
+  },
+  "aipom": {
+    "formName": "Macho",
+    "genus": "Pokémon Cola Larga"
+  },
+  "aipom-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Cola Larga"
+  },
+  "sunkern": {
+    "genus": "Pokémon Semilla"
+  },
+  "sunflora": {
+    "genus": "Pokémon Sol"
+  },
+  "yanma": {
+    "genus": "Pokémon Ala Clara"
+  },
+  "wooper": {
+    "formName": "Macho",
+    "genus": "Pokémon Pez Agua"
+  },
+  "wooper-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Pez Agua"
+  },
+  "wooper-paldea": {
+    "genus": "Pokémon Pez Agua"
+  },
+  "quagsire": {
+    "formName": "Macho",
+    "genus": "Pokémon Pez Agua"
+  },
+  "quagsire-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Pez Agua"
+  },
+  "espeon": {
+    "name": "Espeon",
+    "genus": "Pokémon Sol"
+  },
+  "umbreon": {
+    "name": "Umbreon",
+    "genus": "Pokémon Luz Lunar"
+  },
+  "murkrow": {
+    "formName": "Macho",
+    "genus": "Pokémon Oscuridad"
+  },
+  "murkrow-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Oscuridad"
+  },
+  "slowking": {
+    "name": "Slowking",
+    "genus": "Pokémon Regio"
+  },
+  "slowking-galar": {
+    "name": "Slowking (Forma de Galar)",
+    "speciesName": "Slowking",
+    "formName": "Forma de Galar",
+    "genus": "Pokémon Regio"
+  },
+  "misdreavus": {
+    "genus": "Pokémon Chirrido"
+  },
+  "unown": {
+    "genus": "Pokémon Símbolo"
+  },
+  "unown-b": {
+    "genus": "Pokémon Símbolo"
+  },
+  "unown-c": {
+    "genus": "Pokémon Símbolo"
+  },
+  "unown-d": {
+    "genus": "Pokémon Símbolo"
+  },
+  "unown-e": {
+    "genus": "Pokémon Símbolo"
+  },
+  "unown-f": {
+    "genus": "Pokémon Símbolo"
+  },
+  "unown-g": {
+    "genus": "Pokémon Símbolo"
+  },
+  "unown-h": {
+    "genus": "Pokémon Símbolo"
+  },
+  "unown-i": {
+    "genus": "Pokémon Símbolo"
+  },
+  "unown-j": {
+    "genus": "Pokémon Símbolo"
+  },
+  "unown-k": {
+    "genus": "Pokémon Símbolo"
+  },
+  "unown-l": {
+    "genus": "Pokémon Símbolo"
+  },
+  "unown-m": {
+    "genus": "Pokémon Símbolo"
+  },
+  "unown-n": {
+    "genus": "Pokémon Símbolo"
+  },
+  "unown-o": {
+    "genus": "Pokémon Símbolo"
+  },
+  "unown-p": {
+    "genus": "Pokémon Símbolo"
+  },
+  "unown-q": {
+    "genus": "Pokémon Símbolo"
+  },
+  "unown-r": {
+    "genus": "Pokémon Símbolo"
+  },
+  "unown-s": {
+    "genus": "Pokémon Símbolo"
+  },
+  "unown-t": {
+    "genus": "Pokémon Símbolo"
+  },
+  "unown-u": {
+    "genus": "Pokémon Símbolo"
+  },
+  "unown-v": {
+    "genus": "Pokémon Símbolo"
+  },
+  "unown-w": {
+    "genus": "Pokémon Símbolo"
+  },
+  "unown-x": {
+    "genus": "Pokémon Símbolo"
+  },
+  "unown-y": {
+    "genus": "Pokémon Símbolo"
+  },
+  "unown-z": {
+    "genus": "Pokémon Símbolo"
+  },
+  "unown-exclamation": {
+    "genus": "Pokémon Símbolo"
+  },
+  "unown-question": {
+    "genus": "Pokémon Símbolo"
+  },
+  "wobbuffet": {
+    "formName": "Macho",
+    "genus": "Pokémon Paciente"
+  },
+  "wobbuffet-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Paciente"
+  },
+  "girafarig": {
+    "formName": "Macho",
+    "genus": "Pokémon Gran Cuello"
+  },
+  "girafarig-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Gran Cuello"
+  },
+  "pineco": {
+    "genus": "Pokémon Larva"
+  },
+  "forretress": {
+    "name": "Forretress",
+    "genus": "Pokémon Larva"
+  },
+  "dunsparce": {
+    "genus": "Pokémon Serpiente Tierra"
+  },
+  "gligar": {
+    "formName": "Macho",
+    "genus": "Pokémon Escorpiala"
+  },
+  "gligar-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Escorpiala"
+  },
+  "steelix": {
+    "name": "Steelix",
+    "formName": "Macho",
+    "genus": "Pokémon Serpiente Férrea"
+  },
+  "steelix-f": {
+    "speciesName": "Steelix",
+    "formName": "Hembra",
+    "genus": "Pokémon Serpiente Férrea"
+  },
+  "steelix-mega": {
+    "speciesName": "Steelix",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Serpiente Férrea"
+  },
+  "snubbull": {
+    "genus": "Pokémon Hada"
+  },
+  "granbull": {
+    "genus": "Pokémon Hada"
+  },
+  "qwilfish": {
+    "name": "Qwilfish",
+    "genus": "Pokémon Globo"
+  },
+  "qwilfish-hisui": {
+    "genus": "Pokémon Globo"
+  },
+  "scizor": {
+    "name": "Scizor",
+    "formName": "Macho",
+    "genus": "Pokémon Tenaza"
+  },
+  "scizor-f": {
+    "speciesName": "Scizor",
+    "formName": "Hembra",
+    "genus": "Pokémon Tenaza"
+  },
+  "scizor-mega": {
+    "speciesName": "Scizor",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Tenaza"
+  },
+  "shuckle": {
+    "genus": "Pokémon Moho"
+  },
+  "heracross": {
+    "name": "Heracross",
+    "formName": "Macho",
+    "genus": "Pokémon Cuerno"
+  },
+  "heracross-f": {
+    "speciesName": "Heracross",
+    "formName": "Hembra",
+    "genus": "Pokémon Cuerno"
+  },
+  "heracross-mega": {
+    "speciesName": "Heracross",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Cuerno"
+  },
+  "sneasel": {
+    "formName": "Macho",
+    "genus": "Pokémon Garra Filo"
+  },
+  "sneasel-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Garra Filo"
+  },
+  "sneasel-hisui": {
+    "formName": "Macho",
+    "genus": "Pokémon Garra Filo"
+  },
+  "sneasel-hisui-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Garra Filo"
+  },
+  "teddiursa": {
+    "genus": "Pokémon Osito"
+  },
+  "ursaring": {
+    "formName": "Macho",
+    "genus": "Pokémon Hibernante"
+  },
+  "ursaring-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Hibernante"
+  },
+  "slugma": {
+    "genus": "Pokémon Lava"
+  },
+  "magcargo": {
+    "genus": "Pokémon Lava"
+  },
+  "swinub": {
+    "genus": "Pokémon Cerdo"
+  },
+  "piloswine": {
+    "formName": "Macho",
+    "genus": "Pokémon Puerco"
+  },
+  "piloswine-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Puerco"
+  },
+  "corsola": {
+    "genus": "Pokémon Coral"
+  },
+  "corsola-galar": {
+    "name": "Corsola (Forma de Galar)",
+    "formName": "Forma de Galar",
+    "genus": "Pokémon Coral"
+  },
+  "remoraid": {
+    "genus": "Pokémon Reactor"
+  },
+  "octillery": {
+    "formName": "Macho",
+    "genus": "Pokémon Reactor"
+  },
+  "octillery-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Reactor"
+  },
+  "delibird": {
+    "genus": "Pokémon Reparto"
+  },
+  "mantine": {
+    "genus": "Pokémon Milano"
+  },
+  "skarmory": {
+    "name": "Skarmory",
+    "genus": "Pokémon Coraza Ave"
+  },
+  "skarmory-mega": {
+    "speciesName": "Skarmory",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Coraza Ave"
+  },
+  "houndour": {
+    "genus": "Pokémon Siniestro"
+  },
+  "houndoom": {
+    "name": "Houndoom",
+    "formName": "Macho",
+    "genus": "Pokémon Siniestro"
+  },
+  "houndoom-f": {
+    "speciesName": "Houndoom",
+    "formName": "Hembra",
+    "genus": "Pokémon Siniestro"
+  },
+  "houndoom-mega": {
+    "speciesName": "Houndoom",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Siniestro"
+  },
+  "kingdra": {
+    "genus": "Pokémon Dragón"
+  },
+  "phanpy": {
+    "genus": "Pokémon Narizotas"
+  },
+  "donphan": {
+    "formName": "Macho",
+    "genus": "Pokémon Coraza"
+  },
+  "donphan-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Coraza"
+  },
+  "porygon2": {
+    "genus": "Pokémon Virtual"
+  },
+  "stantler": {
+    "genus": "Pokémon Gran Cuerno"
+  },
+  "smeargle": {
+    "genus": "Pokémon Pintor"
+  },
+  "tyrogue": {
+    "genus": "Pokémon Peleón"
+  },
+  "hitmontop": {
+    "genus": "Pokémon Boca Abajo"
+  },
+  "smoochum": {
+    "genus": "Pokémon Beso"
+  },
+  "elekid": {
+    "genus": "Pokémon Eléctrico"
+  },
+  "magby": {
+    "genus": "Pokémon Ascuas"
+  },
+  "miltank": {
+    "genus": "Pokémon Lechera"
+  },
+  "blissey": {
+    "genus": "Pokémon Felicidad"
+  },
+  "raikou": {
+    "genus": "Pokémon Trueno"
+  },
+  "entei": {
+    "genus": "Pokémon Volcán"
+  },
+  "suicune": {
+    "genus": "Pokémon Aurora"
+  },
+  "larvitar": {
+    "genus": "Pokémon Piel Roca"
+  },
+  "pupitar": {
+    "genus": "Pokémon Caparazón"
+  },
+  "tyranitar": {
+    "name": "Tyranitar",
+    "genus": "Pokémon Coraza"
+  },
+  "tyranitar-mega": {
+    "speciesName": "Tyranitar",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Coraza"
+  },
+  "lugia": {
+    "genus": "Pokémon Buceo"
+  },
+  "hooh": {
+    "genus": "Pokémon Arcoíris"
+  },
+  "celebi": {
+    "genus": "Pokémon Viajetiempo"
+  },
+  "treecko": {
+    "genus": "Pokémon Geco Bosque"
+  },
+  "grovyle": {
+    "genus": "Pokémon Geco Bosque"
+  },
+  "sceptile": {
+    "name": "Sceptile",
+    "genus": "Pokémon Monte"
+  },
+  "sceptile-mega": {
+    "speciesName": "Sceptile",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Monte"
+  },
+  "torchic": {
+    "formName": "Macho",
+    "genus": "Pokémon Polluelo"
+  },
+  "torchic-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Polluelo"
+  },
+  "combusken": {
+    "formName": "Macho",
+    "genus": "Pokémon Ave Corral"
+  },
+  "combusken-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Ave Corral"
+  },
+  "blaziken": {
+    "name": "Blaziken",
+    "formName": "Macho",
+    "genus": "Pokémon Llameante"
+  },
+  "blaziken-f": {
+    "speciesName": "Blaziken",
+    "formName": "Hembra",
+    "genus": "Pokémon Llameante"
+  },
+  "blaziken-mega": {
+    "speciesName": "Blaziken",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Llameante"
+  },
+  "mudkip": {
+    "genus": "Pokémon Pez Lodo"
+  },
+  "marshtomp": {
+    "genus": "Pokémon Pez Lodo"
+  },
+  "swampert": {
+    "name": "Swampert",
+    "genus": "Pokémon Pez Lodo"
+  },
+  "swampert-mega": {
+    "speciesName": "Swampert",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Pez Lodo"
+  },
+  "poochyena": {
+    "genus": "Pokémon Mordisco"
+  },
+  "mightyena": {
+    "genus": "Pokémon Mordisco"
+  },
+  "zigzagoon": {
+    "genus": "Pokémon Mapachito"
+  },
+  "zigzagoon-galar": {
+    "name": "Zigzagoon (Forma de Galar)",
+    "formName": "Forma de Galar",
+    "genus": "Pokémon Mapachito"
+  },
+  "linoone": {
+    "genus": "Pokémon Lanzado"
+  },
+  "linoone-galar": {
+    "name": "Linoone (Forma de Galar)",
+    "formName": "Forma de Galar",
+    "genus": "Pokémon Lanzado"
+  },
+  "wurmple": {
+    "genus": "Pokémon Gusano"
+  },
+  "silcoon": {
+    "genus": "Pokémon Capullo"
+  },
+  "beautifly": {
+    "formName": "Macho",
+    "genus": "Pokémon Mariposa"
+  },
+  "beautifly-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Mariposa"
+  },
+  "cascoon": {
+    "genus": "Pokémon Capullo"
+  },
+  "dustox": {
+    "formName": "Macho",
+    "genus": "Pokémon Polilla Ven."
+  },
+  "dustox-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Polilla Ven."
+  },
+  "lotad": {
+    "genus": "Pokémon Lenteja Agua"
+  },
+  "lombre": {
+    "genus": "Pokémon Alegre"
+  },
+  "ludicolo": {
+    "formName": "Macho",
+    "genus": "Pokémon Optimista"
+  },
+  "ludicolo-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Optimista"
+  },
+  "seedot": {
+    "genus": "Pokémon Bellota"
+  },
+  "nuzleaf": {
+    "formName": "Macho",
+    "genus": "Pokémon Astuto"
+  },
+  "nuzleaf-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Astuto"
+  },
+  "shiftry": {
+    "formName": "Macho",
+    "genus": "Pokémon Malvado"
+  },
+  "shiftry-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Malvado"
+  },
+  "taillow": {
+    "genus": "Pokémon Pequebuche"
+  },
+  "swellow": {
+    "genus": "Pokémon Buche"
+  },
+  "wingull": {
+    "genus": "Pokémon Gaviota"
+  },
+  "pelipper": {
+    "name": "Pelipper",
+    "genus": "Pokémon Ave Agua"
+  },
+  "ralts": {
+    "genus": "Pokémon Sensible"
+  },
+  "kirlia": {
+    "genus": "Pokémon Sensorio"
+  },
+  "gardevoir": {
+    "name": "Gardevoir",
+    "genus": "Pokémon Envolvente"
+  },
+  "gardevoir-mega": {
+    "speciesName": "Gardevoir",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Envolvente"
+  },
+  "surskit": {
+    "genus": "Pokémon Zapatero"
+  },
+  "masquerain": {
+    "genus": "Pokémon Globocular"
+  },
+  "shroomish": {
+    "genus": "Pokémon Hongo"
+  },
+  "breloom": {
+    "genus": "Pokémon Hongo"
+  },
+  "slakoth": {
+    "genus": "Pokémon Gandul"
+  },
+  "vigoroth": {
+    "genus": "Pokémon Mono Feroz"
+  },
+  "slaking": {
+    "genus": "Pokémon Holgazán"
+  },
+  "nincada": {
+    "genus": "Pokémon Aprendiz"
+  },
+  "ninjask": {
+    "genus": "Pokémon Ninja"
+  },
+  "shedinja": {
+    "genus": "Pokémon Muda"
+  },
+  "whismur": {
+    "genus": "Pokémon Susurro"
+  },
+  "loudred": {
+    "genus": "Pokémon Chillón"
+  },
+  "exploud": {
+    "genus": "Pokémon Escandaloso"
+  },
+  "makuhita": {
+    "genus": "Pokémon Valiente"
+  },
+  "hariyama": {
+    "genus": "Pokémon Empuje"
+  },
+  "azurill": {
+    "genus": "Pokémon A Topos"
+  },
+  "nosepass": {
+    "genus": "Pokémon Brújula"
+  },
+  "skitty": {
+    "genus": "Pokémon Gatito"
+  },
+  "delcatty": {
+    "genus": "Pokémon Cursi"
+  },
+  "sableye": {
+    "name": "Sableye",
+    "genus": "Pokémon Oscuridad"
+  },
+  "sableye-mega": {
+    "speciesName": "Sableye",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Oscuridad"
+  },
+  "mawile": {
+    "name": "Mawile",
+    "genus": "Pokémon Tramposo"
+  },
+  "mawile-mega": {
+    "speciesName": "Mawile",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Tramposo"
+  },
+  "aron": {
+    "genus": "Pokémon Coraza Férrea"
+  },
+  "lairon": {
+    "genus": "Pokémon Coraza Férrea"
+  },
+  "aggron": {
+    "name": "Aggron",
+    "genus": "Pokémon Coraza Férrea"
+  },
+  "aggron-mega": {
+    "speciesName": "Aggron",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Coraza Férrea"
+  },
+  "meditite": {
+    "formName": "Macho",
+    "genus": "Pokémon Meditador"
+  },
+  "meditite-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Meditador"
+  },
+  "medicham": {
+    "name": "Medicham",
+    "formName": "Macho",
+    "genus": "Pokémon Meditador"
+  },
+  "medicham-f": {
+    "speciesName": "Medicham",
+    "formName": "Hembra",
+    "genus": "Pokémon Meditador"
+  },
+  "medicham-mega": {
+    "speciesName": "Medicham",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Meditador"
+  },
+  "electrike": {
+    "genus": "Pokémon Calambre"
+  },
+  "manectric": {
+    "name": "Manectric",
+    "genus": "Pokémon Descarga"
+  },
+  "manectric-mega": {
+    "speciesName": "Manectric",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Descarga"
+  },
+  "plusle": {
+    "genus": "Pokémon Ánimo"
+  },
+  "minun": {
+    "genus": "Pokémon Ánimo"
+  },
+  "volbeat": {
+    "genus": "Pokémon Luciérnaga"
+  },
+  "illumise": {
+    "genus": "Pokémon Luciérnaga"
+  },
+  "roselia": {
+    "formName": "Macho",
+    "genus": "Pokémon Espina"
+  },
+  "roselia-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Espina"
+  },
+  "gulpin": {
+    "formName": "Macho",
+    "genus": "Pokémon Estómago"
+  },
+  "gulpin-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Estómago"
+  },
+  "swalot": {
+    "name": "Swalot",
+    "formName": "Macho",
+    "genus": "Pokémon Bolsa Veneno"
+  },
+  "swalot-f": {
+    "speciesName": "Swalot",
+    "formName": "Hembra",
+    "genus": "Pokémon Bolsa Veneno"
+  },
+  "carvanha": {
+    "genus": "Pokémon Feroz"
+  },
+  "sharpedo": {
+    "name": "Sharpedo",
+    "genus": "Pokémon Voraz"
+  },
+  "sharpedo-mega": {
+    "speciesName": "Sharpedo",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Voraz"
+  },
+  "wailmer": {
+    "genus": "Pokémon Ballenabola"
+  },
+  "wailord": {
+    "genus": "Pokémon Ballenaflot"
+  },
+  "numel": {
+    "formName": "Macho",
+    "genus": "Pokémon Torpe"
+  },
+  "numel-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Torpe"
+  },
+  "camerupt": {
+    "name": "Camerupt",
+    "formName": "Macho",
+    "genus": "Pokémon Erupción"
+  },
+  "camerupt-f": {
+    "speciesName": "Camerupt",
+    "formName": "Hembra",
+    "genus": "Pokémon Erupción"
+  },
+  "camerupt-mega": {
+    "speciesName": "Camerupt",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Erupción"
+  },
+  "torkoal": {
+    "name": "Torkoal",
+    "genus": "Pokémon Carbón"
+  },
+  "spoink": {
+    "genus": "Pokémon Saltarín"
+  },
+  "grumpig": {
+    "genus": "Pokémon Manipulador"
+  },
+  "spinda": {
+    "genus": "Pokémon Panda Topos"
+  },
+  "trapinch": {
+    "genus": "Pokémon Hormiga León"
+  },
+  "vibrava": {
+    "genus": "Pokémon Vibrante"
+  },
+  "flygon": {
+    "genus": "Pokémon Místico"
+  },
+  "cacnea": {
+    "genus": "Pokémon Cactus"
+  },
+  "cacturne": {
+    "formName": "Macho",
+    "genus": "Pokémon Espantajo"
+  },
+  "cacturne-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Espantajo"
+  },
+  "swablu": {
+    "genus": "Pokémon Ave Algodón"
+  },
+  "altaria": {
+    "name": "Altaria",
+    "genus": "Pokémon Cantor"
+  },
+  "altaria-mega": {
+    "speciesName": "Altaria",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Cantor"
+  },
+  "zangoose": {
+    "genus": "Pokémon Gato Hurón"
+  },
+  "seviper": {
+    "genus": "Pokémon Colmillos"
+  },
+  "lunatone": {
+    "genus": "Pokémon Meteorito"
+  },
+  "solrock": {
+    "genus": "Pokémon Meteorito"
+  },
+  "barboach": {
+    "genus": "Pokémon Bigotudo"
+  },
+  "whiscash": {
+    "genus": "Pokémon Bigotudo"
+  },
+  "corphish": {
+    "genus": "Pokémon Rufián"
+  },
+  "crawdaunt": {
+    "genus": "Pokémon Granuja"
+  },
+  "baltoy": {
+    "genus": "Pokémon Muñeca Barro"
+  },
+  "claydol": {
+    "genus": "Pokémon Muñeca Barro"
+  },
+  "lileep": {
+    "genus": "Pokémon Lirio de Mar"
+  },
+  "cradily": {
+    "genus": "Pokémon Percebe"
+  },
+  "anorith": {
+    "genus": "Pokémon Camarón"
+  },
+  "armaldo": {
+    "genus": "Pokémon Armadura"
+  },
+  "feebas": {
+    "genus": "Pokémon Pez"
+  },
+  "milotic": {
+    "name": "Milotic",
+    "formName": "Macho",
+    "genus": "Pokémon Tierno"
+  },
+  "milotic-f": {
+    "speciesName": "Milotic",
+    "formName": "Hembra",
+    "genus": "Pokémon Tierno"
+  },
+  "castform": {
+    "name": "Castform",
+    "genus": "Pokémon Clima"
+  },
+  "castform-sunny": {
+    "name": "Castform (Forma Sol)",
+    "speciesName": "Castform",
+    "formName": "Forma Sol",
+    "genus": "Pokémon Clima"
+  },
+  "castform-rainy": {
+    "name": "Castform (Forma Lluvia)",
+    "speciesName": "Castform",
+    "formName": "Forma Lluvia",
+    "genus": "Pokémon Clima"
+  },
+  "castform-snowy": {
+    "name": "Castform (Forma Nieve)",
+    "speciesName": "Castform",
+    "formName": "Forma Nieve",
+    "genus": "Pokémon Clima"
+  },
+  "kecleon": {
+    "genus": "Pokémon Camaleónico"
+  },
+  "shuppet": {
+    "genus": "Pokémon Títere"
+  },
+  "banette": {
+    "name": "Banette",
+    "genus": "Pokémon Marioneta"
+  },
+  "banette-mega": {
+    "speciesName": "Banette",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Marioneta"
+  },
+  "duskull": {
+    "genus": "Pokémon Réquiem"
+  },
+  "dusclops": {
+    "genus": "Pokémon Atrayente"
+  },
+  "tropius": {
+    "genus": "Pokémon Fruto"
+  },
+  "chimecho": {
+    "name": "Chimecho",
+    "genus": "Pokémon Sonido Aire"
+  },
+  "chimecho-mega": {
+    "name": "Mega Chimecho",
+    "speciesName": "Chimecho",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Sonido Aire"
+  },
+  "absol": {
+    "name": "Absol",
+    "genus": "Pokémon Catástrofe"
+  },
+  "absol-mega": {
+    "speciesName": "Absol",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Catástrofe"
+  },
+  "absol-mega-z": {
+    "name": "Mega Absol Z",
+    "speciesName": "Absol",
+    "formName": "Forma Mega Z",
+    "genus": "Pokémon Catástrofe"
+  },
+  "wynaut": {
+    "genus": "Pokémon Radiante"
+  },
+  "snorunt": {
+    "genus": "Pokémon Gorro Nieve"
+  },
+  "glalie": {
+    "name": "Glalie",
+    "genus": "Pokémon Cara"
+  },
+  "glalie-mega": {
+    "speciesName": "Glalie",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Cara"
+  },
+  "spheal": {
+    "genus": "Pokémon Aplauso"
+  },
+  "sealeo": {
+    "genus": "Pokémon Rodabola"
+  },
+  "walrein": {
+    "genus": "Pokémon Rompehielo"
+  },
+  "clamperl": {
+    "genus": "Pokémon Bivalvo"
+  },
+  "huntail": {
+    "genus": "Pokémon Abisal"
+  },
+  "gorebyss": {
+    "genus": "Pokémon Mar del Sur"
+  },
+  "relicanth": {
+    "formName": "Macho",
+    "genus": "Pokémon Longevo"
+  },
+  "relicanth-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Longevo"
+  },
+  "luvdisc": {
+    "genus": "Pokémon Cita"
+  },
+  "bagon": {
+    "genus": "Pokémon Cabeza Roca"
+  },
+  "shelgon": {
+    "genus": "Pokémon Resistencia"
+  },
+  "salamence": {
+    "name": "Salamence",
+    "genus": "Pokémon Dragón"
+  },
+  "salamence-mega": {
+    "speciesName": "Salamence",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Dragón"
+  },
+  "beldum": {
+    "genus": "Pokémon Bola Hierro"
+  },
+  "metang": {
+    "genus": "Pokémon Garra Hierro"
+  },
+  "metagross": {
+    "name": "Metagross",
+    "genus": "Pokémon Pata Hierro"
+  },
+  "metagross-mega": {
+    "speciesName": "Metagross",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Pata Hierro"
+  },
+  "regirock": {
+    "genus": "Pokémon Pico Roca"
+  },
+  "regice": {
+    "genus": "Pokémon Iceberg"
+  },
+  "registeel": {
+    "genus": "Pokémon Hierro"
+  },
+  "latias": {
+    "genus": "Pokémon Eón"
+  },
+  "latias-mega": {
+    "formName": "Forma Mega",
+    "genus": "Pokémon Eón"
+  },
+  "latios": {
+    "genus": "Pokémon Eón"
+  },
+  "latios-mega": {
+    "formName": "Forma Mega",
+    "genus": "Pokémon Eón"
+  },
+  "kyogre": {
+    "genus": "Pokémon Cuenca Mar"
+  },
+  "kyogre-primal": {
+    "name": "Kyogre (Regresión Primigenia)",
+    "formName": "Regresión Primigenia",
+    "genus": "Pokémon Cuenca Mar"
+  },
+  "groudon": {
+    "genus": "Pokémon Continente"
+  },
+  "groudon-primal": {
+    "name": "Groudon (Regresión Primigenia)",
+    "formName": "Regresión Primigenia",
+    "genus": "Pokémon Continente"
+  },
+  "rayquaza": {
+    "genus": "Pokémon Cielo"
+  },
+  "rayquaza-mega": {
+    "formName": "Forma Mega",
+    "genus": "Pokémon Cielo"
+  },
+  "jirachi": {
+    "genus": "Pokémon Deseo"
+  },
+  "deoxys": {
+    "genus": "Pokémon ADN"
+  },
+  "deoxys-attack": {
+    "name": "Deoxys (Forma Ataque)",
+    "formName": "Forma Ataque",
+    "genus": "Pokémon ADN"
+  },
+  "deoxys-defense": {
+    "name": "Deoxys (Forma Defensa)",
+    "formName": "Forma Defensa",
+    "genus": "Pokémon ADN"
+  },
+  "deoxys-speed": {
+    "name": "Deoxys (Forma Velocidad)",
+    "formName": "Forma Velocidad",
+    "genus": "Pokémon ADN"
+  },
+  "turtwig": {
+    "genus": "Pokémon Hojita"
+  },
+  "grotle": {
+    "genus": "Pokémon Arboleda"
+  },
+  "torterra": {
+    "name": "Torterra",
+    "genus": "Pokémon Continente"
+  },
+  "chimchar": {
+    "genus": "Pokémon Chimpancé"
+  },
+  "monferno": {
+    "genus": "Pokémon Juguetón"
+  },
+  "infernape": {
+    "name": "Infernape",
+    "genus": "Pokémon Llama"
+  },
+  "piplup": {
+    "genus": "Pokémon Pingüino"
+  },
+  "prinplup": {
+    "genus": "Pokémon Pingüino"
+  },
+  "empoleon": {
+    "name": "Empoleon",
+    "genus": "Pokémon Emperador"
+  },
+  "starly": {
+    "formName": "Macho",
+    "genus": "Pokémon Estornino"
+  },
+  "starly-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Estornino"
+  },
+  "staravia": {
+    "formName": "Macho",
+    "genus": "Pokémon Estornino"
+  },
+  "staravia-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Estornino"
+  },
+  "staraptor": {
+    "name": "Staraptor",
+    "formName": "Macho",
+    "genus": "Pokémon Depredador"
+  },
+  "staraptor-f": {
+    "speciesName": "Staraptor",
+    "formName": "Hembra",
+    "genus": "Pokémon Depredador"
+  },
+  "staraptor-mega": {
+    "name": "Mega Staraptor",
+    "speciesName": "Staraptor",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Depredador"
+  },
+  "bidoof": {
+    "formName": "Macho",
+    "genus": "Pokémon Gran Ratón"
+  },
+  "bidoof-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Gran Ratón"
+  },
+  "bibarel": {
+    "formName": "Macho",
+    "genus": "Pokémon Castor"
+  },
+  "bibarel-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Castor"
+  },
+  "kricketot": {
+    "formName": "Macho",
+    "genus": "Pokémon Grillo"
+  },
+  "kricketot-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Grillo"
+  },
+  "kricketune": {
+    "formName": "Macho",
+    "genus": "Pokémon Grillo"
+  },
+  "kricketune-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Grillo"
+  },
+  "shinx": {
+    "formName": "Macho",
+    "genus": "Pokémon Flash"
+  },
+  "shinx-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Flash"
+  },
+  "luxio": {
+    "formName": "Macho",
+    "genus": "Pokémon Chispa"
+  },
+  "luxio-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Chispa"
+  },
+  "luxray": {
+    "name": "Luxray",
+    "formName": "Macho",
+    "genus": "Pokémon Chispa Ojos"
+  },
+  "luxray-f": {
+    "speciesName": "Luxray",
+    "formName": "Hembra",
+    "genus": "Pokémon Chispa Ojos"
+  },
+  "budew": {
+    "genus": "Pokémon Brote"
+  },
+  "roserade": {
+    "name": "Roserade",
+    "formName": "Macho",
+    "genus": "Pokémon Ramillete"
+  },
+  "roserade-f": {
+    "speciesName": "Roserade",
+    "formName": "Hembra",
+    "genus": "Pokémon Ramillete"
+  },
+  "cranidos": {
+    "genus": "Pokémon Cabezazo"
+  },
+  "rampardos": {
+    "name": "Rampardos",
+    "genus": "Pokémon Cabezazo"
+  },
+  "shieldon": {
+    "genus": "Pokémon Escudo"
+  },
+  "bastiodon": {
+    "name": "Bastiodon",
+    "genus": "Pokémon Escudo"
+  },
+  "burmy": {
+    "genus": "Pokémon Larva"
+  },
+  "burmy-sandy": {
+    "name": "Burmy (Tronco Arena)",
+    "formName": "Tronco Arena",
+    "genus": "Pokémon Larva"
+  },
+  "burmy-trash": {
+    "name": "Burmy (Tronco Basura)",
+    "formName": "Tronco Basura",
+    "genus": "Pokémon Larva"
+  },
+  "wormadam": {
+    "genus": "Pokémon Larva"
+  },
+  "wormadam-sandy": {
+    "name": "Wormadam (Tronco Arena)",
+    "formName": "Tronco Arena",
+    "genus": "Pokémon Larva"
+  },
+  "wormadam-trash": {
+    "name": "Wormadam (Tronco Basura)",
+    "formName": "Tronco Basura",
+    "genus": "Pokémon Larva"
+  },
+  "mothim": {
+    "genus": "Pokémon Polilla"
+  },
+  "combee": {
+    "formName": "Macho",
+    "genus": "Pokémon Abejita"
+  },
+  "combee-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Abejita"
+  },
+  "vespiquen": {
+    "genus": "Pokémon Colmena"
+  },
+  "pachirisu": {
+    "formName": "Macho",
+    "genus": "Pokémon Ardillalec"
+  },
+  "pachirisu-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Ardillalec"
+  },
+  "buizel": {
+    "formName": "Macho",
+    "genus": "Pokémon Nutria Mar."
+  },
+  "buizel-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Nutria Mar."
+  },
+  "floatzel": {
+    "formName": "Macho",
+    "genus": "Pokémon Nutria Mar."
+  },
+  "floatzel-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Nutria Mar."
+  },
+  "cherubi": {
+    "genus": "Pokémon Cereza"
+  },
+  "cherrim": {
+    "genus": "Pokémon Floración"
+  },
+  "cherrim-sunshine": {
+    "name": "Cherrim (Forma Soleado)",
+    "formName": "Forma Soleado",
+    "genus": "Pokémon Floración"
+  },
+  "shellos": {
+    "genus": "Pokémon Babosa Marina"
+  },
+  "shellos-east": {
+    "name": "Shellos (Mar Este)",
+    "formName": "Mar Este",
+    "genus": "Pokémon Babosa Marina"
+  },
+  "gastrodon": {
+    "genus": "Pokémon Babosa Marina"
+  },
+  "gastrodon-east": {
+    "name": "Gastrodon (Mar Este)",
+    "formName": "Mar Este",
+    "genus": "Pokémon Babosa Marina"
+  },
+  "ambipom": {
+    "formName": "Macho",
+    "genus": "Pokémon Cola Larga"
+  },
+  "ambipom-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Cola Larga"
+  },
+  "drifloon": {
+    "genus": "Pokémon Globo"
+  },
+  "drifblim": {
+    "genus": "Pokémon Dirigible"
+  },
+  "buneary": {
+    "genus": "Pokémon Conejo"
+  },
+  "lopunny": {
+    "name": "Lopunny",
+    "genus": "Pokémon Conejo"
+  },
+  "lopunny-mega": {
+    "speciesName": "Lopunny",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Conejo"
+  },
+  "mismagius": {
+    "genus": "Pokémon Mágico"
+  },
+  "honchkrow": {
+    "genus": "Pokémon Gran Jefe"
+  },
+  "glameow": {
+    "genus": "Pokémon Gastuto"
+  },
+  "purugly": {
+    "genus": "Pokémon Tigre Gato"
+  },
+  "chingling": {
+    "genus": "Pokémon Campana"
+  },
+  "stunky": {
+    "genus": "Pokémon Mofeta"
+  },
+  "skuntank": {
+    "genus": "Pokémon Mofeta"
+  },
+  "bronzor": {
+    "genus": "Pokémon Bronce"
+  },
+  "bronzong": {
+    "genus": "Pokémon Campana Bronce"
+  },
+  "bonsly": {
+    "genus": "Pokémon Bonsái"
+  },
+  "mimejr": {
+    "genus": "Pokémon Mimo"
+  },
+  "happiny": {
+    "genus": "Pokémon Casita"
+  },
+  "chatot": {
+    "genus": "Pokémon Corchea"
+  },
+  "spiritomb": {
+    "name": "Spiritomb",
+    "genus": "Pokémon Prohibido"
+  },
+  "gible": {
+    "formName": "Macho",
+    "genus": "Pokémon Terrascualo"
+  },
+  "gible-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Terrascualo"
+  },
+  "gabite": {
+    "formName": "Macho",
+    "genus": "Pokémon Cueva"
+  },
+  "gabite-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Cueva"
+  },
+  "garchomp": {
+    "name": "Garchomp",
+    "formName": "Macho",
+    "genus": "Pokémon Mach"
+  },
+  "garchomp-f": {
+    "speciesName": "Garchomp",
+    "formName": "Hembra",
+    "genus": "Pokémon Mach"
+  },
+  "garchomp-mega": {
+    "speciesName": "Garchomp",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Mach"
+  },
+  "garchomp-mega-z": {
+    "name": "Mega Garchomp Z",
+    "speciesName": "Garchomp",
+    "formName": "Forma Mega Z",
+    "genus": "Pokémon Mach"
+  },
+  "munchlax": {
+    "genus": "Pokémon Comilón"
+  },
+  "riolu": {
+    "genus": "Pokémon Emanación"
+  },
+  "lucario": {
+    "name": "Lucario",
+    "genus": "Pokémon Aura"
+  },
+  "lucario-mega": {
+    "speciesName": "Lucario",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Aura"
+  },
+  "lucario-mega-z": {
+    "name": "Mega Lucario Z",
+    "speciesName": "Lucario",
+    "formName": "Forma Mega Z",
+    "genus": "Pokémon Aura"
+  },
+  "hippopotas": {
+    "formName": "Macho",
+    "genus": "Pokémon Hipo"
+  },
+  "hippopotas-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Hipo"
+  },
+  "hippowdon": {
+    "name": "Hippowdon",
+    "formName": "Macho",
+    "genus": "Pokémon Peso Pesado"
+  },
+  "hippowdon-f": {
+    "speciesName": "Hippowdon",
+    "formName": "Hembra",
+    "genus": "Pokémon Peso Pesado"
+  },
+  "skorupi": {
+    "genus": "Pokémon Escorpión"
+  },
+  "drapion": {
+    "genus": "Pokémon Escorpiogro"
+  },
+  "croagunk": {
+    "formName": "Macho",
+    "genus": "Pokémon Boca Tóxica"
+  },
+  "croagunk-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Boca Tóxica"
+  },
+  "toxicroak": {
+    "name": "Toxicroak",
+    "formName": "Macho",
+    "genus": "Pokémon Boca Tóxica"
+  },
+  "toxicroak-f": {
+    "speciesName": "Toxicroak",
+    "formName": "Hembra",
+    "genus": "Pokémon Boca Tóxica"
+  },
+  "carnivine": {
+    "genus": "Pokémon Caza Bichos"
+  },
+  "finneon": {
+    "formName": "Macho",
+    "genus": "Pokémon Pez Ala"
+  },
+  "finneon-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Pez Ala"
+  },
+  "lumineon": {
+    "formName": "Macho",
+    "genus": "Pokémon Neón"
+  },
+  "lumineon-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Neón"
+  },
+  "mantyke": {
+    "genus": "Pokémon Milano"
+  },
+  "snover": {
+    "formName": "Macho",
+    "genus": "Pokémon Árbol Nieve"
+  },
+  "snover-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Árbol Nieve"
+  },
+  "abomasnow": {
+    "name": "Abomasnow",
+    "formName": "Macho",
+    "genus": "Pokémon Árbol Nieve"
+  },
+  "abomasnow-f": {
+    "speciesName": "Abomasnow",
+    "formName": "Hembra",
+    "genus": "Pokémon Árbol Nieve"
+  },
+  "abomasnow-mega": {
+    "speciesName": "Abomasnow",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Árbol Nieve"
+  },
+  "weavile": {
+    "name": "Weavile",
+    "formName": "Macho",
+    "genus": "Pokémon Garra Filo"
+  },
+  "weavile-f": {
+    "speciesName": "Weavile",
+    "formName": "Hembra",
+    "genus": "Pokémon Garra Filo"
+  },
+  "magnezone": {
+    "genus": "Pokémon Magnético"
+  },
+  "lickilicky": {
+    "genus": "Pokémon Lametazo"
+  },
+  "rhyperior": {
+    "name": "Rhyperior",
+    "formName": "Macho",
+    "genus": "Pokémon Taladro"
+  },
+  "rhyperior-f": {
+    "speciesName": "Rhyperior",
+    "formName": "Hembra",
+    "genus": "Pokémon Taladro"
+  },
+  "tangrowth": {
+    "formName": "Macho",
+    "genus": "Pokémon Enredadera"
+  },
+  "tangrowth-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Enredadera"
+  },
+  "electivire": {
+    "genus": "Pokémon Rayo"
+  },
+  "magmortar": {
+    "genus": "Pokémon Explosión"
+  },
+  "togekiss": {
+    "genus": "Pokémon Festejo"
+  },
+  "yanmega": {
+    "genus": "Pokémon Libélula"
+  },
+  "leafeon": {
+    "name": "Leafeon",
+    "genus": "Pokémon Verdor"
+  },
+  "glaceon": {
+    "name": "Glaceon",
+    "genus": "Pokémon Nieve Fresca"
+  },
+  "gliscor": {
+    "name": "Gliscor",
+    "genus": "Pokémon Colmicorpio"
+  },
+  "mamoswine": {
+    "name": "Mamoswine",
+    "formName": "Macho",
+    "genus": "Pokémon Doscolmillos"
+  },
+  "mamoswine-f": {
+    "speciesName": "Mamoswine",
+    "formName": "Hembra",
+    "genus": "Pokémon Doscolmillos"
+  },
+  "porygonz": {
+    "genus": "Pokémon Virtual"
+  },
+  "gallade": {
+    "name": "Gallade",
+    "genus": "Pokémon Cuchilla"
+  },
+  "gallade-mega": {
+    "speciesName": "Gallade",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Cuchilla"
+  },
+  "probopass": {
+    "genus": "Pokémon Brújula"
+  },
+  "dusknoir": {
+    "genus": "Pokémon Grilletes"
+  },
+  "froslass": {
+    "name": "Froslass",
+    "genus": "Pokémon Tierra Fría"
+  },
+  "froslass-mega": {
+    "speciesName": "Froslass",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Tierra Fría"
+  },
+  "rotom": {
+    "name": "Rotom",
+    "genus": "Pokémon Plasma"
+  },
+  "rotom-heat": {
+    "name": "Rotom Calor",
+    "speciesName": "Rotom",
+    "formName": "Rotom Calor",
+    "genus": "Pokémon Plasma"
+  },
+  "rotom-wash": {
+    "name": "Rotom Lavado",
+    "speciesName": "Rotom",
+    "formName": "Rotom Lavado",
+    "genus": "Pokémon Plasma"
+  },
+  "rotom-frost": {
+    "name": "Rotom Frío",
+    "speciesName": "Rotom",
+    "formName": "Rotom Frío",
+    "genus": "Pokémon Plasma"
+  },
+  "rotom-fan": {
+    "name": "Rotom Ventilador",
+    "speciesName": "Rotom",
+    "formName": "Rotom Ventilador",
+    "genus": "Pokémon Plasma"
+  },
+  "rotom-mow": {
+    "name": "Rotom Corte",
+    "speciesName": "Rotom",
+    "formName": "Rotom Corte",
+    "genus": "Pokémon Plasma"
+  },
+  "uxie": {
+    "genus": "Pokémon Sabiduría"
+  },
+  "mesprit": {
+    "genus": "Pokémon Sensorio"
+  },
+  "azelf": {
+    "genus": "Pokémon Voluntad"
+  },
+  "dialga": {
+    "genus": "Pokémon Temporal"
+  },
+  "dialga-origin": {
+    "genus": "Pokémon Temporal"
+  },
+  "palkia": {
+    "genus": "Pokémon Espacial"
+  },
+  "palkia-origin": {
+    "genus": "Pokémon Espacial"
+  },
+  "heatran": {
+    "genus": "Pokémon Domo Lava"
+  },
+  "heatran-mega": {
+    "name": "Mega Heatran",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Domo Lava"
+  },
+  "regigigas": {
+    "genus": "Pokémon Colosal"
+  },
+  "giratina": {
+    "genus": "Pokémon Renegado"
+  },
+  "giratina-origin": {
+    "name": "Giratina (Forma Origen)",
+    "formName": "Forma Origen",
+    "genus": "Pokémon Renegado"
+  },
+  "cresselia": {
+    "genus": "Pokémon Lunar"
+  },
+  "phione": {
+    "genus": "Pokémon Marino"
+  },
+  "manaphy": {
+    "genus": "Pokémon Náutico"
+  },
+  "darkrai": {
+    "genus": "Pokémon Oscuridad"
+  },
+  "darkrai-mega": {
+    "name": "Mega Darkrai",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Oscuridad"
+  },
+  "shaymin": {
+    "genus": "Pokémon Gratitud"
+  },
+  "shaymin-sky": {
+    "name": "Shaymin (Forma Cielo)",
+    "formName": "Forma Cielo",
+    "genus": "Pokémon Gratitud"
+  },
+  "arceus": {
+    "genus": "Pokémon Alfa"
+  },
+  "arceus-fighting": {
+    "name": "Arceus (Tipo Lucha)",
+    "formName": "Tipo Lucha",
+    "genus": "Pokémon Alfa"
+  },
+  "arceus-flying": {
+    "name": "Arceus (Tipo Volador)",
+    "formName": "Tipo Volador",
+    "genus": "Pokémon Alfa"
+  },
+  "arceus-poison": {
+    "name": "Arceus (Tipo Veneno)",
+    "formName": "Tipo Veneno",
+    "genus": "Pokémon Alfa"
+  },
+  "arceus-ground": {
+    "name": "Arceus (Tipo Tierra)",
+    "formName": "Tipo Tierra",
+    "genus": "Pokémon Alfa"
+  },
+  "arceus-rock": {
+    "name": "Arceus (Tipo Roca)",
+    "formName": "Tipo Roca",
+    "genus": "Pokémon Alfa"
+  },
+  "arceus-bug": {
+    "name": "Arceus (Tipo Bicho)",
+    "formName": "Tipo Bicho",
+    "genus": "Pokémon Alfa"
+  },
+  "arceus-ghost": {
+    "name": "Arceus (Tipo Fantasma)",
+    "formName": "Tipo Fantasma",
+    "genus": "Pokémon Alfa"
+  },
+  "arceus-steel": {
+    "name": "Arceus (Tipo Acero)",
+    "formName": "Tipo Acero",
+    "genus": "Pokémon Alfa"
+  },
+  "arceus-fire": {
+    "name": "Arceus (Tipo Fuego)",
+    "formName": "Tipo Fuego",
+    "genus": "Pokémon Alfa"
+  },
+  "arceus-water": {
+    "name": "Arceus (Tipo Agua)",
+    "formName": "Tipo Agua",
+    "genus": "Pokémon Alfa"
+  },
+  "arceus-grass": {
+    "name": "Arceus (Tipo Planta)",
+    "formName": "Tipo Planta",
+    "genus": "Pokémon Alfa"
+  },
+  "arceus-electric": {
+    "name": "Arceus (Tipo Eléctrico)",
+    "formName": "Tipo Eléctrico",
+    "genus": "Pokémon Alfa"
+  },
+  "arceus-psychic": {
+    "name": "Arceus (Tipo Psíquico)",
+    "formName": "Tipo Psíquico",
+    "genus": "Pokémon Alfa"
+  },
+  "arceus-ice": {
+    "name": "Arceus (Tipo Hielo)",
+    "formName": "Tipo Hielo",
+    "genus": "Pokémon Alfa"
+  },
+  "arceus-dragon": {
+    "name": "Arceus (Tipo Dragón)",
+    "formName": "Tipo Dragón",
+    "genus": "Pokémon Alfa"
+  },
+  "arceus-dark": {
+    "name": "Arceus (Tipo Siniestro)",
+    "formName": "Tipo Siniestro",
+    "genus": "Pokémon Alfa"
+  },
+  "arceus-fairy": {
+    "name": "Arceus (Tipo Hada)",
+    "formName": "Tipo Hada",
+    "genus": "Pokémon Alfa"
+  },
+  "arceus-legendary": {
+    "name": "Arceus (Tipo Normal - Tabla Legendaria)",
+    "formName": "Tipo Normal - Tabla Legendaria",
+    "genus": "Pokémon Alfa"
+  },
+  "victini": {
+    "genus": "Pokémon Victoria"
+  },
+  "snivy": {
+    "genus": "Pokémon Serp. Hierba"
+  },
+  "servine": {
+    "genus": "Pokémon Serp. Hierba"
+  },
+  "serperior": {
+    "name": "Serperior",
+    "genus": "Pokémon Realeza"
+  },
+  "tepig": {
+    "genus": "Pokémon Cerdo Fuego"
+  },
+  "pignite": {
+    "genus": "Pokémon Cerdo Fuego"
+  },
+  "emboar": {
+    "name": "Emboar",
+    "genus": "Pokémon Cerdo Ígneo"
+  },
+  "emboar-mega": {
+    "speciesName": "Emboar",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Cerdo Ígneo"
+  },
+  "oshawott": {
+    "genus": "Pokémon Nutria"
+  },
+  "dewott": {
+    "genus": "Pokémon Superación"
+  },
+  "samurott": {
+    "name": "Samurott",
+    "genus": "Pokémon Majestuoso"
+  },
+  "samurott-hisui": {
+    "speciesName": "Samurott",
+    "genus": "Pokémon Majestuoso"
+  },
+  "patrat": {
+    "genus": "Pokémon Explorador"
+  },
+  "watchog": {
+    "name": "Watchog",
+    "genus": "Pokémon Alerta"
+  },
+  "lillipup": {
+    "genus": "Pokémon Perrito"
+  },
+  "herdier": {
+    "genus": "Pokémon Leal"
+  },
+  "stoutland": {
+    "genus": "Pokémon Magnánimo"
+  },
+  "purrloin": {
+    "genus": "Pokémon Malicioso"
+  },
+  "liepard": {
+    "name": "Liepard",
+    "genus": "Pokémon Calculador"
+  },
+  "pansage": {
+    "genus": "Pokémon Mono Hierba"
+  },
+  "simisage": {
+    "name": "Simisage",
+    "genus": "Pokémon Mono Pincho"
+  },
+  "pansear": {
+    "genus": "Pokémon Ardiente"
+  },
+  "simisear": {
+    "name": "Simisear",
+    "genus": "Pokémon Lumbre"
+  },
+  "panpour": {
+    "genus": "Pokémon Salpicadura"
+  },
+  "simipour": {
+    "name": "Simipour",
+    "genus": "Pokémon Drenaje"
+  },
+  "munna": {
+    "genus": "Pokémon Comesueños"
+  },
+  "musharna": {
+    "name": "Musharna",
+    "genus": "Pokémon Duermevela"
+  },
+  "pidove": {
+    "genus": "Pokémon Pichón"
+  },
+  "tranquill": {
+    "genus": "Pokémon Torcaz"
+  },
+  "unfezant": {
+    "formName": "Macho",
+    "genus": "Pokémon Altanero"
+  },
+  "unfezant-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Altanero"
+  },
+  "blitzle": {
+    "genus": "Pokémon Electrizado"
+  },
+  "zebstrika": {
+    "genus": "Pokémon Rayo"
+  },
+  "roggenrola": {
+    "genus": "Pokémon Manto"
+  },
+  "boldore": {
+    "genus": "Pokémon Mineral"
+  },
+  "gigalith": {
+    "genus": "Pokémon Presurizado"
+  },
+  "woobat": {
+    "genus": "Pokémon Murciélago"
+  },
+  "swoobat": {
+    "genus": "Pokémon Galante"
+  },
+  "drilbur": {
+    "genus": "Pokémon Topo"
+  },
+  "excadrill": {
+    "name": "Excadrill",
+    "genus": "Pokémon Subterráneo"
+  },
+  "excadrill-mega": {
+    "speciesName": "Excadrill",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Subterráneo"
+  },
+  "audino": {
+    "name": "Audino",
+    "genus": "Pokémon Escucha"
+  },
+  "audino-mega": {
+    "speciesName": "Audino",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Escucha"
+  },
+  "timburr": {
+    "genus": "Pokémon Musculoso"
+  },
+  "gurdurr": {
+    "genus": "Pokémon Musculoso"
+  },
+  "conkeldurr": {
+    "name": "Conkeldurr",
+    "genus": "Pokémon Musculoso"
+  },
+  "tympole": {
+    "genus": "Pokémon Renacuajo"
+  },
+  "palpitoad": {
+    "genus": "Pokémon Vibrante"
+  },
+  "seismitoad": {
+    "genus": "Pokémon Vibrante"
+  },
+  "throh": {
+    "genus": "Pokémon Judo"
+  },
+  "sawk": {
+    "genus": "Pokémon Kárate"
+  },
+  "sewaddle": {
+    "genus": "Pokémon Sastre"
+  },
+  "swadloon": {
+    "genus": "Pokémon Arropado"
+  },
+  "leavanny": {
+    "genus": "Pokémon Cuidador"
+  },
+  "venipede": {
+    "genus": "Pokémon Ciempiés"
+  },
+  "whirlipede": {
+    "genus": "Pokémon Pupaciempiés"
+  },
+  "scolipede": {
+    "name": "Scolipede",
+    "genus": "Pokémon Megaciempiés"
+  },
+  "scolipede-mega": {
+    "speciesName": "Scolipede",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Megaciempiés"
+  },
+  "cottonee": {
+    "genus": "Pokémon Bolalgodón"
+  },
+  "whimsicott": {
+    "name": "Whimsicott",
+    "genus": "Pokémon Vuelalviento"
+  },
+  "petilil": {
+    "genus": "Pokémon Bulbo"
+  },
+  "lilligant": {
+    "genus": "Pokémon Adornofloral"
+  },
+  "lilligant-hisui": {
+    "genus": "Pokémon Adornofloral"
+  },
+  "basculin": {
+    "formName": "Forma Raya Roja",
+    "genus": "Pokémon Violento"
+  },
+  "basculin-blue-striped": {
+    "name": "Basculin (Forma Raya Azul)",
+    "formName": "Forma Raya Azul",
+    "genus": "Pokémon Violento"
+  },
+  "basculin-white-striped": {
+    "genus": "Pokémon Violento"
+  },
+  "sandile": {
+    "genus": "Pokémon Desierdrilo"
+  },
+  "krokorok": {
+    "genus": "Pokémon Desierdrilo"
+  },
+  "krookodile": {
+    "name": "Krookodile",
+    "genus": "Pokémon Amenazador"
+  },
+  "darumaka": {
+    "genus": "Pokémon Daruma"
+  },
+  "darumaka-galar": {
+    "name": "Darumaka (Forma de Galar)",
+    "formName": "Forma de Galar",
+    "genus": "Pokémon Daruma"
+  },
+  "darmanitan": {
+    "genus": "Pokémon Candente"
+  },
+  "darmanitan-zen": {
+    "name": "Darmanitan (Modo Daruma)",
+    "formName": "Modo Daruma",
+    "genus": "Pokémon Candente"
+  },
+  "darmanitan-galar": {
+    "name": "Darmanitan (Forma de Galar)",
+    "formName": "Forma de Galar",
+    "genus": "Pokémon Candente"
+  },
+  "darmanitan-galar-zen": {
+    "name": "Darmanitan (Modo Daruma)",
+    "formName": "Modo Daruma",
+    "genus": "Pokémon Candente"
+  },
+  "maractus": {
+    "genus": "Pokémon Cactus"
+  },
+  "dwebble": {
+    "genus": "Pokémon Casapiedra"
+  },
+  "crustle": {
+    "genus": "Pokémon Casarroca"
+  },
+  "scraggy": {
+    "genus": "Pokémon Mudapiel"
+  },
+  "scrafty": {
+    "name": "Scrafty",
+    "genus": "Pokémon Gamberro"
+  },
+  "scrafty-mega": {
+    "speciesName": "Scrafty",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Gamberro"
+  },
+  "sigilyph": {
+    "genus": "Pokémon Pseudopájaro"
+  },
+  "yamask": {
+    "genus": "Pokémon Espíritu"
+  },
+  "yamask-galar": {
+    "name": "Yamask (Forma de Galar)",
+    "formName": "Forma de Galar",
+    "genus": "Pokémon Espíritu"
+  },
+  "cofagrigus": {
+    "name": "Cofagrigus",
+    "genus": "Pokémon Sepultura"
+  },
+  "tirtouga": {
+    "genus": "Pokémon Pretortuga"
+  },
+  "carracosta": {
+    "genus": "Pokémon Pretortuga"
+  },
+  "archen": {
+    "genus": "Pokémon Protopájaro"
+  },
+  "archeops": {
+    "genus": "Pokémon Protopájaro"
+  },
+  "trubbish": {
+    "genus": "Pokémon Bolsa Basura"
+  },
+  "garbodor": {
+    "name": "Garbodor",
+    "genus": "Pokémon Vertedero"
+  },
+  "garbodor-gmax": {
+    "genus": "Pokémon Vertedero"
+  },
+  "zorua": {
+    "genus": "Pokémon Zorro Pillo"
+  },
+  "zorua-hisui": {
+    "genus": "Pokémon Zorro Pillo"
+  },
+  "zoroark": {
+    "name": "Zoroark",
+    "genus": "Pokémon Disfrazorro"
+  },
+  "zoroark-hisui": {
+    "speciesName": "Zoroark",
+    "genus": "Pokémon Disfrazorro"
+  },
+  "minccino": {
+    "genus": "Pokémon Chinchilla"
+  },
+  "cinccino": {
+    "genus": "Pokémon Estola"
+  },
+  "gothita": {
+    "genus": "Pokémon Inquisitivo"
+  },
+  "gothorita": {
+    "genus": "Pokémon Manipulador"
+  },
+  "gothitelle": {
+    "genus": "Pokémon Astro"
+  },
+  "solosis": {
+    "genus": "Pokémon Célula"
+  },
+  "duosion": {
+    "genus": "Pokémon Mitosis"
+  },
+  "reuniclus": {
+    "name": "Reuniclus",
+    "genus": "Pokémon Ampliación"
+  },
+  "ducklett": {
+    "genus": "Pokémon Ave Agua"
+  },
+  "swanna": {
+    "genus": "Pokémon Cisne"
+  },
+  "vanillite": {
+    "genus": "Pokémon Nieve Fresca"
+  },
+  "vanillish": {
+    "genus": "Pokémon Nieve Helada"
+  },
+  "vanilluxe": {
+    "name": "Vanilluxe",
+    "genus": "Pokémon Nieve Gélida"
+  },
+  "deerling": {
+    "genus": "Pokémon Estacional"
+  },
+  "deerling-summer": {
+    "name": "Deerling (Forma Verano)",
+    "formName": "Forma Verano",
+    "genus": "Pokémon Estacional"
+  },
+  "deerling-autumn": {
+    "name": "Deerling (Forma Otoño)",
+    "formName": "Forma Otoño",
+    "genus": "Pokémon Estacional"
+  },
+  "deerling-winter": {
+    "name": "Deerling (Forma Invierno)",
+    "formName": "Forma Invierno",
+    "genus": "Pokémon Estacional"
+  },
+  "sawsbuck": {
+    "genus": "Pokémon Estacional"
+  },
+  "sawsbuck-summer": {
+    "name": "Sawsbuck (Forma Verano)",
+    "formName": "Forma Verano",
+    "genus": "Pokémon Estacional"
+  },
+  "sawsbuck-autumn": {
+    "name": "Sawsbuck (Forma Otoño)",
+    "formName": "Forma Otoño",
+    "genus": "Pokémon Estacional"
+  },
+  "sawsbuck-winter": {
+    "name": "Sawsbuck (Forma Invierno)",
+    "formName": "Forma Invierno",
+    "genus": "Pokémon Estacional"
+  },
+  "emolga": {
+    "name": "Emolga",
+    "genus": "Pokémon Vuelardilla"
+  },
+  "karrablast": {
+    "genus": "Pokémon Bocado"
+  },
+  "escavalier": {
+    "genus": "Pokémon Soldado"
+  },
+  "foongus": {
+    "genus": "Pokémon Hongo"
+  },
+  "amoonguss": {
+    "genus": "Pokémon Hongo"
+  },
+  "frillish": {
+    "formName": "Macho",
+    "genus": "Pokémon Ingrávido"
+  },
+  "frillish-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Ingrávido"
+  },
+  "jellicent": {
+    "formName": "Macho",
+    "genus": "Pokémon Ingrávido"
+  },
+  "jellicent-f": {
+    "formName": "Hembra",
+    "genus": "Pokémon Ingrávido"
+  },
+  "alomomola": {
+    "genus": "Pokémon Socorrista"
+  },
+  "joltik": {
+    "genus": "Pokémon Lapa"
+  },
+  "galvantula": {
+    "genus": "Pokémon Electroaraña"
+  },
+  "ferroseed": {
+    "genus": "Pokémon Fruto Espina"
+  },
+  "ferrothorn": {
+    "genus": "Pokémon Bola Espina"
+  },
+  "klink": {
+    "genus": "Pokémon Engranaje"
+  },
+  "klang": {
+    "genus": "Pokémon Engranaje"
+  },
+  "klinklang": {
+    "genus": "Pokémon Engranaje"
+  },
+  "tynamo": {
+    "genus": "Pokémon Electropez"
+  },
+  "eelektrik": {
+    "genus": "Pokémon Electropez"
+  },
+  "eelektross": {
+    "name": "Eelektross",
+    "genus": "Pokémon Electropez"
+  },
+  "eelektross-mega": {
+    "speciesName": "Eelektross",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Electropez"
+  },
+  "elgyem": {
+    "genus": "Pokémon Cerebro"
+  },
+  "beheeyem": {
+    "genus": "Pokémon Cerebro"
+  },
+  "litwick": {
+    "genus": "Pokémon Vela"
+  },
+  "lampent": {
+    "genus": "Pokémon Farolillo"
+  },
+  "chandelure": {
+    "name": "Chandelure",
+    "genus": "Pokémon Señuelo"
+  },
+  "chandelure-mega": {
+    "speciesName": "Chandelure",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Señuelo"
+  },
+  "axew": {
+    "genus": "Pokémon Colmillo"
+  },
+  "fraxure": {
+    "genus": "Pokémon Boca Hacha"
+  },
+  "haxorus": {
+    "genus": "Pokémon Boca Hacha"
+  },
+  "cubchoo": {
+    "genus": "Pokémon Congelación"
+  },
+  "beartic": {
+    "name": "Beartic",
+    "genus": "Pokémon Glaciación"
+  },
+  "cryogonal": {
+    "genus": "Pokémon Cristal"
+  },
+  "shelmet": {
+    "genus": "Pokémon Caracol"
+  },
+  "accelgor": {
+    "genus": "Pokémon Sincaparazón"
+  },
+  "stunfisk": {
+    "name": "Stunfisk",
+    "genus": "Pokémon Trampa"
+  },
+  "stunfisk-galar": {
+    "name": "Stunfisk (Forma de Galar)",
+    "speciesName": "Stunfisk",
+    "formName": "Forma de Galar",
+    "genus": "Pokémon Trampa"
+  },
+  "mienfoo": {
+    "genus": "Pokémon Arte Marcial"
+  },
+  "mienshao": {
+    "genus": "Pokémon Arte Marcial"
+  },
+  "druddigon": {
+    "genus": "Pokémon Cueva"
+  },
+  "golett": {
+    "genus": "Pokémon Autómata"
+  },
+  "golurk": {
+    "name": "Golurk",
+    "genus": "Pokémon Autómata"
+  },
+  "golurk-mega": {
+    "name": "Mega Golurk",
+    "speciesName": "Golurk",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Autómata"
+  },
+  "pawniard": {
+    "genus": "Pokémon Tajo"
+  },
+  "bisharp": {
+    "genus": "Pokémon Filo"
+  },
+  "bouffalant": {
+    "genus": "Pokémon Torocabezazo"
+  },
+  "rufflet": {
+    "genus": "Pokémon Aguilucho"
+  },
+  "braviary": {
+    "genus": "Pokémon Aguerrido"
+  },
+  "braviary-hisui": {
+    "genus": "Pokémon Aguerrido"
+  },
+  "vullaby": {
+    "genus": "Pokémon Pañal"
+  },
+  "mandibuzz": {
+    "genus": "Pokémon Buitre Hueso"
+  },
+  "heatmor": {
+    "genus": "Pokémon Hormiguero"
+  },
+  "durant": {
+    "genus": "Pokémon Hormigacero"
+  },
+  "deino": {
+    "genus": "Pokémon Tosco"
+  },
+  "zweilous": {
+    "genus": "Pokémon Violento"
+  },
+  "hydreigon": {
+    "name": "Hydreigon",
+    "genus": "Pokémon Voraz"
+  },
+  "larvesta": {
+    "genus": "Pokémon Antorcha"
+  },
+  "volcarona": {
+    "name": "Volcarona",
+    "genus": "Pokémon Sol"
+  },
+  "cobalion": {
+    "genus": "Pokémon Tesón Acero"
+  },
+  "terrakion": {
+    "genus": "Pokémon Gruta"
+  },
+  "virizion": {
+    "genus": "Pokémon Prado"
+  },
+  "tornadus": {
+    "genus": "Pokémon Torbellino"
+  },
+  "tornadus-therian": {
+    "name": "Tornadus (Forma Tótem)",
+    "formName": "Forma Tótem",
+    "genus": "Pokémon Torbellino"
+  },
+  "thundurus": {
+    "genus": "Pokémon Centella"
+  },
+  "thundurus-therian": {
+    "name": "Thundurus (Forma Tótem)",
+    "formName": "Forma Tótem",
+    "genus": "Pokémon Centella"
+  },
+  "reshiram": {
+    "genus": "Pokémon Blanco Veraz"
+  },
+  "zekrom": {
+    "genus": "Pokémon Negro Puro"
+  },
+  "landorus": {
+    "genus": "Pokémon Fertilidad"
+  },
+  "landorus-therian": {
+    "name": "Landorus (Forma Tótem)",
+    "formName": "Forma Tótem",
+    "genus": "Pokémon Fertilidad"
+  },
+  "kyurem": {
+    "genus": "Pokémon Frontera"
+  },
+  "kyurem-white": {
+    "name": "Kyurem Blanco",
+    "formName": "Kyurem Blanco",
+    "genus": "Pokémon Frontera"
+  },
+  "kyurem-black": {
+    "name": "Kyurem Negro",
+    "formName": "Kyurem Negro",
+    "genus": "Pokémon Frontera"
+  },
+  "keldeo": {
+    "genus": "Pokémon Potro"
+  },
+  "keldeo-resolute": {
+    "name": "Keldeo (Forma Brío)",
+    "formName": "Forma Brío",
+    "genus": "Pokémon Potro"
+  },
+  "meloetta": {
+    "genus": "Pokémon Melodía"
+  },
+  "meloetta-pirouette": {
+    "name": "Meloetta (Forma Danza)",
+    "formName": "Forma Danza",
+    "genus": "Pokémon Melodía"
+  },
+  "genesect": {
+    "genus": "Pokémon Paleozoico"
+  },
+  "genesect-douse": {
+    "name": "Genesect (HidroROM)",
+    "formName": "HidroROM",
+    "genus": "Pokémon Paleozoico"
+  },
+  "genesect-shock": {
+    "name": "Genesect (FulgoROM)",
+    "formName": "FulgoROM",
+    "genus": "Pokémon Paleozoico"
+  },
+  "genesect-burn": {
+    "name": "Genesect (PiroROM)",
+    "formName": "PiroROM",
+    "genus": "Pokémon Paleozoico"
+  },
+  "genesect-chill": {
+    "name": "Genesect (CrioROM)",
+    "formName": "CrioROM",
+    "genus": "Pokémon Paleozoico"
+  },
+  "chespin": {
+    "genus": "Pokémon Erizo"
+  },
+  "quilladin": {
+    "genus": "Pokémon Corazaespín"
+  },
+  "chesnaught": {
+    "name": "Chesnaught",
+    "genus": "Pokémon Corazaespín"
+  },
+  "chesnaught-mega": {
+    "speciesName": "Chesnaught",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Corazaespín"
+  },
+  "fennekin": {
+    "genus": "Pokémon Zorro"
+  },
+  "braixen": {
+    "genus": "Pokémon Zorro"
+  },
+  "delphox": {
+    "name": "Delphox",
+    "genus": "Pokémon Zorro"
+  },
+  "delphox-mega": {
+    "speciesName": "Delphox",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Zorro"
+  },
+  "froakie": {
+    "genus": "Pokémon Burburrana"
+  },
+  "frogadier": {
+    "genus": "Pokémon Burburrana"
+  },
+  "greninja": {
+    "name": "Greninja",
+    "genus": "Pokémon Ninja"
+  },
+  "greninja-ash": {
+    "name": "Greninja (Forma Ash)",
+    "formName": "Forma Ash",
+    "genus": "Pokémon Ninja"
+  },
+  "greninja-mega": {
+    "speciesName": "Greninja",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Ninja"
+  },
+  "bunnelby": {
+    "genus": "Pokémon Excavador"
+  },
+  "diggersby": {
+    "name": "Diggersby",
+    "genus": "Pokémon Excavador"
+  },
+  "fletchling": {
+    "genus": "Pokémon Petirrojo"
+  },
+  "fletchinder": {
+    "genus": "Pokémon Lumbre"
+  },
+  "talonflame": {
+    "name": "Talonflame",
+    "genus": "Pokémon Flamígero"
+  },
+  "scatterbug": {
+    "genus": "Pokémon Tiraescamas"
+  },
+  "spewpa": {
+    "genus": "Pokémon Tiraescamas"
+  },
+  "vivillon": {
+    "name": "Vivillon"
+  },
+  "vivillon-polar": {
+    "speciesName": "Vivillon",
+    "formName": "Motivo Taiga"
+  },
+  "vivillon-tundra": {
+    "speciesName": "Vivillon",
+    "formName": "Motivo Tundra"
+  },
+  "vivillon-continental": {
+    "speciesName": "Vivillon",
+    "formName": "Motivo Continental"
+  },
+  "vivillon-garden": {
+    "speciesName": "Vivillon",
+    "formName": "Motivo Vergel"
+  },
+  "vivillon-elegant": {
+    "speciesName": "Vivillon",
+    "formName": "Motivo Oriental"
+  },
+  "vivillon-meadow": {
+    "speciesName": "Vivillon",
+    "formName": "Motivo Floral"
+  },
+  "vivillon-modern": {
+    "speciesName": "Vivillon",
+    "formName": "Motivo Moderno"
+  },
+  "vivillon-marine": {
+    "speciesName": "Vivillon",
+    "formName": "Motivo Marino"
+  },
+  "vivillon-archipelago": {
+    "speciesName": "Vivillon",
+    "formName": "Motivo Isleño"
+  },
+  "vivillon-high-plains": {
+    "speciesName": "Vivillon",
+    "formName": "Motivo Estepa"
+  },
+  "vivillon-sandstorm": {
+    "speciesName": "Vivillon",
+    "formName": "Motivo Desierto"
+  },
+  "vivillon-river": {
+    "speciesName": "Vivillon",
+    "formName": "Motivo Oasis"
+  },
+  "vivillon-monsoon": {
+    "speciesName": "Vivillon",
+    "formName": "Motivo Monzón"
+  },
+  "vivillon-savanna": {
+    "speciesName": "Vivillon",
+    "formName": "Motivo Pantano"
+  },
+  "vivillon-sun": {
+    "speciesName": "Vivillon",
+    "formName": "Motivo Solar"
+  },
+  "vivillon-ocean": {
+    "speciesName": "Vivillon",
+    "formName": "Motivo Océano"
+  },
+  "vivillon-jungle": {
+    "speciesName": "Vivillon",
+    "formName": "Motivo Jungla"
+  },
+  "vivillon-fancy": {
+    "speciesName": "Vivillon",
+    "formName": "Motivo Fantasía"
+  },
+  "vivillon-pokeball": {
+    "speciesName": "Vivillon",
+    "formName": "Motivo Poké Ball"
+  },
+  "litleo": {
+    "genus": "Pokémon Leoncito"
+  },
+  "pyroar": {
+    "name": "Pyroar",
+    "formName": "Macho",
+    "genus": "Pokémon Regio"
+  },
+  "pyroar-f": {
+    "speciesName": "Pyroar",
+    "formName": "Hembra",
+    "genus": "Pokémon Regio"
+  },
+  "pyroar-mega": {
+    "speciesName": "Pyroar",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Regio"
+  },
+  "flabebe": {
+    "formName": "Flor Roja",
+    "genus": "Pokémon Monoflor"
+  },
+  "flabebe-yellow": {
+    "name": "Flabébé (Flor Amarilla)",
+    "formName": "Flor Amarilla",
+    "genus": "Pokémon Monoflor"
+  },
+  "flabebe-orange": {
+    "name": "Flabébé (Flor Naranja)",
+    "formName": "Flor Naranja",
+    "genus": "Pokémon Monoflor"
+  },
+  "flabebe-blue": {
+    "name": "Flabébé (Flor Azul)",
+    "formName": "Flor Azul",
+    "genus": "Pokémon Monoflor"
+  },
+  "flabebe-white": {
+    "name": "Flabébé (Flor Blanca)",
+    "formName": "Flor Blanca",
+    "genus": "Pokémon Monoflor"
+  },
+  "floette": {
+    "formName": "Flor Roja",
+    "genus": "Pokémon Monoflor"
+  },
+  "floette-yellow": {
+    "name": "Floette (Flor Amarilla)",
+    "formName": "Flor Amarilla",
+    "genus": "Pokémon Monoflor"
+  },
+  "floette-orange": {
+    "name": "Floette (Flor Naranja)",
+    "formName": "Flor Naranja",
+    "genus": "Pokémon Monoflor"
+  },
+  "floette-blue": {
+    "name": "Floette (Flor Azul)",
+    "formName": "Flor Azul",
+    "genus": "Pokémon Monoflor"
+  },
+  "floette-white": {
+    "name": "Floette (Flor Blanca)",
+    "formName": "Flor Blanca",
+    "genus": "Pokémon Monoflor"
+  },
+  "floette-eternal": {
+    "speciesName": "Floette",
+    "formName": "Flor Eterna",
+    "genus": "Pokémon Monoflor"
+  },
+  "floette-eternal-mega": {
+    "speciesName": "Floette",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Monoflor"
+  },
+  "florges": {
+    "name": "Florges",
+    "formName": "Flor Roja",
+    "genus": "Pokémon Jardín"
+  },
+  "florges-yellow": {
+    "name": "Florges (Flor Amarilla)",
+    "speciesName": "Florges",
+    "formName": "Flor Amarilla",
+    "genus": "Pokémon Jardín"
+  },
+  "florges-orange": {
+    "name": "Florges (Flor Naranja)",
+    "speciesName": "Florges",
+    "formName": "Flor Naranja",
+    "genus": "Pokémon Jardín"
+  },
+  "florges-blue": {
+    "name": "Florges (Flor Azul)",
+    "speciesName": "Florges",
+    "formName": "Flor Azul",
+    "genus": "Pokémon Jardín"
+  },
+  "florges-white": {
+    "name": "Florges (Flor Blanca)",
+    "speciesName": "Florges",
+    "formName": "Flor Blanca",
+    "genus": "Pokémon Jardín"
+  },
+  "skiddo": {
+    "genus": "Pokémon Montura"
+  },
+  "gogoat": {
+    "name": "Gogoat",
+    "genus": "Pokémon Montura"
+  },
+  "pancham": {
+    "genus": "Pokémon Juguetón"
+  },
+  "pangoro": {
+    "name": "Pangoro",
+    "genus": "Pokémon Rostro Fiero"
+  },
+  "furfrou": {
+    "name": "Furfrou",
+    "genus": "Pokémon Caniche"
+  },
+  "furfrou-heart": {
+    "name": "Furfrou (Corte Corazón)",
+    "speciesName": "Furfrou",
+    "formName": "Corte Corazón",
+    "genus": "Pokémon Caniche"
+  },
+  "furfrou-star": {
+    "name": "Furfrou (Corte Estrella)",
+    "speciesName": "Furfrou",
+    "formName": "Corte Estrella",
+    "genus": "Pokémon Caniche"
+  },
+  "furfrou-diamond": {
+    "name": "Furfrou (Corte Rombo)",
+    "speciesName": "Furfrou",
+    "formName": "Corte Rombo",
+    "genus": "Pokémon Caniche"
+  },
+  "furfrou-debutante": {
+    "name": "Furfrou (Corte Señorita)",
+    "speciesName": "Furfrou",
+    "formName": "Corte Señorita",
+    "genus": "Pokémon Caniche"
+  },
+  "furfrou-matron": {
+    "name": "Furfrou (Corte Dama)",
+    "speciesName": "Furfrou",
+    "formName": "Corte Dama",
+    "genus": "Pokémon Caniche"
+  },
+  "furfrou-dandy": {
+    "name": "Furfrou (Corte Caballero)",
+    "speciesName": "Furfrou",
+    "formName": "Corte Caballero",
+    "genus": "Pokémon Caniche"
+  },
+  "furfrou-la-reine": {
+    "name": "Furfrou (Corte Aristocrático)",
+    "speciesName": "Furfrou",
+    "formName": "Corte Aristocrático",
+    "genus": "Pokémon Caniche"
+  },
+  "furfrou-kabuki": {
+    "name": "Furfrou (Corte Kabuki)",
+    "speciesName": "Furfrou",
+    "formName": "Corte Kabuki",
+    "genus": "Pokémon Caniche"
+  },
+  "furfrou-pharaoh": {
+    "name": "Furfrou (Corte Faraónico)",
+    "speciesName": "Furfrou",
+    "formName": "Corte Faraónico",
+    "genus": "Pokémon Caniche"
+  },
+  "espurr": {
+    "genus": "Pokémon Moderación"
+  },
+  "meowstic": {
+    "name": "Meowstic",
+    "formName": "Macho",
+    "genus": "Pokémon Autocontrol"
+  },
+  "meowstic-f": {
+    "name": "Meowstic (Hembra)",
+    "speciesName": "Meowstic",
+    "formName": "Hembra",
+    "genus": "Pokémon Autocontrol"
+  },
+  "meowstic-mega": {
+    "name": "Mega Meowstic",
+    "speciesName": "Meowstic",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Autocontrol"
+  },
+  "honedge": {
+    "genus": "Pokémon Tizona"
+  },
+  "doublade": {
+    "genus": "Pokémon Tizona"
+  },
+  "aegislash": {
+    "name": "Aegislash",
+    "genus": "Pokémon Espada Real"
+  },
+  "aegislash-blade": {
+    "name": "Aegislash (Forma Filo)",
+    "speciesName": "Aegislash",
+    "formName": "Forma Filo",
+    "genus": "Pokémon Espada Real"
+  },
+  "spritzee": {
+    "genus": "Pokémon Aroma"
+  },
+  "aromatisse": {
+    "name": "Aromatisse",
+    "genus": "Pokémon Fragancia"
+  },
+  "swirlix": {
+    "genus": "Pokémon Chuchería"
+  },
+  "slurpuff": {
+    "name": "Slurpuff",
+    "genus": "Pokémon Nata"
+  },
+  "inkay": {
+    "genus": "Pokémon Rotación"
+  },
+  "malamar": {
+    "name": "Malamar",
+    "genus": "Pokémon Revolución"
+  },
+  "malamar-mega": {
+    "speciesName": "Malamar",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Revolución"
+  },
+  "binacle": {
+    "genus": "Pokémon Dos Manos"
+  },
+  "barbaracle": {
+    "name": "Barbaracle",
+    "genus": "Pokémon Combinación"
+  },
+  "barbaracle-mega": {
+    "speciesName": "Barbaracle",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Combinación"
+  },
+  "skrelp": {
+    "genus": "Pokémon Pseudoalga"
+  },
+  "dragalge": {
+    "name": "Dragalge",
+    "genus": "Pokémon Pseudoalga"
+  },
+  "dragalge-mega": {
+    "speciesName": "Dragalge",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Pseudoalga"
+  },
+  "clauncher": {
+    "genus": "Pokémon Proyectagua"
+  },
+  "clawitzer": {
+    "name": "Clawitzer",
+    "genus": "Pokémon Lanzachorro"
+  },
+  "helioptile": {
+    "genus": "Pokémon Generador"
+  },
+  "heliolisk": {
+    "name": "Heliolisk",
+    "genus": "Pokémon Generador"
+  },
+  "tyrunt": {
+    "genus": "Pokémon Heredero"
+  },
+  "tyrantrum": {
+    "name": "Tyrantrum",
+    "genus": "Pokémon Tirano"
+  },
+  "amaura": {
+    "genus": "Pokémon Tundra"
+  },
+  "aurorus": {
+    "name": "Aurorus",
+    "genus": "Pokémon Tundra"
+  },
+  "sylveon": {
+    "name": "Sylveon",
+    "genus": "Pokémon Vínculo"
+  },
+  "hawlucha": {
+    "name": "Hawlucha",
+    "genus": "Pokémon Lucha Libre"
+  },
+  "hawlucha-mega": {
+    "speciesName": "Hawlucha",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Lucha Libre"
+  },
+  "dedenne": {
+    "name": "Dedenne",
+    "genus": "Pokémon Antenas"
+  },
+  "carbink": {
+    "genus": "Pokémon Joya"
+  },
+  "goomy": {
+    "genus": "Pokémon Molusco"
+  },
+  "sliggoo": {
+    "genus": "Pokémon Molusco"
+  },
+  "sliggoo-hisui": {
+    "genus": "Pokémon Molusco"
+  },
+  "goodra": {
+    "name": "Goodra",
+    "genus": "Pokémon Dragón"
+  },
+  "goodra-hisui": {
+    "speciesName": "Goodra",
+    "genus": "Pokémon Dragón"
+  },
+  "klefki": {
+    "name": "Klefki",
+    "genus": "Pokémon Llavero"
+  },
+  "phantump": {
+    "genus": "Pokémon Tocón"
+  },
+  "trevenant": {
+    "name": "Trevenant",
+    "genus": "Pokémon Árbol Viejo"
+  },
+  "pumpkaboo": {
+    "genus": "Pokémon Calabaza"
+  },
+  "pumpkaboo-small": {
+    "name": "Pumpkaboo (Tamaño Pequeño)",
+    "formName": "Tamaño Pequeño",
+    "genus": "Pokémon Calabaza"
+  },
+  "pumpkaboo-large": {
+    "name": "Pumpkaboo (Tamaño Grande)",
+    "formName": "Tamaño Grande",
+    "genus": "Pokémon Calabaza"
+  },
+  "pumpkaboo-super": {
+    "name": "Pumpkaboo (Tamaño Extragrande)",
+    "formName": "Tamaño Extragrande",
+    "genus": "Pokémon Calabaza"
+  },
+  "gourgeist": {
+    "name": "Gourgeist",
+    "genus": "Pokémon Calabaza"
+  },
+  "gourgeist-small": {
+    "name": "Gourgeist (Tamaño Pequeño)",
+    "speciesName": "Gourgeist",
+    "formName": "Tamaño Pequeño",
+    "genus": "Pokémon Calabaza"
+  },
+  "gourgeist-large": {
+    "name": "Gourgeist (Tamaño Grande)",
+    "speciesName": "Gourgeist",
+    "formName": "Tamaño Grande",
+    "genus": "Pokémon Calabaza"
+  },
+  "gourgeist-super": {
+    "name": "Gourgeist (Tamaño Extragrande)",
+    "speciesName": "Gourgeist",
+    "formName": "Tamaño Extragrande",
+    "genus": "Pokémon Calabaza"
+  },
+  "bergmite": {
+    "genus": "Pokémon Témpano"
+  },
+  "avalugg": {
+    "name": "Avalugg",
+    "genus": "Pokémon Iceberg"
+  },
+  "avalugg-hisui": {
+    "speciesName": "Avalugg",
+    "genus": "Pokémon Iceberg"
+  },
+  "noibat": {
+    "genus": "Pokémon Onda Sónica"
+  },
+  "noivern": {
+    "name": "Noivern",
+    "genus": "Pokémon Onda Sónica"
+  },
+  "xerneas-active": {
+    "formName": "Modo Activo"
+  },
+  "yveltal": {
+    "genus": "Pokémon Destrucción"
+  },
+  "zygarde": {
+    "genus": "Pokémon Equilibrio"
+  },
+  "zygarde-10": {
+    "name": "Zygarde (Forma 10%)",
+    "formName": "Forma 10%",
+    "genus": "Pokémon Equilibrio"
+  },
+  "zygarde-complete": {
+    "name": "Zygarde (Forma Completa)",
+    "formName": "Forma Completa",
+    "genus": "Pokémon Equilibrio"
+  },
+  "zygarde-complete-mega": {
+    "name": "Zygarde (Forma Completa)",
+    "speciesName": "Zygarde",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Equilibrio"
+  },
+  "diancie": {
+    "genus": "Pokémon Joya"
+  },
+  "diancie-mega": {
+    "formName": "Forma Mega",
+    "genus": "Pokémon Joya"
+  },
+  "hoopa": {
+    "genus": "Pokémon Travesura"
+  },
+  "hoopa-unbound": {
+    "name": "Hoopa Desatado",
+    "formName": "Hoopa Desatado",
+    "genus": "Pokémon Travesura"
+  },
+  "volcanion": {
+    "genus": "Pokémon Vapor"
+  },
+  "rowlet": {
+    "genus": "Pokémon Pluma Hoja"
+  },
+  "dartrix": {
+    "genus": "Pokémon Pluma Filo"
+  },
+  "decidueye": {
+    "name": "Decidueye",
+    "genus": "Pokémon Pluma Flecha"
+  },
+  "decidueye-hisui": {
+    "speciesName": "Decidueye",
+    "genus": "Pokémon Pluma Flecha"
+  },
+  "litten": {
+    "genus": "Pokémon Gato Fuego"
+  },
+  "torracat": {
+    "genus": "Pokémon Gato Fuego"
+  },
+  "incineroar": {
+    "name": "Incineroar",
+    "genus": "Pokémon Rudo"
+  },
+  "popplio": {
+    "genus": "Pokémon León Marino"
+  },
+  "brionne": {
+    "genus": "Pokémon Fama"
+  },
+  "primarina": {
+    "name": "Primarina",
+    "genus": "Pokémon Solista"
+  },
+  "pikipek": {
+    "genus": "Pokémon Carpintero"
+  },
+  "trumbeak": {
+    "genus": "Pokémon Trompeta"
+  },
+  "toucannon": {
+    "name": "Toucannon",
+    "genus": "Pokémon Cañón"
+  },
+  "yungoos": {
+    "genus": "Pokémon Patrulla"
+  },
+  "gumshoos": {
+    "genus": "Pokémon Vigilante"
+  },
+  "grubbin": {
+    "genus": "Pokémon Pupa"
+  },
+  "charjabug": {
+    "genus": "Pokémon Batería"
+  },
+  "vikavolt": {
+    "genus": "Pokémon Escarabajo"
+  },
+  "crabrawler": {
+    "genus": "Pokémon Púgil"
+  },
+  "crabominable": {
+    "name": "Crabominable",
+    "genus": "Pokémon Cangrejopelo"
+  },
+  "crabominable-mega": {
+    "name": "Mega Crabominable",
+    "speciesName": "Crabominable",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Cangrejopelo"
+  },
+  "oricorio": {
+    "genus": "Pokémon Danza"
+  },
+  "oricorio-pom-pom": {
+    "name": "Oricorio (Estilo Animado)",
+    "formName": "Estilo Animado",
+    "genus": "Pokémon Danza"
+  },
+  "oricorio-pau": {
+    "name": "Oricorio (Estilo Plácido)",
+    "formName": "Estilo Plácido",
+    "genus": "Pokémon Danza"
+  },
+  "oricorio-sensu": {
+    "name": "Oricorio (Estilo Refinado)",
+    "formName": "Estilo Refinado",
+    "genus": "Pokémon Danza"
+  },
+  "cutiefly": {
+    "genus": "Pokémon Mosca Abeja"
+  },
+  "ribombee": {
+    "genus": "Pokémon Mosca Abeja"
+  },
+  "rockruff": {
+    "genus": "Pokémon Perrito"
+  },
+  "lycanroc": {
+    "name": "Lycanroc",
+    "genus": "Pokémon Lobo"
+  },
+  "lycanroc-midnight": {
+    "name": "Lycanroc (Forma Nocturna)",
+    "speciesName": "Lycanroc",
+    "formName": "Forma Nocturna",
+    "genus": "Pokémon Lobo"
+  },
+  "lycanroc-dusk": {
+    "name": "Lycanroc (Forma Crepuscular)",
+    "speciesName": "Lycanroc",
+    "formName": "Forma Crepuscular",
+    "genus": "Pokémon Lobo"
+  },
+  "wishiwashi": {
+    "genus": "Pokémon Pececillo"
+  },
+  "wishiwashi-school": {
+    "name": "Wishiwashi (Forma Banco)",
+    "formName": "Forma Banco",
+    "genus": "Pokémon Pececillo"
+  },
+  "mareanie": {
+    "genus": "Pokémon Estrellatroz"
+  },
+  "toxapex": {
+    "name": "Toxapex",
+    "genus": "Pokémon Estrellatroz"
+  },
+  "mudbray": {
+    "genus": "Pokémon Asno"
+  },
+  "mudsdale": {
+    "name": "Mudsdale",
+    "genus": "Pokémon Caballo Tiro"
+  },
+  "dewpider": {
+    "genus": "Pokémon Pompa"
+  },
+  "araquanid": {
+    "name": "Araquanid",
+    "genus": "Pokémon Pompa"
+  },
+  "fomantis": {
+    "genus": "Pokémon Filo Hoja"
+  },
+  "lurantis": {
+    "genus": "Pokémon Filo Flor"
+  },
+  "morelull": {
+    "genus": "Pokémon Luminiscente"
+  },
+  "shiinotic": {
+    "genus": "Pokémon Luminiscente"
+  },
+  "salandit": {
+    "genus": "Pokémon Lagartoxina"
+  },
+  "salazzle": {
+    "name": "Salazzle",
+    "genus": "Pokémon Lagartoxina"
+  },
+  "stufful": {
+    "genus": "Pokémon Rabieta"
+  },
+  "bewear": {
+    "genus": "Pokémon Brazo Fuerte"
+  },
+  "bounsweet": {
+    "genus": "Pokémon Fruto"
+  },
+  "steenee": {
+    "genus": "Pokémon Fruto"
+  },
+  "tsareena": {
+    "name": "Tsareena",
+    "genus": "Pokémon Fruto"
+  },
+  "comfey": {
+    "genus": "Pokémon Recogeflores"
+  },
+  "oranguru": {
+    "name": "Oranguru",
+    "genus": "Pokémon Sabio"
+  },
+  "passimian": {
+    "name": "Passimian",
+    "genus": "Pokémon Cooperación"
+  },
+  "wimpod": {
+    "genus": "Pokémon Huidizo"
+  },
+  "golisopod": {
+    "name": "Golisopod",
+    "genus": "Pokémon Blindaje"
+  },
+  "golisopod-mega": {
+    "name": "Mega Golisopod",
+    "speciesName": "Golisopod",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Blindaje"
+  },
+  "sandygast": {
+    "genus": "Pokémon Montearena"
+  },
+  "palossand": {
+    "genus": "Pokémon Castiarena"
+  },
+  "pyukumuku": {
+    "genus": "Pokémon Pepino Mar"
+  },
+  "typenull": {
+    "name": "Código Cero",
+    "genus": "Pokémon Multigénico"
+  },
+  "silvally": {
+    "genus": "Pokémon Multigénico"
+  },
+  "silvally-fighting": {
+    "name": "Silvally (Tipo: Lucha)",
+    "formName": "Tipo: Lucha",
+    "genus": "Pokémon Multigénico"
+  },
+  "silvally-flying": {
+    "name": "Silvally (Tipo: Volador)",
+    "formName": "Tipo: Volador",
+    "genus": "Pokémon Multigénico"
+  },
+  "silvally-poison": {
+    "name": "Silvally (Tipo: Veneno)",
+    "formName": "Tipo: Veneno",
+    "genus": "Pokémon Multigénico"
+  },
+  "silvally-ground": {
+    "name": "Silvally (Tipo: Tierra)",
+    "formName": "Tipo: Tierra",
+    "genus": "Pokémon Multigénico"
+  },
+  "silvally-rock": {
+    "name": "Silvally (Tipo: Roca)",
+    "formName": "Tipo: Roca",
+    "genus": "Pokémon Multigénico"
+  },
+  "silvally-bug": {
+    "name": "Silvally (Tipo: Bicho)",
+    "formName": "Tipo: Bicho",
+    "genus": "Pokémon Multigénico"
+  },
+  "silvally-ghost": {
+    "name": "Silvally (Tipo: Fantasma)",
+    "formName": "Tipo: Fantasma",
+    "genus": "Pokémon Multigénico"
+  },
+  "silvally-steel": {
+    "name": "Silvally (Tipo: Acero)",
+    "formName": "Tipo: Acero",
+    "genus": "Pokémon Multigénico"
+  },
+  "silvally-fire": {
+    "name": "Silvally (Tipo: Fuego)",
+    "formName": "Tipo: Fuego",
+    "genus": "Pokémon Multigénico"
+  },
+  "silvally-water": {
+    "name": "Silvally (Tipo: Agua)",
+    "formName": "Tipo: Agua",
+    "genus": "Pokémon Multigénico"
+  },
+  "silvally-grass": {
+    "name": "Silvally (Tipo: Planta)",
+    "formName": "Tipo: Planta",
+    "genus": "Pokémon Multigénico"
+  },
+  "silvally-electric": {
+    "name": "Silvally (Tipo: Eléctrico)",
+    "formName": "Tipo: Eléctrico",
+    "genus": "Pokémon Multigénico"
+  },
+  "silvally-psychic": {
+    "name": "Silvally (Tipo: Psíquico)",
+    "formName": "Tipo: Psíquico",
+    "genus": "Pokémon Multigénico"
+  },
+  "silvally-ice": {
+    "name": "Silvally (Tipo: Hielo)",
+    "formName": "Tipo: Hielo",
+    "genus": "Pokémon Multigénico"
+  },
+  "silvally-dragon": {
+    "name": "Silvally (Tipo: Dragón)",
+    "formName": "Tipo: Dragón",
+    "genus": "Pokémon Multigénico"
+  },
+  "silvally-dark": {
+    "name": "Silvally (Tipo: Siniestro)",
+    "formName": "Tipo: Siniestro",
+    "genus": "Pokémon Multigénico"
+  },
+  "silvally-fairy": {
+    "name": "Silvally (Tipo: Hada)",
+    "formName": "Tipo: Hada",
+    "genus": "Pokémon Multigénico"
+  },
+  "minior-red": {
+    "name": "Minior (Núcleo Rojo)",
+    "formName": "Núcleo Rojo",
+    "genus": "Pokémon Meteoro"
+  },
+  "minior-orange": {
+    "name": "Minior (Núcleo Naranja)",
+    "formName": "Núcleo Naranja",
+    "genus": "Pokémon Meteoro"
+  },
+  "minior-yellow": {
+    "name": "Minior (Núcleo Amarillo)",
+    "formName": "Núcleo Amarillo",
+    "genus": "Pokémon Meteoro"
+  },
+  "minior-green": {
+    "name": "Minior (Núcleo Verde)",
+    "formName": "Núcleo Verde",
+    "genus": "Pokémon Meteoro"
+  },
+  "minior-blue": {
+    "name": "Minior (Núcleo Azul)",
+    "formName": "Núcleo Azul",
+    "genus": "Pokémon Meteoro"
+  },
+  "minior-indigo": {
+    "name": "Minior (Núcleo Añil)",
+    "formName": "Núcleo Añil",
+    "genus": "Pokémon Meteoro"
+  },
+  "minior-violet": {
+    "name": "Minior (Núcleo Violeta)",
+    "formName": "Núcleo Violeta",
+    "genus": "Pokémon Meteoro"
+  },
+  "minior": {
+    "name": "Minior (Forma Meteorito)",
+    "formName": "Forma Meteorito",
+    "genus": "Pokémon Meteoro"
+  },
+  "komala": {
+    "genus": "Pokémon Duermevela"
+  },
+  "turtonator": {
+    "genus": "Pokémon Tortugabomba"
+  },
+  "togedemaru": {
+    "genus": "Pokémon Bolita"
+  },
+  "mimikyu": {
+    "name": "Mimikyu",
+    "genus": "Pokémon Disfraz"
+  },
+  "mimikyu-busted": {
+    "name": "Mimikyu (Forma Descubierta)",
+    "speciesName": "Mimikyu",
+    "formName": "Forma Descubierta",
+    "genus": "Pokémon Disfraz"
+  },
+  "bruxish": {
+    "genus": "Pokémon Rechinante"
+  },
+  "drampa": {
+    "name": "Drampa",
+    "genus": "Pokémon Sosiego"
+  },
+  "drampa-mega": {
+    "speciesName": "Drampa",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Sosiego"
+  },
+  "dhelmise": {
+    "genus": "Pokémon Alga Ancla"
+  },
+  "jangmoo": {
+    "genus": "Pokémon Escamas"
+  },
+  "hakamoo": {
+    "genus": "Pokémon Escamas"
+  },
+  "kommoo": {
+    "name": "Kommo-o",
+    "genus": "Pokémon Escamas"
+  },
+  "tapukoko": {
+    "genus": "Pokémon Dios Nativo"
+  },
+  "tapulele": {
+    "genus": "Pokémon Dios Nativo"
+  },
+  "tapubulu": {
+    "genus": "Pokémon Dios Nativo"
+  },
+  "tapufini": {
+    "genus": "Pokémon Dios Nativo"
+  },
+  "cosmog": {
+    "genus": "Pokémon Nebulosa"
+  },
+  "cosmoem": {
+    "genus": "Pokémon Protostrella"
+  },
+  "solgaleo": {
+    "genus": "Pokémon Corona Solar"
+  },
+  "lunala": {
+    "genus": "Pokémon Corona Lunar"
+  },
+  "nihilego": {
+    "genus": "Pokémon Parásito"
+  },
+  "buzzwole": {
+    "genus": "Pokémon Hinchado"
+  },
+  "pheromosa": {
+    "genus": "Pokémon Elegancia"
+  },
+  "xurkitree": {
+    "genus": "Pokémon Luminaria"
+  },
+  "celesteela": {
+    "genus": "Pokémon Lanzamiento"
+  },
+  "kartana": {
+    "genus": "Pokémon Desenvaine"
+  },
+  "guzzlord": {
+    "genus": "Pokémon Tragaldabas"
+  },
+  "necrozma": {
+    "genus": "Pokémon Prisma"
+  },
+  "necrozma-dusk-mane": {
+    "name": "Necrozma (Melena Crepuscular)",
+    "formName": "Melena Crepuscular",
+    "genus": "Pokémon Prisma"
+  },
+  "necrozma-dawn-wings": {
+    "name": "Necrozma (Alas del Alba)",
+    "formName": "Alas del Alba",
+    "genus": "Pokémon Prisma"
+  },
+  "necrozma-ultra": {
+    "name": "Ultra-Necrozma",
+    "formName": "Ultra-Necrozma",
+    "genus": "Pokémon Prisma"
+  },
+  "magearna": {
+    "genus": "Pokémon Artificial"
+  },
+  "magearna-mega": {
+    "name": "Mega Magearna",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Artificial"
+  },
+  "magearna-original": {
+    "name": "Magearna (Color Vetusto)",
+    "formName": "Color Vetusto",
+    "genus": "Pokémon Artificial"
+  },
+  "magearna-original-mega": {
+    "name": "Mega Magearna (Color Vetusto)",
+    "formName": "Color Vetusto Forma Mega",
+    "genus": "Pokémon Artificial"
+  },
+  "marshadow": {
+    "genus": "Pokémon Morasombra"
+  },
+  "poipole": {
+    "genus": "Pokémon Pin Veneno"
+  },
+  "naganadel": {
+    "genus": "Pokémon Pin Veneno"
+  },
+  "stakataka": {
+    "genus": "Pokémon Muro"
+  },
+  "blacephalon": {
+    "genus": "Pokémon Pirotecnia"
+  },
+  "zeraora": {
+    "genus": "Pokémon Fulgor"
+  },
+  "zeraora-mega": {
+    "name": "Mega Zeraora",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Fulgor"
+  },
+  "meltan": {
+    "genus": "Pokémon Tuerca"
+  },
+  "melmetal": {
+    "genus": "Pokémon Tuerca"
+  },
+  "melmetal-gmax": {
+    "genus": "Pokémon Tuerca"
+  },
+  "grookey": {
+    "genus": "Pokémon Chimpancé"
+  },
+  "thwackey": {
+    "genus": "Pokémon Ritmo"
+  },
+  "rillaboom": {
+    "name": "Rillaboom",
+    "genus": "Pokémon Percusión"
+  },
+  "rillaboom-gmax": {
+    "genus": "Pokémon Percusión"
+  },
+  "scorbunny": {
+    "genus": "Pokémon Conejo"
+  },
+  "raboot": {
+    "genus": "Pokémon Conejo"
+  },
+  "cinderace": {
+    "name": "Cinderace",
+    "genus": "Pokémon Delantero"
+  },
+  "cinderace-gmax": {
+    "genus": "Pokémon Delantero"
+  },
+  "sobble": {
+    "genus": "Pokémon Acuartija"
+  },
+  "drizzile": {
+    "genus": "Pokémon Acuartija"
+  },
+  "inteleon": {
+    "name": "Inteleon",
+    "genus": "Pokémon Agente"
+  },
+  "inteleon-gmax": {
+    "genus": "Pokémon Agente"
+  },
+  "skwovet": {
+    "genus": "Pokémon Abazón"
+  },
+  "greedent": {
+    "genus": "Pokémon Avaricia"
+  },
+  "rookidee": {
+    "genus": "Pokémon Pajarito"
+  },
+  "corvisquire": {
+    "genus": "Pokémon Cuervo"
+  },
+  "corviknight": {
+    "name": "Corviknight",
+    "genus": "Pokémon Cuervo"
+  },
+  "corviknight-gmax": {
+    "genus": "Pokémon Cuervo"
+  },
+  "blipbug": {
+    "genus": "Pokémon Pupa"
+  },
+  "dottler": {
+    "genus": "Pokémon Radomo"
+  },
+  "orbeetle": {
+    "genus": "Pokémon Siete Puntos"
+  },
+  "orbeetle-gmax": {
+    "genus": "Pokémon Siete Puntos"
+  },
+  "nickit": {
+    "genus": "Pokémon Zorro"
+  },
+  "thievul": {
+    "name": "Thievul",
+    "genus": "Pokémon Zorro"
+  },
+  "gossifleur": {
+    "genus": "Pokémon Adornofloral"
+  },
+  "eldegoss": {
+    "genus": "Pokémon Adornalgodón"
+  },
+  "wooloo": {
+    "genus": "Pokémon Oveja"
+  },
+  "dubwool": {
+    "genus": "Pokémon Oveja"
+  },
+  "chewtle": {
+    "genus": "Pokémon Mordedura"
+  },
+  "drednaw": {
+    "genus": "Pokémon Mordisco"
+  },
+  "drednaw-gmax": {
+    "genus": "Pokémon Mordisco"
+  },
+  "yamper": {
+    "genus": "Pokémon Perrito"
+  },
+  "boltund": {
+    "genus": "Pokémon Perro"
+  },
+  "rolycoly": {
+    "genus": "Pokémon Carbón"
+  },
+  "carkol": {
+    "genus": "Pokémon Carbón"
+  },
+  "coalossal": {
+    "genus": "Pokémon Carbón"
+  },
+  "coalossal-gmax": {
+    "genus": "Pokémon Carbón"
+  },
+  "applin": {
+    "genus": "Pokémon Manzanido"
+  },
+  "flapple": {
+    "name": "Flapple",
+    "genus": "Pokémon Manzanala"
+  },
+  "flapple-gmax": {
+    "genus": "Pokémon Manzanala"
+  },
+  "appletun": {
+    "name": "Appletun",
+    "genus": "Pokémon Manzanéctar"
+  },
+  "appletun-gmax": {
+    "genus": "Pokémon Manzanéctar"
+  },
+  "silicobra": {
+    "genus": "Pokémon Serp. Arena"
+  },
+  "sandaconda": {
+    "name": "Sandaconda",
+    "genus": "Pokémon Serp. Arena"
+  },
+  "sandaconda-gmax": {
+    "genus": "Pokémon Serp. Arena"
+  },
+  "cramorant": {
+    "genus": "Pokémon Tragón"
+  },
+  "cramorant-gulping": {
+    "name": "Cramorant (Forma Tragatodo)",
+    "formName": "Forma Tragatodo",
+    "genus": "Pokémon Tragón"
+  },
+  "cramorant-gorging": {
+    "name": "Cramorant (Forma Engulletodo)",
+    "formName": "Forma Engulletodo",
+    "genus": "Pokémon Tragón"
+  },
+  "arrokuda": {
+    "genus": "Pokémon Arremetida"
+  },
+  "barraskewda": {
+    "genus": "Pokémon Ensarta"
+  },
+  "toxel": {
+    "genus": "Pokémon Retoño"
+  },
+  "toxtricity": {
+    "name": "Toxtricity",
+    "genus": "Pokémon Punki"
+  },
+  "toxtricity-low-key": {
+    "name": "Toxtricity (Forma Grave)",
+    "speciesName": "Toxtricity",
+    "formName": "Forma Grave",
+    "genus": "Pokémon Punki"
+  },
+  "toxtricity-gmax": {
+    "genus": "Pokémon Punki"
+  },
+  "toxtricity-low-key-gmax": {
+    "genus": "Pokémon Punki"
+  },
+  "sizzlipede": {
+    "genus": "Pokémon Radiador"
+  },
+  "centiskorch": {
+    "genus": "Pokémon Radiador"
+  },
+  "centiskorch-gmax": {
+    "genus": "Pokémon Radiador"
+  },
+  "clobbopus": {
+    "genus": "Pokémon Malcriado"
+  },
+  "grapploct": {
+    "name": "Grapploct",
+    "genus": "Pokémon Jiu-Jitsu"
+  },
+  "sinistea": {
+    "genus": "Pokémon Té"
+  },
+  "sinistea-antique": {
+    "genus": "Pokémon Té"
+  },
+  "polteageist": {
+    "name": "Polteageist",
+    "genus": "Pokémon Té"
+  },
+  "polteageist-antique": {
+    "speciesName": "Polteageist",
+    "genus": "Pokémon Té"
+  },
+  "hatenna": {
+    "genus": "Pokémon Calma"
+  },
+  "hattrem": {
+    "genus": "Pokémon Serenidad"
+  },
+  "hatterene": {
+    "name": "Hatterene",
+    "genus": "Pokémon Silencio"
+  },
+  "hatterene-gmax": {
+    "genus": "Pokémon Silencio"
+  },
+  "impidimp": {
+    "genus": "Pokémon Astuto"
+  },
+  "morgrem": {
+    "genus": "Pokémon Malicioso"
+  },
+  "grimmsnarl": {
+    "name": "Grimmsnarl",
+    "genus": "Pokémon Voluminoso"
+  },
+  "grimmsnarl-gmax": {
+    "genus": "Pokémon Voluminoso"
+  },
+  "obstagoon": {
+    "genus": "Pokémon Bloqueador"
+  },
+  "perrserker": {
+    "name": "Perrserker",
+    "genus": "Pokémon Vikingo"
+  },
+  "cursola": {
+    "genus": "Pokémon Coral"
+  },
+  "sirfetchd": {
+    "name": "Sirfetch'd",
+    "genus": "Pokémon Pato Salvaje"
+  },
+  "mrrime": {
+    "name": "Mr. Rime",
+    "genus": "Pokémon Cómico"
+  },
+  "runerigus": {
+    "name": "Runerigus",
+    "genus": "Pokémon Resquemor"
+  },
+  "milcery": {
+    "genus": "Pokémon Nata"
+  },
+  "alcremie": {
+    "name": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-vanilla-cream-berry": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-vanilla-cream-love": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-vanilla-cream-star": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-vanilla-cream-clover": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-vanilla-cream-flower": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-vanilla-cream-ribbon": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-ruby-cream-strawberry": {
+    "name": "Alcremie (Crema Rosa)",
+    "speciesName": "Alcremie",
+    "formName": "Crema Rosa",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-ruby-cream-berry": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-ruby-cream-love": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-ruby-cream-star": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-ruby-cream-clover": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-ruby-cream-flower": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-ruby-cream-ribbon": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-matcha-cream-strawberry": {
+    "name": "Alcremie (Crema de Té)",
+    "speciesName": "Alcremie",
+    "formName": "Crema de Té",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-matcha-cream-berry": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-matcha-cream-love": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-matcha-cream-star": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-matcha-cream-clover": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-matcha-cream-flower": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-matcha-cream-ribbon": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-mint-cream-strawberry": {
+    "name": "Alcremie (Crema de Menta)",
+    "speciesName": "Alcremie",
+    "formName": "Crema de Menta",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-mint-cream-berry": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-mint-cream-love": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-mint-cream-star": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-mint-cream-clover": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-mint-cream-flower": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-mint-cream-ribbon": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-lemon-cream-strawberry": {
+    "name": "Alcremie (Crema de Limón)",
+    "speciesName": "Alcremie",
+    "formName": "Crema de Limón",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-lemon-cream-berry": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-lemon-cream-love": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-lemon-cream-star": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-lemon-cream-clover": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-lemon-cream-flower": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-lemon-cream-ribbon": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-salted-cream-strawberry": {
+    "name": "Alcremie (Crema Salada)",
+    "speciesName": "Alcremie",
+    "formName": "Crema Salada",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-salted-cream-berry": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-salted-cream-love": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-salted-cream-star": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-salted-cream-clover": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-salted-cream-flower": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-salted-cream-ribbon": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-ruby-swirl-strawberry": {
+    "name": "Alcremie (Mezcla Rosa)",
+    "speciesName": "Alcremie",
+    "formName": "Mezcla Rosa",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-ruby-swirl-berry": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-ruby-swirl-love": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-ruby-swirl-star": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-ruby-swirl-clover": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-ruby-swirl-flower": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-ruby-swirl-ribbon": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-caramel-swirl-strawberry": {
+    "name": "Alcremie (Mezcla Caramelo)",
+    "speciesName": "Alcremie",
+    "formName": "Mezcla Caramelo",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-caramel-swirl-berry": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-caramel-swirl-love": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-caramel-swirl-star": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-caramel-swirl-clover": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-caramel-swirl-flower": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-caramel-swirl-ribbon": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-rainbow-swirl-strawberry": {
+    "name": "Alcremie (Tres Sabores)",
+    "speciesName": "Alcremie",
+    "formName": "Tres Sabores",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-rainbow-swirl-berry": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-rainbow-swirl-love": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-rainbow-swirl-star": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-rainbow-swirl-clover": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-rainbow-swirl-flower": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-rainbow-swirl-ribbon": {
+    "speciesName": "Alcremie",
+    "genus": "Pokémon Nata"
+  },
+  "alcremie-gmax": {
+    "genus": "Pokémon Nata"
+  },
+  "falinks": {
+    "name": "Falinks",
+    "genus": "Pokémon Formación"
+  },
+  "falinks-mega": {
+    "speciesName": "Falinks",
+    "formName": "Forma Mega",
+    "genus": "Pokémon Formación"
+  },
+  "pincurchin": {
+    "name": "Pincurchin",
+    "genus": "Pokémon Erizo de Mar"
+  },
+  "snom": {
+    "genus": "Pokémon Gusano"
+  },
+  "frosmoth": {
+    "genus": "Pokémon Polillahielo"
+  },
+  "stonjourner": {
+    "genus": "Pokémon Megalito"
+  },
+  "eiscue": {
+    "genus": "Pokémon Pingüino"
+  },
+  "eiscue-noice": {
+    "name": "Eiscue (Cara Deshielo)",
+    "formName": "Cara Deshielo",
+    "genus": "Pokémon Pingüino"
+  },
+  "indeedee": {
+    "name": "Indeedee",
+    "formName": "Macho",
+    "genus": "Pokémon Sensorio"
+  },
+  "indeedee-f": {
+    "name": "Indeedee (Hembra)",
+    "speciesName": "Indeedee",
+    "formName": "Hembra",
+    "genus": "Pokémon Sensorio"
+  },
+  "morpeko": {
+    "name": "Morpeko",
+    "genus": "Pokémon Dos Caras"
+  },
+  "morpeko-hangry": {
+    "name": "Morpeko (Forma Voraz)",
+    "speciesName": "Morpeko",
+    "formName": "Forma Voraz",
+    "genus": "Pokémon Dos Caras"
+  },
+  "cufant": {
+    "genus": "Pokémon Broncefante"
+  },
+  "copperajah": {
+    "genus": "Pokémon Broncefante"
+  },
+  "copperajah-gmax": {
+    "genus": "Pokémon Broncefante"
+  },
+  "dracozolt": {
+    "genus": "Pokémon Fósil"
+  },
+  "arctozolt": {
+    "genus": "Pokémon Fósil"
+  },
+  "dracovish": {
+    "genus": "Pokémon Fósil"
+  },
+  "arctovish": {
+    "genus": "Pokémon Fósil"
+  },
+  "duraludon": {
+    "genus": "Pokémon Aleación"
+  },
+  "duraludon-gmax": {
+    "genus": "Pokémon Aleación"
+  },
+  "dreepy": {
+    "genus": "Pokémon Resentido"
+  },
+  "drakloak": {
+    "genus": "Pokémon Cuidador"
+  },
+  "dragapult": {
+    "name": "Dragapult",
+    "genus": "Pokémon Furtivo"
+  },
+  "zacian": {
+    "genus": "Pokémon Guerrero"
+  },
+  "zacian-crowned": {
+    "name": "Zacian (Espada Suprema)",
+    "formName": "Espada Suprema",
+    "genus": "Pokémon Guerrero"
+  },
+  "zamazenta": {
+    "genus": "Pokémon Guerrero"
+  },
+  "zamazenta-crowned": {
+    "name": "Zamazenta (Escudo Supremo)",
+    "formName": "Escudo Supremo",
+    "genus": "Pokémon Guerrero"
+  },
+  "eternatus": {
+    "genus": "Pokémon Gigantesco"
+  },
+  "eternatus-eternamax": {
+    "name": "Eternatus (Dinamax Infinito)",
+    "formName": "Dinamax Infinito",
+    "genus": "Pokémon Gigantesco"
+  },
+  "kubfu": {
+    "genus": "Pokémon Kung-fu"
+  },
+  "urshifu": {
+    "genus": "Pokémon Kung-fu"
+  },
+  "urshifu-gmax": {
+    "genus": "Pokémon Kung-fu"
+  },
+  "urshifu-rapid-strike": {
+    "name": "Urshifu (Estilo Fluido)",
+    "formName": "Estilo Fluido",
+    "genus": "Pokémon Kung-fu"
+  },
+  "urshifu-rapid-strike-gmax": {
+    "genus": "Pokémon Kung-fu"
+  },
+  "zarude": {
+    "genus": "Pokémon Simiestro"
+  },
+  "zarude-dada": {
+    "name": "Zarude (Papá)",
+    "formName": "Papá",
+    "genus": "Pokémon Simiestro"
+  },
+  "regieleki": {
+    "genus": "Pokémon Electrón"
+  },
+  "regidrago": {
+    "genus": "Pokémon Dragosfera"
+  },
+  "glastrier": {
+    "genus": "Pokémon Corcel Feroz"
+  },
+  "spectrier": {
+    "genus": "Pokémon Corcel Veloz"
+  },
+  "calyrex": {
+    "genus": "Pokémon Rey"
+  },
+  "calyrex-ice": {
+    "name": "Calyrex (Jinete Glacial)",
+    "formName": "Jinete Glacial",
+    "genus": "Pokémon Rey"
+  },
+  "calyrex-shadow": {
+    "name": "Calyrex (Jinete Espectral)",
+    "formName": "Jinete Espectral",
+    "genus": "Pokémon Rey"
+  },
+  "wyrdeer": {
+    "name": "Wyrdeer"
+  },
+  "kleavor": {
+    "name": "Kleavor"
+  },
+  "ursaluna-bloodmoon": {
+    "name": "Ursaluna (Luna Carmesí)",
+    "formName": "Luna Carmesí"
+  },
+  "basculegion": {
+    "name": "Basculegion",
+    "formName": "Macho"
+  },
+  "basculegion-f": {
+    "speciesName": "Basculegion",
+    "formName": "Hembra"
+  },
+  "sneasler": {
+    "name": "Sneasler"
+  },
+  "overqwil": {
+    "name": "Overqwil"
+  },
+  "meowscarada": {
+    "name": "Meowscarada"
+  },
+  "skeledirge": {
+    "name": "Skeledirge"
+  },
+  "quaquaval": {
+    "name": "Quaquaval"
+  },
+  "oinkologne": {
+    "formName": "Macho"
+  },
+  "oinkologne-f": {
+    "formName": "Hembra"
+  },
+  "pawmot": {
+    "name": "Pawmot"
+  },
+  "maushold": {
+    "name": "Maushold"
+  },
+  "maushold-three": {
+    "speciesName": "Maushold"
+  },
+  "arboliva": {
+    "name": "Arboliva"
+  },
+  "squawkabilly": {
+    "name": "Squawkabilly"
+  },
+  "squawkabilly-blue": {
+    "speciesName": "Squawkabilly"
+  },
+  "squawkabilly-yellow": {
+    "speciesName": "Squawkabilly"
+  },
+  "squawkabilly-white": {
+    "speciesName": "Squawkabilly"
+  },
+  "garganacl": {
+    "name": "Garganacl"
+  },
+  "armarouge": {
+    "name": "Armarouge"
+  },
+  "ceruledge": {
+    "name": "Ceruledge"
+  },
+  "bellibolt": {
+    "name": "Bellibolt"
+  },
+  "mabosstiff": {
+    "name": "Mabosstiff"
+  },
+  "scovillain": {
+    "name": "Scovillain"
+  },
+  "scovillain-mega": {
+    "name": "Mega Scovillain",
+    "speciesName": "Scovillain",
+    "formName": "Forma Mega"
+  },
+  "espathra": {
+    "name": "Espathra"
+  },
+  "tinkaton": {
+    "name": "Tinkaton"
+  },
+  "palafin": {
+    "name": "Palafin"
+  },
+  "palafin-hero": {
+    "speciesName": "Palafin"
+  },
+  "orthworm": {
+    "name": "Orthworm"
+  },
+  "glimmora": {
+    "name": "Glimmora"
+  },
+  "glimmora-mega": {
+    "name": "Mega Glimmora",
+    "speciesName": "Glimmora",
+    "formName": "Forma Mega"
+  },
+  "houndstone": {
+    "name": "Houndstone"
+  },
+  "tatsugiri-mega": {
+    "name": "Mega Tatsugiri",
+    "formName": "Forma Mega"
+  },
+  "tatsugiri-droopy-mega": {
+    "name": "Mega Tatsugiri (Droopy Form)",
+    "formName": "Forma Droopy Mega"
+  },
+  "tatsugiri-stretchy-mega": {
+    "name": "Mega Tatsugiri (Stretchy Form)",
+    "formName": "Forma Stretchy Mega"
+  },
+  "annihilape": {
+    "name": "Annihilape"
+  },
+  "farigiraf": {
+    "name": "Farigiraf"
+  },
+  "kingambit": {
+    "name": "Kingambit"
+  },
+  "greattusk": {
+    "name": "Colmilargo"
+  },
+  "screamtail": {
+    "name": "Colagrito"
+  },
+  "brutebonnet": {
+    "name": "Furioseta"
+  },
+  "fluttermane": {
+    "name": "Melenaleteo"
+  },
+  "slitherwing": {
+    "name": "Reptalada"
+  },
+  "sandyshocks": {
+    "name": "Pelarena"
+  },
+  "irontreads": {
+    "name": "Ferrodada"
+  },
+  "ironbundle": {
+    "name": "Ferrosaco"
+  },
+  "ironhands": {
+    "name": "Ferropalmas"
+  },
+  "ironjugulis": {
+    "name": "Ferrocuello"
+  },
+  "ironmoth": {
+    "name": "Ferropolilla"
+  },
+  "ironthorns": {
+    "name": "Ferropúas"
+  },
+  "baxcalibur": {
+    "name": "Baxcalibur"
+  },
+  "baxcalibur-mega": {
+    "name": "Mega Baxcalibur",
+    "speciesName": "Baxcalibur",
+    "formName": "Forma Mega"
+  },
+  "gholdengo": {
+    "name": "Gholdengo"
+  },
+  "roaringmoon": {
+    "name": "Bramaluna"
+  },
+  "ironvaliant": {
+    "name": "Ferropaladín"
+  },
+  "walkingwake": {
+    "name": "Ondulagua"
+  },
+  "ironleaves": {
+    "name": "Ferroverdor"
+  },
+  "poltchageist-artisan": {
+    "name": "Poltchageist (Forma Opulenta)",
+    "formName": "Forma Opulenta"
+  },
+  "sinistcha": {
+    "name": "Sinistcha"
+  },
+  "sinistcha-masterpiece": {
+    "name": "Sinistcha (Forma Exquisita)",
+    "speciesName": "Sinistcha",
+    "formName": "Forma Exquisita"
+  },
+  "ogerpon": {
+    "formName": "Máscara Turquesa"
+  },
+  "ogerpon-wellspring": {
+    "name": "Ogerpon (Máscara Fuente)",
+    "formName": "Máscara Fuente"
+  },
+  "ogerpon-hearthflame": {
+    "name": "Ogerpon (Máscara Horno)",
+    "formName": "Máscara Horno"
+  },
+  "ogerpon-cornerstone": {
+    "name": "Ogerpon (Máscara Cimiento)",
+    "formName": "Máscara Cimiento"
+  },
+  "archaludon": {
+    "name": "Archaludon"
+  },
+  "hydrapple": {
+    "name": "Hydrapple"
+  },
+  "gougingfire": {
+    "name": "Flamariete"
+  },
+  "ragingbolt": {
+    "name": "Electrofuria"
+  },
+  "ironboulder": {
+    "name": "Ferromole"
+  },
+  "ironcrown": {
+    "name": "Ferrotesta"
+  },
+  "terapagos-terastal": {
+    "name": "Terapagos (Forma teracristal)",
+    "formName": "Forma teracristal"
+  },
+  "terapagos-stellar": {
+    "name": "Terapagos (Forma astral)",
+    "formName": "Forma astral"
+  }
+}
